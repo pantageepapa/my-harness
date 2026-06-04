@@ -10,7 +10,7 @@ glue that I use across projects.
 - [`docs/agentic-workflow.md`](docs/agentic-workflow.md) — notes on how the
   pieces fit together.
 
-## Adding a new agent
+## Adding a new agent to the harness
 
 1. Drop the prompt in `agents/<name>/prompt.md`.
 2. Wire a workflow in `.github/workflows/<name>.yml` that feeds the prompt to
