@@ -16,3 +16,5 @@ glue that I use across projects.
 2. Wire a workflow in `.github/workflows/<name>.yml` that feeds the prompt to
    `anthropics/claude-code-action@v1`.
 3. Set `CLAUDE_CODE_OAUTH_TOKEN` as a repo secret.
+
+<!-- log-commit verification -->
