@@ -3,6 +3,8 @@ name: PR Review agent
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
+    paths-ignore:
+      - '.github/agent-logs/**'
   workflow_dispatch:
 
 jobs:
@@ -38,21 +40,22 @@ jobs:
           claude_args: |
             --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
 
-      - name: Commit execution log to main
+      - name: Commit execution log to PR branch
         if: always() && steps.claude.outputs.execution_file != ''
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           RUN_ID: ${{ github.run_id }}
           LOG_PATH: ${{ steps.claude.outputs.execution_file }}
+          BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
           set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch --depth=1 origin main
-          git checkout -B main origin/main
-          DEST=".agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json"
+          git fetch --depth=1 origin "$BRANCH"
+          git checkout -B "$BRANCH" "origin/$BRANCH"
+          DEST=".github/agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json"
           mkdir -p "$(dirname "$DEST")"
           cp "$LOG_PATH" "$DEST"
           git add "$DEST"
           git commit -m "agent log: PR #${PR_NUMBER} run ${RUN_ID}"
-          git push origin main
+          git push origin "$BRANCH"
