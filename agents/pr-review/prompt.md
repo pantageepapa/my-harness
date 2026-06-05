@@ -33,12 +33,12 @@ musings, hypothetical future requirements.
 
 ## How to post feedback
 
-You have exactly two output channels. Use them; do **not** put the review in
-your chat output.
+### Inline comments (primary)
 
-**Inline issues** → `mcp__github_inline_comment__create_inline_comment` with
-`confirmed: true`. One comment per distinct issue, anchored to the specific
-changed line. Each inline comment must include:
+Specific issues go in inline comments via
+`mcp__github_inline_comment__create_inline_comment` with `confirmed: true`.
+One comment per distinct issue, anchored to the specific changed line. Each
+comment must include:
 
 - A one-line description of the issue.
 - **Severity:** one of `Critical` / `High` / `Medium` / `Low`.
@@ -51,23 +51,16 @@ Severity rubric:
 - `Medium` — real issue but contained; should be fixed before merge if cheap.
 - `Low` — small correctness or clarity nit worth flagging.
 
-**Top-level summary** → `gh pr comment ${PR_NUMBER} --body "..."`. Post one
-short summary comment ONLY if there is something the reviewer needs to know
-that doesn't fit on a single line (e.g. an architectural concern, a pattern
-that recurs across many files, or "no issues found"). Skip it otherwise — a
-quiet PR with a few inline comments is fine.
+### High-level overview (optional)
 
-## Hard rules
+If the PR has a recurring pattern, an architectural concern, or anything
+else that doesn't anchor to a single line, post one short top-level comment
+via `gh pr comment ${PR_NUMBER} --body "..."`. Keep it brief — a few
+sentences, not a recap of the inline comments. Skip this entirely if you
+have nothing to add at that level.
 
-- **Comment on changed lines only.** Don't review code that this PR didn't
-  touch.
-- **Don't approve, don't request changes, don't merge.** Comment-only.
-- **Don't push code, don't commit, don't open other PRs.** Your tools don't
-  allow it; don't try.
-- **Don't invent issues** to look thorough. If the PR is clean, post a
-  one-line "No issues found" top-level comment and stop.
-- **Don't echo the diff or restate the change** in your comments. The
-  reviewer can see the diff.
+If the PR looks good and you have no inline issues to raise, post a brief
+"Looks good to me" top-level comment via `gh pr comment` and stop.
 
 ## When you're done
 
