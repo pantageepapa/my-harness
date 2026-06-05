@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Agent log viewer</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f8fa;
+    --panel: #ffffff;
+    --panel-2: #f4f6f9;
+    --border: #e3e6eb;
+    --border-strong: #cfd4dc;
+    --text: #1a1d23;
+    --muted: #6b7280;
+    --muted-2: #9aa1ad;
+    --accent: #2f6feb;
+    --accent-soft: #eaf1ff;
+    --green: #2f8a52;
+    --orange: #b8730f;
+    --red: #c1372d;
+    --purple: #6f42c1;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  }
+  code, pre, .mono { font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 12.5px; }
+  a { color: var(--accent); }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* Hero (no file loaded) — vertically centered */
+  .hero {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .hero h1 { font-size: 22px; margin: 0 0 6px; font-weight: 600; }
+  .hero .sub { color: var(--muted); margin-bottom: 28px; font-size: 14px; max-width: 480px; }
+
+  /* Compact header (after file loaded) */
+  .compact-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; margin: 0 0 16px;
+  }
+  .compact-head h1 { font-size: 16px; margin: 0; font-weight: 600; }
+  .compact-head .sub { color: var(--muted); font-size: 13px; }
+  .compact-head button {
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 5px 12px; font-size: 12.5px; cursor: pointer;
+  }
+  .compact-head button:hover { border-color: var(--border-strong); background: #eef0f4; }
+
+  .header-card, .summary-card, .turn {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 14px 0;
+  }
+  .header-card .row, .summary-card .row {
+    display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--muted);
+  }
+  .header-card .row span b, .summary-card .row span b { color: var(--text); font-weight: 500; }
+  .pill, .badge {
+    display: inline-block; padding: 1px 8px; border-radius: 999px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    color: var(--muted); font-size: 11.5px; margin-right: 4px;
+  }
+
+  .turn { padding: 0; overflow: hidden; }
+  .turn-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: var(--panel-2);
+    border-bottom: 1px solid var(--border);
+    font-size: 12px; color: var(--muted);
+  }
+  .turn-head .who { color: var(--text); font-weight: 600; font-size: 13px; }
+  .turn-head .meta { margin-left: auto; font-family: "SF Mono", ui-monospace, monospace; font-size: 11px; }
+  .turn-body { padding: 12px 14px; }
+
+  .who.assistant { color: var(--accent); }
+  .who.user { color: var(--orange); }
+  .who.system { color: var(--muted); }
+  .who.result { color: var(--green); }
+
+  .block { margin: 10px 0; }
+  .block:first-child { margin-top: 0; }
+  .block:last-child { margin-bottom: 0; }
+
+  .text { white-space: pre-wrap; word-wrap: break-word; }
+
+  details { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; }
+  details + details { margin-top: 8px; }
+  summary {
+    cursor: pointer; padding: 8px 12px; list-style: none;
+    display: flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 12.5px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸"; font-size: 10px; color: var(--muted-2);
+    transition: transform .1s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  summary .tag { font-family: "SF Mono", ui-monospace, monospace; font-size: 11.5px; color: var(--text); }
+  details > div { padding: 0 12px 12px; }
+  details pre {
+    margin: 0; white-space: pre-wrap; word-wrap: break-word;
+    background: #fbfcfd; border: 1px solid var(--border); border-radius: 6px; padding: 10px;
+    color: var(--text);
+  }
+
+  .thinking summary .tag { color: var(--purple); }
+  .tooluse summary .tag { color: var(--accent); }
+  .toolres summary .tag { color: var(--green); }
+  .toolres.error summary .tag { color: var(--red); }
+
+  .empty { text-align: center; color: var(--muted); padding: 60px 20px; }
+
+  .toolbar {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    margin: 14px 0 6px;
+    padding: 10px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .toolbar label { color: var(--muted); font-size: 12.5px; user-select: none; cursor: pointer; }
+  .toolbar input[type="checkbox"] { vertical-align: -1px; margin-right: 4px; }
+  .toolbar button {
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 4px 10px; font-size: 12.5px; cursor: pointer;
+    margin-left: auto;
+  }
+  .toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Runs list on hero */
+  .runs {
+    width: 100%;
+    max-width: 560px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 0 auto 18px;
+    overflow: hidden;
+    text-align: left;
+  }
+  .runs-head {
+    padding: 10px 14px;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .runs-head .repo { color: var(--text); font-weight: 500; font-family: "SF Mono", ui-monospace, monospace; font-size: 12px; }
+  .runs-head .reload {
+    margin-left: auto;
+    background: transparent; border: none; cursor: pointer;
+    color: var(--muted); font-size: 13px; padding: 0 4px;
+  }
+  .runs-head .reload:hover { color: var(--accent); }
+  .runs-body { max-height: 360px; overflow: auto; }
+  .runs-group { border-top: 1px solid var(--border); }
+  .runs-group:first-child { border-top: 0; }
+  .runs-group-head {
+    padding: 8px 14px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 12.5px;
+    background: #fafbfc;
+    position: sticky; top: 0;
+  }
+  .runs-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px 8px 24px;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  .runs-item:first-of-type { border-top: 0; }
+  .runs-item:hover { background: var(--accent-soft); color: var(--accent); }
+  .runs-item .id { font-family: "SF Mono", ui-monospace, monospace; font-size: 12.5px; }
+  .runs-item .arrow { margin-left: auto; color: var(--muted-2); }
+  .runs-item:hover .arrow { color: var(--accent); }
+  .runs-empty, .runs-error, .runs-loading {
+    padding: 24px; text-align: center; color: var(--muted); font-size: 13px;
+  }
+  .runs-error { color: var(--red); }
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <div class="hero" id="hero">
+    <h1>Agent log viewer</h1>
+    <div class="sub">Pick a run to see the transcript.</div>
+
+    <div class="runs" id="runs">
+      <div class="runs-head">
+        <span>Runs in <span class="repo" id="repoLabel">.github/agent-logs/</span></span>
+        <button class="reload" id="reloadRuns" title="Reload">↻</button>
+      </div>
+      <div class="runs-body" id="runsBody">
+        <div class="runs-loading">loading…</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="content"></div>
+</div>
+
+<script>
+const LOGS_PREFIX = '.github/agent-logs/';
+const INDEX_URL = '/tools/log-index.json';
+
+const content = document.getElementById('content');
+const hero = document.getElementById('hero');
+const runsBody = document.getElementById('runsBody');
+const reloadBtn = document.getElementById('reloadRuns');
+
+reloadBtn.addEventListener('click', () => fetchRuns());
+fetchRuns();
+
+let lastEntries = null;
+let lastFileName = '';
+
+function loadJsonText(text, name) {
+  lastFileName = name || '';
+  try {
+    const data = JSON.parse(text);
+    lastEntries = Array.isArray(data) ? data : [data];
+    render(lastEntries);
+  } catch (err) {
+    hero.style.display = '';
+    content.innerHTML = `<div class="empty" style="color:var(--red)">Invalid JSON: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+async function fetchRuns() {
+  if (!location.protocol.startsWith('http')) {
+    runsBody.innerHTML = `<div class="runs-empty">Run <span class="mono">./tools/viewer.sh</span> from the repo root to browse logs here.<br/><span style="color:var(--muted-2);">(Local <code>file://</code> can't list directories.)</span></div>`;
+    return;
+  }
+  runsBody.innerHTML = `<div class="runs-loading">loading…</div>`;
+  try {
+    const res = await fetch(INDEX_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`${INDEX_URL} → ${res.status}. Run ./tools/viewer.sh to generate it.`);
+    const paths = await res.json();
+    if (!Array.isArray(paths) || paths.length === 0) {
+      runsBody.innerHTML = `<div class="runs-empty">No logs found under ${escapeHtml(LOGS_PREFIX)}</div>`;
+      return;
+    }
+    renderRuns(paths.map(p => ({ path: p })));
+  } catch (err) {
+    runsBody.innerHTML = `<div class="runs-error">${escapeHtml(err.message || String(err))}</div>`;
+  }
+}
+
+function renderRuns(files) {
+  // Group by the segment just under LOGS_PREFIX (e.g. "pr-review/pr-3")
+  // Path shape: .github/agent-logs/<category>/<bucket>/<run-id>.json
+  const groups = new Map();
+  for (const f of files) {
+    const rest = f.path.slice(LOGS_PREFIX.length); // e.g. "pr-review/pr-3/26964346818.json"
+    const parts = rest.split('/');
+    const filename = parts.pop();
+    const groupKey = parts.join('/') || '(root)';
+    if (!groups.has(groupKey)) groups.set(groupKey, []);
+    groups.get(groupKey).push({ path: f.path, filename, runId: filename.replace(/\.json$/, '') });
+  }
+
+  // Sort: groups by name desc (so pr-3 before pr-2), runs by id desc (newer first)
+  const sortedGroups = [...groups.entries()].sort((a, b) => naturalCompare(b[0], a[0]));
+  for (const [, items] of sortedGroups) {
+    items.sort((a, b) => naturalCompare(b.runId, a.runId));
+  }
+
+  runsBody.innerHTML = '';
+  for (const [name, items] of sortedGroups) {
+    const grp = document.createElement('div');
+    grp.className = 'runs-group';
+    grp.innerHTML = `<div class="runs-group-head">${escapeHtml(name)}</div>`;
+    for (const it of items) {
+      const row = document.createElement('div');
+      row.className = 'runs-item';
+      row.innerHTML = `<span class="id">${escapeHtml(it.runId)}</span><span class="arrow">→</span>`;
+      row.addEventListener('click', () => loadFromRepo(it.path));
+      grp.appendChild(row);
+    }
+    runsBody.appendChild(grp);
+  }
+}
+
+function naturalCompare(a, b) {
+  return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' });
+}
+
+async function loadFromRepo(path) {
+  runsBody.innerHTML = `<div class="runs-loading">loading ${escapeHtml(path)}…</div>`;
+  try {
+    const res = await fetch('/' + path, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`fetch ${res.status}`);
+    const text = await res.text();
+    loadJsonText(text, path);
+  } catch (err) {
+    runsBody.innerHTML = `<div class="runs-error">${escapeHtml(err.message || String(err))}</div>`;
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function fmtNum(n) { return n == null ? '' : n.toLocaleString(); }
+function fmtDuration(ms) {
+  if (ms == null) return '';
+  if (ms < 1000) return `${ms}ms`;
+  return `${(ms/1000).toFixed(1)}s`;
+}
+function fmtCost(usd) { return usd == null ? '' : `$${usd.toFixed(4)}`; }
+function pretty(obj) {
+  try { return JSON.stringify(obj, null, 2); }
+  catch { return String(obj); }
+}
+
+function indexToolResults(entries) {
+  const map = new Map();
+  for (const e of entries) {
+    if (e.type !== 'user') continue;
+    const c = e.message?.content;
+    if (!Array.isArray(c)) continue;
+    for (const part of c) {
+      if (part.type === 'tool_result' && part.tool_use_id) {
+        map.set(part.tool_use_id, { entry: e, part });
+      }
+    }
+  }
+  return map;
+}
+
+function extractText(content) {
+  if (typeof content === 'string') return content;
+  if (Array.isArray(content)) {
+    return content.map(p => {
+      if (typeof p === 'string') return p;
+      if (p.type === 'text') return p.text;
+      return '';
+    }).join('');
+  }
+  return '';
+}
+
+function renderToolResultBody(part) {
+  let body = part.content;
+  if (typeof body === 'string') return `<pre>${escapeHtml(body)}</pre>`;
+  if (Array.isArray(body)) {
+    return body.map(b => {
+      if (b.type === 'text') return `<pre>${escapeHtml(b.text)}</pre>`;
+      if (b.type === 'tool_reference') return `<div class="mono">→ ${escapeHtml(b.tool_name)}</div>`;
+      return `<pre>${escapeHtml(pretty(b))}</pre>`;
+    }).join('');
+  }
+  return `<pre>${escapeHtml(pretty(body))}</pre>`;
+}
+
+function render(entries) {
+  hero.style.display = 'none';
+  content.innerHTML = '';
+
+  if (!entries.length) {
+    content.innerHTML = `<div class="empty">No entries.</div>`;
+    return;
+  }
+
+  const head = document.createElement('div');
+  head.className = 'compact-head';
+  head.innerHTML = `
+    <div>
+      <h1>Agent log viewer</h1>
+      <div class="sub">${escapeHtml(lastFileName)}</div>
+    </div>
+    <button id="loadAnother">Load another file</button>
+  `;
+  content.appendChild(head);
+  document.getElementById('loadAnother').addEventListener('click', () => {
+    hero.style.display = '';
+    content.innerHTML = '';
+  });
+
+  const init = entries.find(e => e.type === 'system' && e.subtype === 'init');
+  if (init) content.appendChild(renderHeader(init));
+
+  const bar = document.createElement('div');
+  bar.className = 'toolbar';
+  bar.innerHTML = `
+    <label><input type="checkbox" id="showThinking" checked /> show thinking</label>
+    <label><input type="checkbox" id="showTokens" /> show thinking-token events</label>
+    <label><input type="checkbox" id="expandAll" /> expand all</label>
+    <button id="raw">view raw JSON</button>
+  `;
+  content.appendChild(bar);
+
+  const transcript = document.createElement('div');
+  transcript.id = 'transcript';
+  content.appendChild(transcript);
+
+  const toolResults = indexToolResults(entries);
+  const consumedToolResultIds = new Set();
+
+  for (let i = 0; i < entries.length; i++) {
+    const e = entries[i];
+
+    if (e.type === 'system') {
+      if (e.subtype === 'init') continue;
+      if (e.subtype === 'thinking_tokens') {
+        const div = document.createElement('div');
+        div.className = 'token-event';
+        div.style.cssText = 'color:var(--muted-2); font-size:12px; margin: 4px 0; padding-left: 6px;';
+        div.textContent = `… thinking · ${e.estimated_tokens} tokens`;
+        transcript.appendChild(div);
+        continue;
+      }
+      if (e.subtype === 'rate_limit_event') {
+        const div = document.createElement('div');
+        div.style.cssText = 'color:var(--muted); font-size:12px; margin: 4px 0;';
+        const r = e.rate_limit_info || {};
+        div.innerHTML = `<span class="badge">rate-limit · ${escapeHtml(r.rateLimitType||'')} · ${escapeHtml(r.status||'')}</span>`;
+        transcript.appendChild(div);
+        continue;
+      }
+      const div = document.createElement('div');
+      div.style.cssText = 'color:var(--muted); font-size:12px; margin: 4px 0;';
+      div.innerHTML = `<span class="badge">system · ${escapeHtml(e.subtype||'')}</span>`;
+      transcript.appendChild(div);
+      continue;
+    }
+
+    if (e.type === 'assistant') {
+      const msg = e.message || {};
+      const turn = document.createElement('div');
+      turn.className = 'turn';
+      turn.innerHTML = `
+        <div class="turn-head">
+          <span class="who assistant">assistant</span>
+          <span class="badge">${escapeHtml(msg.model || '')}</span>
+          <span class="meta">${escapeHtml(msg.id || '')}</span>
+        </div>
+      `;
+      const body = document.createElement('div');
+      body.className = 'turn-body';
+      turn.appendChild(body);
+
+      let j = i;
+      const groupBlocks = [];
+      while (j < entries.length
+             && entries[j].type === 'assistant'
+             && (entries[j].message?.id || '') === (msg.id || '')) {
+        const c = entries[j].message?.content;
+        if (Array.isArray(c)) groupBlocks.push(...c);
+        j++;
+      }
+      i = j - 1;
+
+      const seenBlock = new Set();
+      for (const b of groupBlocks) {
+        const k = b.id ? `${b.type}:${b.id}` : `${b.type}:${(b.text||b.thinking||'').slice(0,40)}`;
+        if (seenBlock.has(k)) continue;
+        seenBlock.add(k);
+        body.appendChild(renderAssistantBlock(b, toolResults, consumedToolResultIds));
+      }
+      transcript.appendChild(turn);
+      continue;
+    }
+
+    if (e.type === 'user') {
+      const c = e.message?.content;
+      if (Array.isArray(c) && c.every(p => p.type === 'tool_result')) {
+        const orphans = c.filter(p => !consumedToolResultIds.has(p.tool_use_id));
+        if (orphans.length === 0) continue;
+      }
+      const turn = document.createElement('div');
+      turn.className = 'turn';
+      turn.innerHTML = `<div class="turn-head"><span class="who user">user</span></div>`;
+      const body = document.createElement('div');
+      body.className = 'turn-body';
+      const text = extractText(c);
+      if (text) body.innerHTML = `<div class="text">${escapeHtml(text)}</div>`;
+      else body.innerHTML = `<details><summary><span class="tag">raw user content</span></summary><div><pre>${escapeHtml(pretty(c))}</pre></div></details>`;
+      turn.appendChild(body);
+      transcript.appendChild(turn);
+      continue;
+    }
+
+    if (e.type === 'result') {
+      content.appendChild(renderResult(e));
+      continue;
+    }
+  }
+
+  document.getElementById('showThinking').addEventListener('change', e => {
+    transcript.querySelectorAll('details.thinking').forEach(d => {
+      d.style.display = e.target.checked ? '' : 'none';
+    });
+  });
+  document.getElementById('showTokens').addEventListener('change', e => {
+    transcript.querySelectorAll('.token-event').forEach(d => {
+      d.style.display = e.target.checked ? '' : 'none';
+    });
+  });
+  document.getElementById('expandAll').addEventListener('change', e => {
+    transcript.querySelectorAll('details').forEach(d => { d.open = e.target.checked; });
+  });
+  document.getElementById('raw').addEventListener('click', () => {
+    const w = window.open('', '_blank');
+    w.document.write(`<pre style="font:12px/1.4 ui-monospace,monospace;padding:16px;background:#fff;color:#1a1d23;">${escapeHtml(pretty(entries))}</pre>`);
+  });
+
+  transcript.querySelectorAll('.token-event').forEach(d => d.style.display = 'none');
+}
+
+function renderAssistantBlock(b, toolResults, consumed) {
+  if (b.type === 'text') {
+    const div = document.createElement('div');
+    div.className = 'block text';
+    div.textContent = b.text || '';
+    return div;
+  }
+
+  if (b.type === 'thinking') {
+    const det = document.createElement('details');
+    det.className = 'block thinking';
+    det.innerHTML = `
+      <summary><span class="tag">thinking</span></summary>
+      <div><pre>${escapeHtml(b.thinking || '')}</pre></div>
+    `;
+    return det;
+  }
+
+  if (b.type === 'tool_use') {
+    const det = document.createElement('details');
+    det.className = 'block tooluse';
+    const inputStr = pretty(b.input || {});
+    det.innerHTML = `
+      <summary>
+        <span class="tag">${escapeHtml(b.name || 'tool')}</span>
+        <span style="color:var(--muted); font-size:11.5px;">${escapeHtml(summarizeToolInput(b.name, b.input))}</span>
+      </summary>
+      <div>
+        <div style="color:var(--muted); font-size:11.5px; margin-bottom:6px;">input</div>
+        <pre>${escapeHtml(inputStr)}</pre>
+      </div>
+    `;
+    const r = toolResults.get(b.id);
+    if (r) {
+      consumed.add(b.id);
+      const isErr = r.part.is_error === true;
+      const resDet = document.createElement('details');
+      resDet.className = 'block toolres' + (isErr ? ' error' : '');
+      resDet.innerHTML = `
+        <summary><span class="tag">${isErr ? 'error' : 'result'}</span></summary>
+        <div>${renderToolResultBody(r.part)}</div>
+      `;
+      det.querySelector('div').appendChild(resDet);
+    }
+    return det;
+  }
+
+  const div = document.createElement('div');
+  div.className = 'block';
+  div.innerHTML = `<details><summary><span class="tag">${escapeHtml(b.type||'block')}</span></summary><div><pre>${escapeHtml(pretty(b))}</pre></div></details>`;
+  return div;
+}
+
+function summarizeToolInput(name, input) {
+  if (!input) return '';
+  if (name === 'Bash') return input.description || input.command || '';
+  if (name === 'Read') return input.file_path || '';
+  if (name === 'Edit' || name === 'Write') return input.file_path || '';
+  if (name === 'Grep') return `${input.pattern || ''} ${input.path ? 'in '+input.path : ''}`.trim();
+  if (name === 'Glob') return input.pattern || '';
+  if (name === 'WebFetch') return input.url || '';
+  if (name === 'ToolSearch') return input.query || '';
+  if (typeof input === 'object') {
+    const k = Object.keys(input)[0];
+    if (k && typeof input[k] === 'string') return input[k].slice(0, 80);
+  }
+  return '';
+}
+
+function renderHeader(init) {
+  const card = document.createElement('div');
+  card.className = 'header-card';
+  const tools = (init.tools || []).length;
+  const skills = (init.skills || []).length;
+  const mcp = (init.mcp_servers || []).map(s => s.name).join(', ');
+  card.innerHTML = `
+    <div style="font-weight:600; margin-bottom:6px;">Run</div>
+    <div class="row">
+      <span><b>model</b> ${escapeHtml(init.model||'')}</span>
+      <span><b>cwd</b> <span class="mono">${escapeHtml(init.cwd||'')}</span></span>
+      <span><b>session</b> <span class="mono">${escapeHtml(init.session_id||'')}</span></span>
+      <span><b>version</b> ${escapeHtml(init.claude_code_version||'')}</span>
+      <span><b>permission</b> ${escapeHtml(init.permissionMode||'')}</span>
+      <span><b>tools</b> ${tools}</span>
+      <span><b>skills</b> ${skills}</span>
+      ${mcp ? `<span><b>mcp</b> ${escapeHtml(mcp)}</span>` : ''}
+    </div>
+  `;
+  return card;
+}
+
+function renderResult(r) {
+  const card = document.createElement('div');
+  card.className = 'summary-card';
+  const usage = r.usage || {};
+  const cost = r.total_cost_usd;
+  card.innerHTML = `
+    <div style="font-weight:600; margin-bottom:6px;">
+      <span class="who result">result</span>
+      <span class="badge">${escapeHtml(r.subtype||'')}</span>
+      <span class="badge">${escapeHtml(r.stop_reason||'')}</span>
+      ${r.is_error ? `<span class="badge" style="color:var(--red); border-color:var(--red);">error</span>` : ''}
+    </div>
+    <div class="row">
+      <span><b>turns</b> ${fmtNum(r.num_turns)}</span>
+      <span><b>duration</b> ${fmtDuration(r.duration_ms)}</span>
+      <span><b>api</b> ${fmtDuration(r.duration_api_ms)}</span>
+      <span><b>ttft</b> ${fmtDuration(r.ttft_ms)}</span>
+      <span><b>cost</b> ${fmtCost(cost)}</span>
+      <span><b>input</b> ${fmtNum(usage.input_tokens)}</span>
+      <span><b>output</b> ${fmtNum(usage.output_tokens)}</span>
+      <span><b>cache read</b> ${fmtNum(usage.cache_read_input_tokens)}</span>
+      <span><b>cache write</b> ${fmtNum(usage.cache_creation_input_tokens)}</span>
+    </div>
+    ${r.result ? `<div class="text" style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border);">${escapeHtml(r.result)}</div>` : ''}
+  `;
+  return card;
+}
+</script>
+</body>
+</html>
