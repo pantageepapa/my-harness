@@ -47,3 +47,5 @@ For day-to-day CLI use in this repo:
 3. Set `CLAUDE_CODE_OAUTH_TOKEN` as a repo secret.
 
 <!-- log-commit verification -->
+
+<!-- pr-review test marker: v2 prompt -->
