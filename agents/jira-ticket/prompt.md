@@ -50,7 +50,7 @@ That set is your full input for the run. Don't expand it.
    an improvement:
 
    ```sh
-   jira issue comment add <KEY> -b "<note>"
+   jira issue comment add <KEY> "<note>" --no-input
    ```
 
 ## Ticket quality rubric
