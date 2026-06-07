@@ -110,7 +110,9 @@ errors beyond the obvious.
 ## Final step: write a Slack summary file
 
 Before stopping, write your end-of-run summary to `/tmp/slack-summary.md`
-using the `Write` tool. A downstream workflow step posts it to Slack
+using the `Write` tool. If the `Write` call is blocked or denied, print the
+summary as plain text and stop — do **not** retry with Bash, `tee`, `python3`,
+or any other method. A downstream workflow step posts it to Slack
 verbatim via `chat.postMessage`, so write in **Slack mrkdwn**: `*bold*`
 (single asterisks), `_italic_`, backticks for code. Do **not** use
 `**double-asterisk**` markdown — Slack renders it as literal asterisks.
