@@ -46,6 +46,13 @@ jobs:
               id: ${JIRA_BOARD_ID:-0}
           EOF
 
+      - name: Install slack-mcp-server
+        run: |
+          set -euo pipefail
+          npm install -g slack-mcp-server@latest
+          command -v slack-mcp-server
+          slack-mcp-server --help >/dev/null 2>&1 || true
+
       - name: Write Slack MCP config
         env:
           CHANNEL_ID: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
@@ -60,8 +67,8 @@ jobs:
             '{
               mcpServers: {
                 slack: {
-                  command: "npx",
-                  args: ["-y", "slack-mcp-server@latest", "--transport", "stdio"],
+                  command: "slack-mcp-server",
+                  args: ["--transport", "stdio"],
                   env: {
                     SLACK_MCP_XOXB_TOKEN: $token,
                     SLACK_MCP_ADD_MESSAGE_TOOL: $channel
@@ -69,18 +76,6 @@ jobs:
                 }
               }
             }' > /tmp/mcp-config.json
-
-      - name: Probe slack-mcp-server
-        env:
-          SLACK_MCP_XOXB_TOKEN: ${{ secrets.SLACK_MCP_XOXB_TOKEN }}
-          SLACK_MCP_ADD_MESSAGE_TOOL: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
-          SLACK_MCP_LOG_LEVEL: debug
-        run: |
-          echo "--- probe: timeout 5 npx -y slack-mcp-server@latest --transport stdio ---"
-          set +e
-          timeout 5 npx -y slack-mcp-server@latest --transport stdio </dev/null 2>&1 | tee /tmp/slack-probe.log
-          rc=${PIPESTATUS[0]}
-          echo "--- probe exit: $rc (124 = timed out cleanly = handshake-loop running; anything else = startup failure) ---"
 
       - id: prompt
         env:
