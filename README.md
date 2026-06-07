@@ -7,6 +7,8 @@ glue that I use across projects.
 
 - [`agents/pr-review`](agents/pr-review) — a comment-only PR reviewer that
   runs as a GitHub Action.
+- [`agents/jira-ticket`](agents/jira-ticket) — a daily Jira ticket groomer
+  (descriptions, links, sub-tasks) backed by the project-local `jira` CLI.
 - [`docs/agentic-workflow.md`](docs/agentic-workflow.md) — notes on how the
   pieces fit together.
 
