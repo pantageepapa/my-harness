@@ -107,3 +107,20 @@ jobs:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
             --allowedTools "Edit,Read,Glob,Bash(cat:*),Bash(jq:*),Bash(grep:*),Bash(date:*),Bash(git:*),Bash(gh:*)"
+
+      - name: Commit execution log to main
+        if: always() && steps.claude.outputs.execution_file != ''
+        env:
+          RUN_ID: ${{ github.run_id }}
+          LOG_PATH: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          set -e
+          git fetch --depth=1 origin main
+          git checkout -B main origin/main
+          DATE="$(date -u +%F)"
+          DEST=".github/agent-logs/prompt-improver/${DATE}/${RUN_ID}.json"
+          mkdir -p "$(dirname "$DEST")"
+          cp "$LOG_PATH" "$DEST"
+          git add "$DEST"
+          git commit -m "agent log: prompt-improver run ${RUN_ID}"
+          git push origin main
