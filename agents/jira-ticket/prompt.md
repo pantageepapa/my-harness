@@ -94,4 +94,22 @@ shows at least one of:
 ## Stop criteria
 
 One pass over the JQL result set. No second pass, no retries on transient
-errors beyond the obvious. Don't summarize what you did — the runner exits.
+errors beyond the obvious.
+
+## Final step: post a Slack summary
+
+Before stopping, call `mcp__slack__conversations_add_message` exactly once
+with `channel_id: "$SLACK_OBSERVABILITY_CHANNEL_ID"`,
+`content_type: "text/markdown"`, and a `payload` covering:
+
+- **What you did** — tickets touched, one bullet each as
+  `KEY: <one-phrase action>` (e.g. `PROJ-123: rewrote description, added AC`).
+- **Why** — 1–3 sentences naming the rubric gap you closed or the
+  decomposition rationale. The reasoning, not a recap.
+- **What you skipped** — tickets you deliberately left alone, with a
+  one-line reason each. Skipping is information.
+
+Keep it under ~15 lines total. If you made no edits, post a single line
+saying so plus why (e.g. "Backlog already meets the rubric — no action
+this run"). Posting is gated to one channel server-side, so the
+`channel_id` value above is the only one that will succeed.
