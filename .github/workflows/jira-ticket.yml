@@ -11,9 +11,9 @@ jobs:
     permissions:
       contents: write
       id-token: write
-      actions: read
+      actions: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
@@ -92,3 +92,15 @@ jobs:
           git add "$DEST"
           git commit -m "agent log: jira-ticket run ${RUN_ID}"
           git push origin main
+
+      - name: Trigger prompt improver
+        if: always() && steps.claude.outputs.execution_file != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          DATE="$(date -u +%F)"
+          gh workflow run prompt-improver.yml \
+            -f agent_name=jira-ticket \
+            -f log_path=".github/agent-logs/jira-ticket/${DATE}/${RUN_ID}.json" \
+            -f log_ref=main

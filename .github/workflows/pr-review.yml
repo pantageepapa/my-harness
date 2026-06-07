@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, ready_for_review, reopened]
     paths-ignore:
       - '.github/agent-logs/**'
+      - 'agents/**/prompt.md'
   workflow_dispatch:
 
 jobs:
@@ -14,9 +15,9 @@ jobs:
       contents: write
       pull-requests: write
       id-token: write
-      actions: read
+      actions: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
@@ -38,7 +39,7 @@ jobs:
           track_progress: false
           prompt: ${{ steps.prompt.outputs.PROMPT }}
           claude_args: |
-            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Read,Grep,Glob"
 
       - name: Commit execution log to PR branch
         if: always() && steps.claude.outputs.execution_file != ''
@@ -59,3 +60,16 @@ jobs:
           git add "$DEST"
           git commit -m "agent log: PR #${PR_NUMBER} run ${RUN_ID}"
           git push origin "$BRANCH"
+
+      - name: Trigger prompt improver
+        if: always() && steps.claude.outputs.execution_file != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RUN_ID: ${{ github.run_id }}
+          LOG_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          gh workflow run prompt-improver.yml \
+            -f agent_name=pr-review \
+            -f log_path=".github/agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json" \
+            -f log_ref="${LOG_REF}"
