@@ -33,6 +33,17 @@ That set is your full input for the run. Don't expand it.
    jira issue edit <KEY> -b "<new description>" --no-input
    ```
 
+   Pass the description as a direct multi-line bash string — do not use
+   `$()`, backtick substitution, or `printf` inside the `-b` value.
+   Those patterns trigger shell-injection guards and will fail. A plain
+   quoted string spread across lines is fine:
+
+   ```sh
+   jira issue edit <KEY> --no-input -b "Line one
+   Line two
+   Line three"
+   ```
+
 2. **Link related tickets** — when one clearly gates another:
 
    ```sh
@@ -113,3 +124,8 @@ Keep it under ~15 lines total. If you made no edits, post a single line
 saying so plus why (e.g. "Backlog already meets the rubric — no action
 this run"). Posting is gated to one channel server-side, so the
 `channel_id` value above is the only one that will succeed.
+
+If `mcp__slack__conversations_add_message` is not available (a single
+`ToolSearch` with `query: "select:mcp__slack__conversations_add_message"`
+returns nothing), skip the Slack step, print the summary to stdout, and
+stop. Do not retry ToolSearch with different queries.
