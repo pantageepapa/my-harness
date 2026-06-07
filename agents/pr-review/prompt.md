@@ -37,7 +37,7 @@ musings, hypothetical future requirements.
 
 Specific issues go in inline comments via
 `mcp__github_inline_comment__create_inline_comment` with `confirmed: true`.
-One comment per distinct issue, anchored to the specific changed line. Each
+One comment per distinct issue, anchored to the specific changed line. Only comment on lines that appear in the `gh pr diff` output — do not post inline comments on unchanged lines, even if you notice pre-existing issues in those files. Each
 comment must include:
 
 - A one-line description of the issue.
