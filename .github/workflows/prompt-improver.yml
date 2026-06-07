@@ -94,6 +94,9 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           track_progress: false
+          # Required because this workflow is dispatched by other agent
+          # workflows via `gh workflow run`, which runs as github-actions[bot].
+          allowed_bots: "github-actions[bot]"
           prompt: ${{ steps.prompt.outputs.PROMPT }}
           claude_args: |
             --allowedTools "Edit,Read,Bash(cat:*),Bash(jq:*),Bash(grep:*),Glob"
