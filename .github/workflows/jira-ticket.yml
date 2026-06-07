@@ -51,7 +51,29 @@ jobs:
           set -euo pipefail
           npm install -g slack-mcp-server@latest
           command -v slack-mcp-server
-          slack-mcp-server --help >/dev/null 2>&1 || true
+
+      - name: MCP handshake probe
+        env:
+          SLACK_MCP_XOXB_TOKEN: ${{ secrets.SLACK_MCP_XOXB_TOKEN }}
+          SLACK_MCP_ADD_MESSAGE_TOOL: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
+          SLACK_MCP_LOG_LEVEL: debug
+        run: |
+          set +e
+          echo "--- send initialize + tools/list to slack-mcp-server, read stdout (60s budget) ---"
+          {
+            printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"probe","version":"0.0.1"}}}'
+            printf '%s\n' '{"jsonrpc":"2.0","method":"notifications/initialized"}'
+            printf '%s\n' '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
+            sleep 30
+          } | timeout 60 slack-mcp-server --transport stdio 2>/tmp/slack-stderr.log | tee /tmp/slack-stdout.log
+          rc=${PIPESTATUS[1]}
+          echo "--- exit: $rc ---"
+          echo "--- stderr ---"
+          cat /tmp/slack-stderr.log || echo "(no stderr)"
+          echo "--- stdout (raw) ---"
+          cat /tmp/slack-stdout.log || echo "(no stdout)"
+          echo "--- tool names exposed ---"
+          jq -r 'select(.id == 2) | .result.tools[]?.name' < /tmp/slack-stdout.log 2>/dev/null || echo "(could not parse tools/list response)"
 
       - name: Write Slack MCP config
         env:
