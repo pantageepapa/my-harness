@@ -50,6 +50,7 @@ Development Orchestrator
 **Goal:** manage Jira tickets.
 
 - Does **not** invent new tickets.
+- Works on a daily basis. 
 - Decomposes tickets and improves descriptions based on the current code.
 - Creates dependencies between tickets (`blocks`, `depends on`).
 
