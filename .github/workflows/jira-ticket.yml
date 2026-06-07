@@ -46,6 +46,30 @@ jobs:
               id: ${JIRA_BOARD_ID:-0}
           EOF
 
+      - name: Write Slack MCP config
+        env:
+          CHANNEL_ID: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
+          SLACK_MCP_XOXB_TOKEN: ${{ secrets.SLACK_MCP_XOXB_TOKEN }}
+        run: |
+          set -euo pipefail
+          : "${CHANNEL_ID:?SLACK_OBSERVABILITY_CHANNEL_ID repo variable is required}"
+          : "${SLACK_MCP_XOXB_TOKEN:?SLACK_MCP_XOXB_TOKEN secret is required}"
+          jq -n \
+            --arg token "${SLACK_MCP_XOXB_TOKEN}" \
+            --arg channel "${CHANNEL_ID}" \
+            '{
+              mcpServers: {
+                slack: {
+                  command: "npx",
+                  args: ["-y", "slack-mcp-server@latest", "--transport", "stdio"],
+                  env: {
+                    SLACK_MCP_XOXB_TOKEN: $token,
+                    SLACK_MCP_ADD_MESSAGE_TOOL: $channel
+                  }
+                }
+              }
+            }' > /tmp/mcp-config.json
+
       - id: prompt
         env:
           JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
@@ -71,8 +95,10 @@ jobs:
             JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
             JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
             JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+            SLACK_OBSERVABILITY_CHANNEL_ID: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
           claude_args: |
-            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Read,Glob,Grep"
+            --mcp-config /tmp/mcp-config.json
+            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Read,Glob,Grep,mcp__slack__conversations_add_message"
 
       - name: Commit execution log to main
         if: always() && steps.claude.outputs.execution_file != ''
