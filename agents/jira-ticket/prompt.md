@@ -109,7 +109,7 @@ errors beyond the obvious.
 
 ## Final step: write a Slack summary file
 
-Before stopping, write your end-of-run summary to `/tmp/slack-summary.md`
+Before stopping, write your end-of-run summary to `slack-summary.md`
 using the `Write` tool. A downstream workflow step posts it to Slack
 verbatim via `chat.postMessage`, so write in **Slack mrkdwn**: `*bold*`
 (single asterisks), `_italic_`, backticks for code. Do **not** use
