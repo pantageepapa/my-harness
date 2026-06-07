@@ -1,0 +1,95 @@
+name: Jira Ticket agent
+
+on:
+  schedule:
+    - cron: '17 7 * * *'
+  workflow_dispatch:
+
+jobs:
+  groom:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Install jira CLI
+        run: bash scripts/install-jira-cli.sh
+
+      - name: Put bin/ on PATH
+        run: echo "$PWD/bin" >> "$GITHUB_PATH"
+
+      - name: Write jira config
+        env:
+          JIRA_SERVER: ${{ vars.JIRA_SERVER }}
+          JIRA_LOGIN: ${{ vars.JIRA_LOGIN }}
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+          JIRA_BOARD_ID: ${{ vars.JIRA_BOARD_ID }}
+        run: |
+          set -euo pipefail
+          : "${JIRA_SERVER:?JIRA_SERVER repo variable is required}"
+          : "${JIRA_LOGIN:?JIRA_LOGIN repo variable is required}"
+          : "${JIRA_PROJECT_KEY:?JIRA_PROJECT_KEY repo variable is required}"
+          mkdir -p .jira
+          cat > .jira/config.yml <<EOF
+          installation: Cloud
+          server: ${JIRA_SERVER}
+          login: ${JIRA_LOGIN}
+          project:
+              key: ${JIRA_PROJECT_KEY}
+              type: classic
+          board:
+              id: ${JIRA_BOARD_ID:-0}
+          EOF
+
+      - id: prompt
+        env:
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+        run: |
+          {
+            echo 'PROMPT<<PROMPT_EOF'
+            echo "JIRA_PROJECT_KEY: ${JIRA_PROJECT_KEY}"
+            echo
+            cat agents/jira-ticket/prompt.md
+            echo PROMPT_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - id: claude
+        uses: anthropics/claude-code-action@v1
+        env:
+          JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: true
+          prompt: ${{ steps.prompt.outputs.PROMPT }}
+          claude_env: |
+            JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
+            JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+            JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+          claude_args: |
+            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Read,Glob,Grep"
+
+      - name: Commit execution log to main
+        if: always() && steps.claude.outputs.execution_file != ''
+        env:
+          RUN_ID: ${{ github.run_id }}
+          LOG_PATH: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --depth=1 origin main
+          git checkout -B main origin/main
+          DATE="$(date -u +%F)"
+          DEST=".github/agent-logs/jira-ticket/${DATE}/${RUN_ID}.json"
+          mkdir -p "$(dirname "$DEST")"
+          cp "$LOG_PATH" "$DEST"
+          git add "$DEST"
+          git commit -m "agent log: jira-ticket run ${RUN_ID}"
+          git push origin main
