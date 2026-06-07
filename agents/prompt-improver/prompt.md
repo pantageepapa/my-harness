@@ -20,12 +20,9 @@ The workflow has prepended these variables above this prompt — use them:
    that a small edit would fix.
 3. If yes — use `Edit` to change `$AGENT_PROMPT_PATH` directly. Make
    the smallest change that addresses the issue. Do not edit any other
-   file. Then stop.
+   file. Then open a PR (see "When you're done").
 4. If no — do not edit anything. Print one short line saying why
    ("nothing concrete to suggest from this run") and stop.
-
-A downstream workflow step will detect whether you edited the file and
-open a PR for human review.
 
 ## Optimize for shorter runs, not shorter prompts
 
@@ -98,5 +95,28 @@ All of these have one thing in common: they would shorten the next run.
 
 ## When you're done
 
-Stop. The runner will exit, and a downstream step will either open a
-PR (if you edited) or finish silently (if you didn't).
+If you did not edit, stop. The runner will exit.
+
+If you did edit, open a PR for human review. Git user and `GH_TOKEN`
+are already configured by the workflow.
+
+Write the PR body yourself, in your own words — 1–3 sentences naming
+the specific moment in the run that motivated the edit and what the
+edit changes about the next run. Don't use a fixed template. Reference
+`${LOG_PATH}` if it helps a reviewer find the evidence.
+
+Then run:
+
+```bash
+STAMP="$(date -u +%Y%m%d-%H%M%S)"
+BRANCH="prompt-improver/${AGENT_NAME}-${STAMP}"
+git checkout -b "$BRANCH"
+git add "$AGENT_PROMPT_PATH"
+git commit -m "Prompt improvement for ${AGENT_NAME}"
+git push origin "$BRANCH"
+gh pr create --base main --head "$BRANCH" \
+  --title "Prompt improvement: ${AGENT_NAME}" \
+  --body "<your summary>"
+```
+
+Then stop.

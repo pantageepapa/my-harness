@@ -1,9 +1,9 @@
 # Prompt Improver agent
 
 Reads one execution log of another agent and, if it finds a concrete
-weakness, edits that agent's `prompt.md`. A downstream step in the
-workflow opens a PR with the edit for human review. If there's nothing
-worth changing, the run exits silently.
+weakness, edits that agent's `prompt.md` and opens a PR with the edit
+for human review. If there's nothing worth changing, the run exits
+silently.
 
 Part of the agentic workflow sketched in [`docs/agentic-workflow.md`](../../docs/agentic-workflow.md).
 

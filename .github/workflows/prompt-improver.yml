@@ -89,6 +89,11 @@ jobs:
             echo PROMPT_EOF
           } >> "$GITHUB_OUTPUT"
 
+      - name: Configure git for the PR Claude will open
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - id: claude
         uses: anthropics/claude-code-action@v1
         with:
@@ -98,29 +103,7 @@ jobs:
           # workflows via `gh workflow run`, which runs as github-actions[bot].
           allowed_bots: "github-actions[bot]"
           prompt: ${{ steps.prompt.outputs.PROMPT }}
+          claude_env: |
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Edit,Read,Bash(cat:*),Bash(jq:*),Bash(grep:*),Glob"
-
-      - name: Open PR if prompt was edited
-        env:
-          AGENT_NAME: ${{ inputs.agent_name }}
-          LOG_PATH:   ${{ inputs.log_path }}
-          GH_TOKEN:   ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -e
-          PROMPT_FILE="agents/${AGENT_NAME}/prompt.md"
-          if git diff --quiet -- "$PROMPT_FILE"; then
-            echo "No prompt edits. Exiting silently."
-            exit 0
-          fi
-          STAMP="$(date -u +%Y%m%d-%H%M%S)"
-          BRANCH="prompt-improver/${AGENT_NAME}-${STAMP}"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
-          git add "$PROMPT_FILE"
-          git commit -m "Prompt improvement for ${AGENT_NAME}"
-          git push origin "$BRANCH"
-          gh pr create --base main --head "$BRANCH" \
-            --title "Prompt improvement: ${AGENT_NAME}" \
-            --body "Auto-generated edit to \`${PROMPT_FILE}\` based on log \`${LOG_PATH}\`. Review the diff and merge if it holds up."
+            --allowedTools "Edit,Read,Glob,Bash(cat:*),Bash(jq:*),Bash(grep:*),Bash(date:*),Bash(git:*),Bash(gh:*)"
