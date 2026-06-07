@@ -172,7 +172,7 @@
     color: var(--muted); font-size: 13px; padding: 0 4px;
   }
   .runs-head .reload:hover { color: var(--accent); }
-  .runs-body { max-height: 360px; overflow: auto; }
+  .runs-body { max-height: 60vh; overflow: auto; }
   .runs-group { border-top: 1px solid var(--border); }
   .runs-group:first-child { border-top: 0; }
   .runs-group-head {
@@ -282,11 +282,14 @@ function renderRuns(files) {
     groups.get(groupKey).push({ path: f.path, filename, runId: filename.replace(/\.json$/, '') });
   }
 
-  // Sort: groups by name desc (so pr-3 before pr-2), runs by id desc (newer first)
-  const sortedGroups = [...groups.entries()].sort((a, b) => naturalCompare(b[0], a[0]));
-  for (const [, items] of sortedGroups) {
+  // Sort runs within each group newest-first, then groups by their newest run
+  // so the most recently active group (regardless of agent) is always on top.
+  for (const items of groups.values()) {
     items.sort((a, b) => naturalCompare(b.runId, a.runId));
   }
+  const sortedGroups = [...groups.entries()].sort(
+    (a, b) => naturalCompare(b[1][0].runId, a[1][0].runId)
+  );
 
   runsBody.innerHTML = '';
   for (const [name, items] of sortedGroups) {
