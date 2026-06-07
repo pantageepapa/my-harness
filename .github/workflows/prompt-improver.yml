@@ -1,0 +1,123 @@
+name: Prompt improver
+
+on:
+  workflow_dispatch:
+    inputs:
+      agent_name:
+        description: 'Name of the agent (must match agents/<name>/prompt.md)'
+        required: true
+        type: string
+      log_path:
+        description: 'Repo-relative path to the just-committed log JSON'
+        required: true
+        type: string
+      log_ref:
+        description: 'Branch the log was committed to'
+        required: true
+        type: string
+
+jobs:
+  improve:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Validate inputs and pull the log
+        env:
+          AGENT_NAME: ${{ inputs.agent_name }}
+          LOG_PATH:   ${{ inputs.log_path }}
+          LOG_REF:    ${{ inputs.log_ref }}
+        run: |
+          set -euo pipefail
+          if [ ! -f "agents/${AGENT_NAME}/prompt.md" ]; then
+            echo "no prompt.md for agent '${AGENT_NAME}' on main" >&2
+            exit 1
+          fi
+          git fetch --depth=1 origin "${LOG_REF}"
+          git show "origin/${LOG_REF}:${LOG_PATH}" > /tmp/log.json
+
+      - name: Slim the log
+        run: |
+          jq -r '
+            .[] |
+            if .type == "assistant" then
+              (.message.content[]? |
+                if .type == "tool_use" and .name == "Bash" then
+                  "## Bash\n```\n" + (.input.command // "") + "\n```\n"
+                elif .type == "tool_use" then
+                  "## Tool: " + .name + "\n```json\n" +
+                  (.input | tostring) + "\n```\n"
+                elif .type == "text" then
+                  "## Assistant\n" + .text + "\n"
+                else empty end)
+            elif .type == "user" then
+              (.message.content[]? |
+                if .type == "tool_result" then
+                  "## Result" +
+                  (if .is_error == true then " (error)" else "" end) +
+                  "\n```\n" +
+                  ((if (.content | type) == "string" then .content
+                    else (.content | map(.text // (. | tostring)) | join("\n"))
+                    end)[0:2000]) +
+                  "\n```\n"
+                else empty end)
+            else empty end
+          ' /tmp/log.json > /tmp/run-summary.md
+          echo "--- run-summary.md (first 80 lines) ---"
+          head -80 /tmp/run-summary.md || true
+
+      - id: prompt
+        env:
+          AGENT_NAME: ${{ inputs.agent_name }}
+          LOG_PATH:   ${{ inputs.log_path }}
+        run: |
+          {
+            echo 'PROMPT<<PROMPT_EOF'
+            echo "AGENT_NAME: ${AGENT_NAME}"
+            echo "AGENT_PROMPT_PATH: agents/${AGENT_NAME}/prompt.md"
+            echo "LOG_PATH: ${LOG_PATH}"
+            echo "RUN_SUMMARY_PATH: /tmp/run-summary.md"
+            echo
+            cat agents/prompt-improver/prompt.md
+            echo PROMPT_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: false
+          prompt: ${{ steps.prompt.outputs.PROMPT }}
+          claude_args: |
+            --allowedTools "Edit,Read,Bash(cat:*),Bash(jq:*),Bash(grep:*),Glob"
+
+      - name: Open PR if prompt was edited
+        env:
+          AGENT_NAME: ${{ inputs.agent_name }}
+          LOG_PATH:   ${{ inputs.log_path }}
+          GH_TOKEN:   ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          PROMPT_FILE="agents/${AGENT_NAME}/prompt.md"
+          if git diff --quiet -- "$PROMPT_FILE"; then
+            echo "No prompt edits. Exiting silently."
+            exit 0
+          fi
+          STAMP="$(date -u +%Y%m%d-%H%M%S)"
+          BRANCH="prompt-improver/${AGENT_NAME}-${STAMP}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add "$PROMPT_FILE"
+          git commit -m "Prompt improvement for ${AGENT_NAME}"
+          git push origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" \
+            --title "Prompt improvement: ${AGENT_NAME}" \
+            --body "Auto-generated edit to \`${PROMPT_FILE}\` based on log \`${LOG_PATH}\`. Review the diff and merge if it holds up."
