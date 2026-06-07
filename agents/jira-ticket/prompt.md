@@ -107,11 +107,15 @@ shows at least one of:
 One pass over the JQL result set. No second pass, no retries on transient
 errors beyond the obvious.
 
-## Final step: post a Slack summary
+## Final step: write a Slack summary file
 
-Before stopping, call `mcp__slack__conversations_add_message` exactly once
-with `channel_id: "$SLACK_OBSERVABILITY_CHANNEL_ID"`,
-`content_type: "text/markdown"`, and a `payload` covering:
+Before stopping, write your end-of-run summary to `/tmp/slack-summary.md`
+using the `Write` tool. A downstream workflow step posts it to Slack
+verbatim via `chat.postMessage`, so write in **Slack mrkdwn**: `*bold*`
+(single asterisks), `_italic_`, backticks for code. Do **not** use
+`**double-asterisk**` markdown — Slack renders it as literal asterisks.
+
+Cover:
 
 - **What you did** — tickets touched, one bullet each as
   `KEY: <one-phrase action>` (e.g. `PROJ-123: rewrote description, added AC`).
@@ -120,12 +124,7 @@ with `channel_id: "$SLACK_OBSERVABILITY_CHANNEL_ID"`,
 - **What you skipped** — tickets you deliberately left alone, with a
   one-line reason each. Skipping is information.
 
-Keep it under ~15 lines total. If you made no edits, post a single line
+Keep it under ~15 lines total. If you made no edits, write a single line
 saying so plus why (e.g. "Backlog already meets the rubric — no action
-this run"). Posting is gated to one channel server-side, so the
-`channel_id` value above is the only one that will succeed.
-
-If `mcp__slack__conversations_add_message` is not available (a single
-`ToolSearch` with `query: "select:mcp__slack__conversations_add_message"`
-returns nothing), skip the Slack step, print the summary to stdout, and
-stop. Do not retry ToolSearch with different queries.
+this run"). Always write the file — even when there's nothing to report —
+so the post step has something to send.

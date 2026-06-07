@@ -46,59 +46,6 @@ jobs:
               id: ${JIRA_BOARD_ID:-0}
           EOF
 
-      - name: Install slack-mcp-server
-        run: |
-          set -euo pipefail
-          npm install -g slack-mcp-server@latest
-          command -v slack-mcp-server
-
-      - name: MCP handshake probe
-        env:
-          SLACK_MCP_XOXB_TOKEN: ${{ secrets.SLACK_MCP_XOXB_TOKEN }}
-          SLACK_MCP_ADD_MESSAGE_TOOL: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
-          SLACK_MCP_LOG_LEVEL: debug
-        run: |
-          set +e
-          echo "--- send initialize + tools/list to slack-mcp-server, read stdout (60s budget) ---"
-          {
-            printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"probe","version":"0.0.1"}}}'
-            printf '%s\n' '{"jsonrpc":"2.0","method":"notifications/initialized"}'
-            printf '%s\n' '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
-            sleep 30
-          } | timeout 60 slack-mcp-server --transport stdio 2>/tmp/slack-stderr.log | tee /tmp/slack-stdout.log
-          rc=${PIPESTATUS[1]}
-          echo "--- exit: $rc ---"
-          echo "--- stderr ---"
-          cat /tmp/slack-stderr.log || echo "(no stderr)"
-          echo "--- stdout (raw) ---"
-          cat /tmp/slack-stdout.log || echo "(no stdout)"
-          echo "--- tool names exposed ---"
-          jq -r 'select(.id == 2) | .result.tools[]?.name' < /tmp/slack-stdout.log 2>/dev/null || echo "(could not parse tools/list response)"
-
-      - name: Write Slack MCP config
-        env:
-          CHANNEL_ID: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
-          SLACK_MCP_XOXB_TOKEN: ${{ secrets.SLACK_MCP_XOXB_TOKEN }}
-        run: |
-          set -euo pipefail
-          : "${CHANNEL_ID:?SLACK_OBSERVABILITY_CHANNEL_ID repo variable is required}"
-          : "${SLACK_MCP_XOXB_TOKEN:?SLACK_MCP_XOXB_TOKEN secret is required}"
-          jq -n \
-            --arg token "${SLACK_MCP_XOXB_TOKEN}" \
-            --arg channel "${CHANNEL_ID}" \
-            '{
-              mcpServers: {
-                slack: {
-                  command: "slack-mcp-server",
-                  args: ["--transport", "stdio"],
-                  env: {
-                    SLACK_MCP_XOXB_TOKEN: $token,
-                    SLACK_MCP_ADD_MESSAGE_TOOL: $channel
-                  }
-                }
-              }
-            }' > /tmp/mcp-config.json
-
       - id: prompt
         env:
           JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
@@ -124,10 +71,28 @@ jobs:
             JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
             JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
             JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
-            SLACK_OBSERVABILITY_CHANNEL_ID: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
           claude_args: |
-            --mcp-config /tmp/mcp-config.json
-            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Read,Glob,Grep,mcp__slack__conversations_add_message"
+            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Read,Glob,Grep,Write(/tmp/slack-summary.md)"
+
+      - name: Post Slack summary
+        if: always() && hashFiles('/tmp/slack-summary.md') != ''
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_MCP_XOXB_TOKEN }}
+          CHANNEL_ID: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
+        run: |
+          set -euo pipefail
+          : "${SLACK_TOKEN:?SLACK_MCP_XOXB_TOKEN secret is required}"
+          : "${CHANNEL_ID:?SLACK_OBSERVABILITY_CHANNEL_ID repo variable is required}"
+          payload=$(jq -n \
+            --arg channel "${CHANNEL_ID}" \
+            --rawfile text /tmp/slack-summary.md \
+            '{channel: $channel, text: $text, mrkdwn: true}')
+          resp=$(curl -sS -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer ${SLACK_TOKEN}" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data "${payload}")
+          echo "${resp}" | jq .
+          [ "$(echo "${resp}" | jq -r .ok)" = "true" ]
 
       - name: Commit execution log to main
         if: always() && steps.claude.outputs.execution_file != ''
