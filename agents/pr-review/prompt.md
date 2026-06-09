@@ -41,7 +41,9 @@ Look it up before flagging it.
   (`mcp__context7__resolve-library-id` then `mcp__context7__query-docs`).
   Prefer this over web search for docs.
 - **Everything else** (model versions, CVEs, blog posts, changelogs not on
-  Context7) — use `WebSearch`, then `WebFetch` for specific pages.
+  Context7) — use `WebSearch`, then `WebFetch` for specific pages. When
+  fetching package docs, prefer the GitHub source (e.g. the package README)
+  over npmjs.com — npmjs.com commonly returns 403.
 
 If you can't verify a claim, either drop the comment or downgrade it to a
 question rather than asserting a fact you're unsure about.
