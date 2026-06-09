@@ -1,0 +1,653 @@
+[
+  {
+    "type": "system",
+    "subtype": "init",
+    "cwd": "/home/runner/work/my-harness/my-harness",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "tools": [
+      "Task",
+      "AskUserQuestion",
+      "Bash",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "Edit",
+      "EnterPlanMode",
+      "EnterWorktree",
+      "ExitPlanMode",
+      "ExitWorktree",
+      "Glob",
+      "Grep",
+      "Monitor",
+      "NotebookEdit",
+      "PushNotification",
+      "Read",
+      "RemoteTrigger",
+      "ScheduleWakeup",
+      "Skill",
+      "TaskCreate",
+      "TaskGet",
+      "TaskList",
+      "TaskOutput",
+      "TaskStop",
+      "TaskUpdate",
+      "ToolSearch",
+      "WebFetch",
+      "WebSearch",
+      "Workflow",
+      "Write"
+    ],
+    "mcp_servers": [
+      {
+        "name": "context7",
+        "status": "pending"
+      },
+      {
+        "name": "github_inline_comment",
+        "status": "pending"
+      }
+    ],
+    "model": "claude-sonnet-4-6",
+    "permissionMode": "default",
+    "slash_commands": [
+      "deep-research",
+      "update-config",
+      "verify",
+      "debug",
+      "code-review",
+      "simplify",
+      "batch",
+      "fewer-permission-prompts",
+      "loop",
+      "schedule",
+      "claude-api",
+      "run",
+      "run-skill-generator",
+      "clear",
+      "compact",
+      "context",
+      "heapdump",
+      "init",
+      "reload-skills",
+      "review",
+      "security-review",
+      "usage",
+      "insights",
+      "goal",
+      "team-onboarding"
+    ],
+    "apiKeySource": "none",
+    "claude_code_version": "2.1.169",
+    "output_style": "default",
+    "agents": [
+      "claude",
+      "claude-code-guide",
+      "Explore",
+      "general-purpose",
+      "Plan",
+      "statusline-setup"
+    ],
+    "skills": [
+      "deep-research",
+      "update-config",
+      "verify",
+      "debug",
+      "code-review",
+      "simplify",
+      "batch",
+      "fewer-permission-prompts",
+      "loop",
+      "schedule",
+      "claude-api",
+      "run",
+      "run-skill-generator"
+    ],
+    "plugins": [],
+    "analytics_disabled": false,
+    "product_feedback_disabled": false,
+    "uuid": "f1033c4a-8ad9-4e6f-a7b0-dd2fde65d63c",
+    "memory_paths": {
+      "auto": "/home/runner/.claude/projects/-home-runner-work-my-harness-my-harness/memory/"
+    },
+    "fast_mode_state": "off"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1,
+    "estimated_tokens_delta": 1,
+    "uuid": "31840173-6a52-4e36-94ea-46d5842b18cc",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "rate_limit_event",
+    "rate_limit_info": {
+      "status": "allowed",
+      "resetsAt": 1781007600,
+      "rateLimitType": "five_hour",
+      "overageStatus": "rejected",
+      "overageDisabledReason": "org_level_disabled",
+      "isUsingOverage": false
+    },
+    "uuid": "dbc5c59d-076f-4f07-972d-0efc25481114",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 19,
+    "estimated_tokens_delta": 18,
+    "uuid": "89888b5f-a70e-4885-b7ae-0821da91abc9",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 70,
+    "estimated_tokens_delta": 51,
+    "uuid": "f1b1a4f9-76c1-472d-bd43-c48c2fbd19b5",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_016Hm5Jc2EaGuEs29eWQXGJS",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "Let me start by reviewing the PR. I'll gather context about the PR first.",
+          "signature": "EpECCmUIDhgCKkBqY+tJiLpUbWAWVOHoJWwrFi3hQrxDvMV00dLHW4s+zGPLucUYa7WqP4HQbPHwLP0q/Zzjn6K8uDaHXZwVa9XHMhFjbGF1ZGUtc29ubmV0LTQtNjgAQgh0aGlua2luZxIMv2iXJ4S7spHZAe9OGgx0hsebH2egVYPKQD0iMCdZ83xj0NbNSWax8vTARiCUhxmlrbi2Dl303/EkLvjTL5QqgCy2CvfxnyiEvda2XSpakecRdlE5kjPiSXOl7QKkCNkK4cNJz09xjD/SvPrsQei1Z57O0Z0f+bfPvDWzqfWSJ7dc2ymhH0Ce0Nqr7LvMWk2G56DIDTMzHznvLQtbCC4wTwGKNQsPhMmlGAE="
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 3,
+        "cache_creation_input_tokens": 6724,
+        "cache_read_input_tokens": 18667,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 6724
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "02919efa-4ef6-43ea-960d-5da8963a169a",
+    "request_id": "req_011CbsUcb5fB6wp2umFr6LEv"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_016Hm5Jc2EaGuEs29eWQXGJS",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll start by gathering context on the PR."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 3,
+        "cache_creation_input_tokens": 6724,
+        "cache_read_input_tokens": 18667,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 6724
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "bcb39813-a846-455e-abd5-7e75dbc046f1",
+    "request_id": "req_011CbsUcb5fB6wp2umFr6LEv"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_016Hm5Jc2EaGuEs29eWQXGJS",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01SKo8xCERANWfFCrayyttzF",
+          "name": "Bash",
+          "input": {
+            "command": "gh pr view 17 && echo \"---DIFF---\" && gh pr diff 17",
+            "description": "Get PR details and diff"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 3,
+        "cache_creation_input_tokens": 6724,
+        "cache_read_input_tokens": 18667,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 6724
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "f2f4d8ad-f926-4f37-893e-23bd9e396048",
+    "request_id": "req_011CbsUcb5fB6wp2umFr6LEv"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "type": "tool_result",
+          "content": "Exit code 1\nGraphQL: Resource not accessible by integration (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)",
+          "is_error": true,
+          "tool_use_id": "toolu_01SKo8xCERANWfFCrayyttzF"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "e4361bef-4566-46c1-b5ab-475eef3c7b37",
+    "timestamp": "2026-06-09T09:49:30.068Z",
+    "tool_use_result": "Error: Exit code 1\nGraphQL: Resource not accessible by integration (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01C9GQiEKgbWC5BjP1gifhgH",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01K36xscKmjnwrFmsLmCAnnb",
+          "name": "Bash",
+          "input": {
+            "command": "gh pr view 17 --repo pantageepapa/my-harness 2>&1; echo \"---DIFF---\"; gh pr diff 17 --repo pantageepapa/my-harness 2>&1",
+            "description": "Get PR details and diff with explicit repo"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 193,
+        "cache_read_input_tokens": 25391,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 193
+        },
+        "output_tokens": 51,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "2655f7fa-301f-4f49-86c6-6125c1c4fd5b",
+    "request_id": "req_011CbsUd2DVvJGvALeW2ibdL"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01K36xscKmjnwrFmsLmCAnnb",
+          "type": "tool_result",
+          "content": "GraphQL: Resource not accessible by integration (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)\n---DIFF---\ndiff --git a/README.md b/README.md\nindex 899d652..9191f2f 100644\n--- a/README.md\n+++ b/README.md\n@@ -51,3 +51,4 @@ For day-to-day CLI use in this repo:\n <!-- log-commit verification -->\n \n <!-- pr-review test marker: v2 prompt -->\n+<!-- pr-review test marker: context7 + web search wiring -->",
+          "is_error": false
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "ec2e448e-3933-49a0-a579-94ae1e3be94b",
+    "timestamp": "2026-06-09T09:49:36.092Z",
+    "tool_use_result": {
+      "stdout": "GraphQL: Resource not accessible by integration (repository.pullRequest.statusCheckRollup.nodes.0.commit.statusCheckRollup)\n---DIFF---\ndiff --git a/README.md b/README.md\nindex 899d652..9191f2f 100644\n--- a/README.md\n+++ b/README.md\n@@ -51,3 +51,4 @@ For day-to-day CLI use in this repo:\n <!-- log-commit verification -->\n \n <!-- pr-review test marker: v2 prompt -->\n+<!-- pr-review test marker: context7 + web search wiring -->",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "noOutputExpected": false
+    }
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2,
+    "estimated_tokens_delta": 2,
+    "uuid": "edaac665-efa7-43cc-b0e6-8642c7a39a6d",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 30,
+    "estimated_tokens_delta": 28,
+    "uuid": "0365d9df-2eba-4878-a9e1-95f2853638f7",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 61,
+    "estimated_tokens_delta": 31,
+    "uuid": "3d202530-ff41-4e35-a67d-ff22ebec3354",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 68,
+    "estimated_tokens_delta": 7,
+    "uuid": "e885add2-95d4-4c8d-a4ca-3fbaee967df0",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 119,
+    "estimated_tokens_delta": 51,
+    "uuid": "f06faf03-746c-437e-b918-5205b2f1148e",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_012qiRg5gJdqXpAFsPGQ6LyL",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "The PR diff is very minimal - it just adds a comment line to the README.md. This is a documentation/marker change with no code changes. There are no bugs, security issues, performance problems, or code quality issues to flag.\n\nI'll post a \"Looks good to me\" comment.",
+          "signature": "EtMDCmUIDhgCKkB8lYM8ws21rHpQula+C/5rA0AXjsFI0+1Imo9ylBun+yZRrtD3Zh8oJx7RrFYcmI1A5hXuBzNsqojcZFsnVPgaMhFjbGF1ZGUtc29ubmV0LTQtNjgAQgh0aGlua2luZxIMmYJZlV1FN4Rd2MtCGgxwCysxz6FPNJqhhNgiMEmruTe2zeOPmxtOtDhfGSTWtBv3nB2E92dNVQtrPAV5xOpHAhXX8CrrKsrtWMPg9yqbAqbIDFts9FlfJHqOc1IWQ2mQkfcb9eZGByEBK3tUMHniexO1e3XspW9YpiBPfjszEy5LkPr7SGwyB8foctKT3oLFqgsgJmyQ0anGbbnyJjumq+Bv55ODjHZyE2tEuN1wmFjr+lGnsUU8dRhaZdpTWeMpDulLuIqNUqK+eOjCy+WJn5Adsjjhk1jWXIiww0nes1vvC/zN5PAouoSrPh6m2ADMZsTZUy3UAkT2st/8sYBTdnPcSECgUjTEm5oecK9sLUAGf6YSMlf5h5qdTNajXV//LGCT/w9z7A/5xIJ6Pwngv8bzYvNvcsEWc8OAtjOA5DILDAz29vKFqd3lY1zlEZLaomkNKNX0+an1p8SiRmyEBtHAdX/UX811NuQYAQ=="
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 465,
+        "cache_read_input_tokens": 25584,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 465
+        },
+        "output_tokens": 9,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "be563f37-f131-406a-b55e-1eae9ad50ea7",
+    "request_id": "req_011CbsUdTy4HGyuUizrrev6r"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_012qiRg5gJdqXpAFsPGQ6LyL",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "The diff is a single-line README comment addition — no code changes, nothing to flag. I'll post a brief LGTM."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 465,
+        "cache_read_input_tokens": 25584,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 465
+        },
+        "output_tokens": 9,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "c05c466c-547e-4a40-908d-46ab9c1f020b",
+    "request_id": "req_011CbsUdTy4HGyuUizrrev6r"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_012qiRg5gJdqXpAFsPGQ6LyL",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01Xj3TFTgiv5DHkcyoDpKyxb",
+          "name": "Bash",
+          "input": {
+            "command": "gh pr comment 17 --repo pantageepapa/my-harness --body \"Looks good to me. This PR only adds a documentation marker comment to README.md — no code changes, no issues to flag.\"",
+            "description": "Post LGTM top-level comment"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 465,
+        "cache_read_input_tokens": 25584,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 465
+        },
+        "output_tokens": 9,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "ecef6e44-483e-4532-a138-d24a288b5f9b",
+    "request_id": "req_011CbsUdTy4HGyuUizrrev6r"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01Xj3TFTgiv5DHkcyoDpKyxb",
+          "type": "tool_result",
+          "content": "https://github.com/pantageepapa/my-harness/pull/17#issuecomment-4658547397",
+          "is_error": false
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "f2a2a251-17fb-4e98-b43f-1039de7780ee",
+    "timestamp": "2026-06-09T09:49:41.920Z",
+    "tool_use_result": {
+      "stdout": "https://github.com/pantageepapa/my-harness/pull/17#issuecomment-4658547397",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "noOutputExpected": false,
+      "gitOperation": {
+        "pr": {
+          "number": 17,
+          "url": "https://github.com/pantageepapa/my-harness/pull/17",
+          "action": "commented"
+        }
+      }
+    }
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01HBjn6FDmTvWEj9CkVmDGUp",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "LGTM comment posted. The PR only adds a single-line README marker comment — no code changes warranting inline feedback."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 538,
+        "cache_read_input_tokens": 26049,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 538
+        },
+        "output_tokens": 5,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "uuid": "a6f6bfbe-29ee-4fea-acf0-124aec529d9f",
+    "request_id": "req_011CbsUdtuF67Xxhi5jBMLPo"
+  },
+  {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 19915,
+    "duration_api_ms": 15229,
+    "ttft_ms": 1548,
+    "ttft_stream_ms": 1175,
+    "time_to_request_ms": 98,
+    "num_turns": 4,
+    "result": "LGTM comment posted. The PR only adds a single-line README marker comment — no code changes warranting inline feedback.",
+    "stop_reason": "end_turn",
+    "session_id": "c510601f-b895-4d02-9847-4397e252aae2",
+    "total_cost_usd": 0.0676823,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 7920,
+      "cache_read_input_tokens": 95691,
+      "output_tokens": 522,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 7920,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 1,
+          "output_tokens": 30,
+          "cache_read_input_tokens": 26049,
+          "cache_creation_input_tokens": 538,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 538
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 1332,
+        "outputTokens": 19,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.001427,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-sonnet-4-6": {
+        "inputTokens": 6,
+        "outputTokens": 522,
+        "cacheReadInputTokens": 95691,
+        "cacheCreationInputTokens": 7920,
+        "webSearchRequests": 0,
+        "costUSD": 0.0662553,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "0a6d6b9d-dd0e-4f6f-bf19-ffe19c325224"
+  }
+]
