@@ -61,8 +61,11 @@ That set is your full input for the run. Don't expand it.
    an improvement:
 
    ```sh
-   jira issue comment add <KEY> -b "<note>"
+   jira issue comment add <KEY> "<note>" --no-input
    ```
+
+   Note: `comment add` takes the body as a positional argument, not `-b`.
+   Using `-b` will fail with "unknown shorthand flag".
 
 ## Ticket quality rubric
 
