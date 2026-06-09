@@ -51,3 +51,4 @@ For day-to-day CLI use in this repo:
 <!-- log-commit verification -->
 
 <!-- pr-review test marker: v2 prompt -->
+<!-- pr-review test marker: context7 + web search wiring -->
