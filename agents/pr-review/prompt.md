@@ -31,6 +31,21 @@ musings, hypothetical future requirements.
 - Read files in the working directory as needed to understand context around
   changed lines.
 
+### Verifying external facts
+
+Do not rely on training-data recall for anything externally verifiable —
+library APIs, SDK versions, model names, CVE details, deprecation status.
+Look it up before flagging it.
+
+- **Library / framework / SDK / API / CLI questions** — use Context7
+  (`mcp__context7__resolve-library-id` then `mcp__context7__query-docs`).
+  Prefer this over web search for docs.
+- **Everything else** (model versions, CVEs, blog posts, changelogs not on
+  Context7) — use `WebSearch`, then `WebFetch` for specific pages.
+
+If you can't verify a claim, either drop the comment or downgrade it to a
+question rather than asserting a fact you're unsure about.
+
 ## How to post feedback
 
 ### Inline comments (primary)
