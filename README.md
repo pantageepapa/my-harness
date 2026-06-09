@@ -48,6 +48,20 @@ For day-to-day CLI use in this repo:
    `anthropics/claude-code-action@v1`.
 3. Set `CLAUDE_CODE_OAUTH_TOKEN` as a repo secret.
 
+## Context7 setup
+
+The `pr-review` agent uses the Context7 MCP server (`@upstash/context7-mcp`,
+run via `npx`) to verify library/SDK references before commenting on them.
+Wire it once:
+
+1. Generate an API key at https://context7.com/dashboard.
+2. **Local**: paste it into `.env` as `CONTEXT7_API_KEY=...`. The key is
+   read from the `--api-key` flag passed in `.mcp.json`.
+3. **CI**: add the same value as a `CONTEXT7_API_KEY` repo secret. The
+   workflow's `settings.env` propagates it into the spawned MCP server.
+4. The package also accepts a `--cache-ttl` flag to control how long fetched
+   docs are cached locally — defaults to 24h if unset.
+
 <!-- log-commit verification -->
 
 <!-- pr-review test marker: v2 prompt -->
