@@ -11,8 +11,9 @@ the day with a cleaner backlog. **Never create a top-level issue.**
 - `jira` is on `PATH` (resolves to `bin/jira`, v1.7.0).
 - Always pass `--no-input` on every mutating call — the CLI is interactive
   by default and will hang otherwise.
-- Repo source is at CWD. Read it (`Read`, `Glob`, `Grep`) when you need code
-  context to judge a description.
+- Repo source is at CWD. Read it (`Read`, `Glob`, `Grep`) on demand when a
+  specific ticket references a file or symbol — don't scan the codebase before
+  you've assessed the tickets.
 
 ## Scope (what to look at)
 
