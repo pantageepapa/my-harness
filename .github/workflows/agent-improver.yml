@@ -1,4 +1,4 @@
-name: Prompt improver
+name: Agent improver
 
 on:
   workflow_dispatch:
@@ -82,10 +82,11 @@ jobs:
             echo 'PROMPT<<PROMPT_EOF'
             echo "AGENT_NAME: ${AGENT_NAME}"
             echo "AGENT_PROMPT_PATH: agents/${AGENT_NAME}/prompt.md"
+            echo "WORKFLOW_PATH: .github/workflows/${AGENT_NAME}.yml"
             echo "LOG_PATH: ${LOG_PATH}"
             echo "RUN_SUMMARY_PATH: /tmp/run-summary.md"
             echo
-            cat agents/prompt-improver/prompt.md
+            cat agents/agent-improver/prompt.md
             echo PROMPT_EOF
           } >> "$GITHUB_OUTPUT"
 
@@ -118,9 +119,9 @@ jobs:
           git fetch --depth=1 origin main
           git checkout -B main origin/main
           DATE="$(date -u +%F)"
-          DEST=".github/agent-logs/prompt-improver/${DATE}/${RUN_ID}.json"
+          DEST=".github/agent-logs/agent-improver/${DATE}/${RUN_ID}.json"
           mkdir -p "$(dirname "$DEST")"
           cp "$LOG_PATH" "$DEST"
           git add "$DEST"
-          git commit -m "agent log: prompt-improver run ${RUN_ID}"
+          git commit -m "agent log: agent-improver run ${RUN_ID}"
           git push origin main

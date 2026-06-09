@@ -61,7 +61,7 @@ jobs:
           git commit -m "agent log: PR #${PR_NUMBER} run ${RUN_ID}"
           git push origin "$BRANCH"
 
-      - name: Trigger prompt improver
+      - name: Trigger agent improver
         if: always() && steps.claude.outputs.execution_file != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -69,7 +69,7 @@ jobs:
           RUN_ID: ${{ github.run_id }}
           LOG_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          gh workflow run prompt-improver.yml \
+          gh workflow run agent-improver.yml \
             -f agent_name=pr-review \
             -f log_path=".github/agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json" \
             -f log_ref="${LOG_REF}"
