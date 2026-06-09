@@ -67,12 +67,14 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: ${{ steps.prompt.outputs.PROMPT }}
+          settings: |
+            { "env": { "CONTEXT7_API_KEY": "${{ secrets.CONTEXT7_API_KEY }}" } }
           claude_env: |
             JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
             JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
             JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
           claude_args: |
-            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Read,Glob,Grep,Write"
+            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Read,Glob,Grep,Write,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch"
 
       - name: Post Slack summary
         if: always() && hashFiles('slack-summary.md') != ''
