@@ -81,4 +81,4 @@ If the PR looks good and you have no inline issues to raise, post a brief
 
 ## When you're done
 
-Stop. The runner will exit. No need to summarize what you did.
+Stop immediately after your last tool call. Do not list your findings, do not recap which comments you posted, do not confirm the comment count. The runner will exit.
