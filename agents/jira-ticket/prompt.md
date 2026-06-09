@@ -106,6 +106,13 @@ When a ticket isn't atomic, decompose using the code:
    `$()`, backticks, or `printf` inside `-b` — those trip shell-injection
    guards and fail.
 
+   If the description contains markdown headings (`#`), write it to a file
+   first using the `Write` tool, then pipe it:
+
+   ```sh
+   cat .jira/desc-tmp.md | jira issue edit <KEY> --no-input
+   ```
+
 2. **Link blockers** when one ticket gates another:
 
    ```sh
@@ -154,7 +161,9 @@ mrkdwn**: `*bold*` (single asterisks), `_italic_`, backticks, links as
 literal asterisks.
 
 Build ticket links as `<{server}/browse/{KEY}|{KEY}>`. Read the
-`server:` field from `$JIRA_CONFIG_FILE` once at start.
+`server:` field from `.jira/config.yml` using the `Read` tool once at start
+(do not `cat $JIRA_CONFIG_FILE` via Bash — shell variable expansion is
+blocked).
 
 Three sections, ~20 lines max:
 
