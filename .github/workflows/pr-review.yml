@@ -38,8 +38,10 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           track_progress: false
           prompt: ${{ steps.prompt.outputs.PROMPT }}
+          settings: |
+            { "env": { "CONTEXT7_API_KEY": "${{ secrets.CONTEXT7_API_KEY }}" } }
           claude_args: |
-            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Read,Grep,Glob"
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Read,Grep,Glob"
 
       - name: Commit execution log to PR branch
         if: always() && steps.claude.outputs.execution_file != ''
