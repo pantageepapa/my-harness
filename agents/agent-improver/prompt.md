@@ -36,8 +36,13 @@ The workflow has prepended these variables above this prompt — use them:
    `$WORKFLOW_PATH`, or both. Make the smallest set of changes that
    addresses the issue. Don't edit anything else. Then open a PR
    (see "When you're done").
-4. If no — do not edit anything. Print one short line saying why
-   ("nothing concrete to suggest from this run") and stop.
+4. If no — do not edit anything. No-op is the default outcome and a
+   completely valid run; most logs probably shouldn't motivate a
+   change. Don't manufacture an edit to show you read the log — an
+   unjustified edit is worse than no edit, because it lands as a
+   permanent instruction in the prompt or workflow. Print one short
+   line saying why ("nothing concrete to suggest from this run") and
+   stop.
 
 ## Optimize for shorter runs, not shorter prompts
 
