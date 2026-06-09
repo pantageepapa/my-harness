@@ -143,4 +143,6 @@ Two sections, ~20 lines:
   in a comment`. Skip section if empty.
 
 Every ticket touched must appear in exactly one section. Always write
-the file. Once written, stop — Slack is the output.
+the file. Once written, **stop immediately** — do not write any
+additional text, recap, or summary to the chat. The runner exits
+automatically; the file is the only output.
