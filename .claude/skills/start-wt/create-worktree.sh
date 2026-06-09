@@ -33,6 +33,16 @@ for f in .env .env.local; do
   fi
 done
 
+# Copy gitignored Jira config — tracked .jira files arrive via git checkout,
+# but config.yml (and its backup) are per-clone and need to travel.
+for f in .jira/config.yml .jira/config.yml.bkp; do
+  if [ -f "${REPO_PATH}/$f" ]; then
+    mkdir -p "${WORKTREE_PATH}/$(dirname "$f")"
+    cp "${REPO_PATH}/$f" "${WORKTREE_PATH}/$f"
+    log "    copied $f"
+  fi
+done
+
 log "Worktree ready."
 
 # The only thing on stdout — Claude parses this
