@@ -70,6 +70,5 @@ note "Smoke test: 'jira me' against the new config..."
 JIRA_CONFIG_FILE="$CONFIG_PATH" "$jira_bin" me
 
 note ""
-note "Done. To use the local CLI in this repo:"
-note "  export JIRA_CONFIG_FILE=\"$CONFIG_PATH\""
-note "or pass -c .jira/config.yml on every invocation."
+note "Done. Use ./bin/jira (or bin/jira from anywhere) — the wrapper sets"
+note "JIRA_CONFIG_FILE to $CONFIG_PATH automatically."
