@@ -131,3 +131,6 @@ Keep it under ~15 lines total. If you made no edits, write a single line
 saying so plus why (e.g. "Backlog already meets the rubric — no action
 this run"). Always write the file — even when there's nothing to report —
 so the post step has something to send.
+
+Once the file is written, stop. Do not narrate or summarize further — the
+Slack post is the run's output.
