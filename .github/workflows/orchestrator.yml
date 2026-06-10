@@ -77,7 +77,93 @@ jobs:
             JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           claude_args: |
-            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Bash(gh workflow run:*),Read,Glob,Grep,Write,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch"
+            --allowedTools "Bash(jira issue list:*),Bash(jira issue view:*),Bash(bin/jira issue list:*),Bash(bin/jira issue view:*),Read,Glob,Grep,Write,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch"
+
+      - name: Dispatch routed workflows and transition tickets
+        if: always() && hashFiles('dispatches.json') != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: |
+          set -uo pipefail
+
+          JIRA_SERVER=$(awk '/^server:/ {print $2; exit}' .jira/config.yml)
+          DATE=$(jq -r '.date' dispatches.json)
+
+          : > section_senior.txt
+          : > section_junior.txt
+          : > section_unpointed.txt
+          : > section_failed.txt
+
+          jq -c '.tickets[]' dispatches.json | while read -r row; do
+            key=$(jq -r '.key' <<<"$row")
+            summary=$(jq -r '.summary' <<<"$row")
+            sp=$(jq -r '.story_points // "?"' <<<"$row")
+            target=$(jq -r '.target' <<<"$row")
+            link="<${JIRA_SERVER}/browse/${key}|${key}>"
+
+            case "$target" in
+              unpointed)
+                echo "• ${link}: ${summary}" >> section_unpointed.txt
+                ;;
+              junior-dev|senior-dev)
+                if dispatch_err=$(gh workflow run "${target}.yml" -f ticket_key="${key}" 2>&1); then
+                  if move_err=$(jira issue move "${key}" "In Progress" --no-input 2>&1); then
+                    if [ "$target" = "junior-dev" ]; then
+                      echo "• ${link} (${sp} SP) — ${summary}" >> section_junior.txt
+                    else
+                      echo "• ${link} (${sp} SP) — ${summary}" >> section_senior.txt
+                    fi
+                  else
+                    err=$(echo "$move_err" | tr '\n' ' ' | sed 's/  */ /g')
+                    echo "• ${link}: dispatched but transition failed — ${err}" >> section_failed.txt
+                  fi
+                else
+                  err=$(echo "$dispatch_err" | tr '\n' ' ' | sed 's/  */ /g')
+                  echo "• ${link}: ${err}" >> section_failed.txt
+                fi
+                ;;
+              *)
+                echo "• ${link}: unknown target '${target}' in dispatches.json" >> section_failed.txt
+                ;;
+            esac
+          done
+
+          {
+            echo "*Development Orchestrator* — ${DATE}"
+            echo
+            any=0
+            if [ -s section_senior.txt ]; then
+              echo "*Fired senior dev:*"
+              cat section_senior.txt
+              echo
+              any=1
+            fi
+            if [ -s section_junior.txt ]; then
+              echo "*Fired junior dev:*"
+              cat section_junior.txt
+              echo
+              any=1
+            fi
+            if [ -s section_unpointed.txt ]; then
+              echo "*Unpointed — needs estimate:*"
+              cat section_unpointed.txt
+              echo
+              any=1
+            fi
+            if [ -s section_failed.txt ]; then
+              echo "*Dispatch failed:*"
+              cat section_failed.txt
+              echo
+              any=1
+            fi
+            if [ $any -eq 0 ]; then
+              echo "_No Development Ready tickets._"
+            fi
+          } > slack-summary.md
+
+          cat slack-summary.md
 
       - name: Post Slack summary
         if: always() && hashFiles('slack-summary.md') != ''
