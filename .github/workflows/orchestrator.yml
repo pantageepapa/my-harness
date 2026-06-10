@@ -109,7 +109,7 @@ jobs:
                 ;;
               junior-dev|senior-dev)
                 if dispatch_err=$(gh workflow run "${target}.yml" -f ticket_key="${key}" 2>&1); then
-                  if move_err=$(jira issue move "${key}" "In Progress" --no-input 2>&1); then
+                  if move_err=$(jira issue move "${key}" "In Progress" 2>&1); then
                     if [ "$target" = "junior-dev" ]; then
                       echo "• ${link} (${sp} SP) — ${summary}" >> section_junior.txt
                     else
