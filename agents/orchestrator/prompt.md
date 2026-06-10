@@ -22,18 +22,29 @@ that is the Ticket agent's job. You route work that is already groomed.
 
 ## Input scope
 
-```sh
-jira issue list -q "project = $JIRA_PROJECT_KEY AND status = \"Development Ready\" AND resolution = Unresolved" --raw
-```
+Two-step read — `jira issue list --raw` strips custom fields, so it
+gives you keys only. The story-point value lives in `jira issue view
+<KEY> --raw`.
 
-Tickets in any other status are out of scope. The `--raw` JSON exposes
-custom fields directly on `issues[].fields`.
+1. **Get the queue:**
+   ```sh
+   jira issue list -q "project = $JIRA_PROJECT_KEY AND status = \"Development Ready\" AND resolution = Unresolved" --raw
+   ```
+   Take `[].key` and `[].fields.summary` from the response.
+
+2. **For each KEY, fetch the full ticket** to read story points:
+   ```sh
+   jira issue view <KEY> --raw
+   ```
+   `customfield_10016` lives at `.fields.customfield_10016` here.
+
+Tickets in any other status are out of scope.
 
 ## Routing rule
 
 Read **`customfield_10016`** ("Story point estimate", type: number) from
-the `--raw` JSON. The field name and ID are stable for this Jira Cloud
-instance.
+the per-ticket `view --raw` response. The field name and ID are stable
+for this Jira Cloud instance.
 
 | Story points | Action |
 | ------------ | ------ |
