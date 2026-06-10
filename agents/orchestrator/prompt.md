@@ -99,7 +99,7 @@ dispatch workflows, transition tickets, and post the Slack summary.
 - If there are no Dev-Ready tickets, write
   `{"date":"<DATE>","tickets":[]}`.
 
-Once `dispatches.json` is written, stop.
+Once `dispatches.json` is written, stop immediately. Do not emit a summary, table, or any other text after writing the file — the post-step reads the file directly and the runner exits.
 
 ## Forbidden
 
