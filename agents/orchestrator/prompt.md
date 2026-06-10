@@ -37,6 +37,9 @@ gives you keys only. The story-point value lives in `jira issue view
    jira issue view <KEY> --raw
    ```
    `customfield_10016` lives at `.fields.customfield_10016` here.
+   **You MUST run this for every key before deciding pointed vs. unpointed.
+   Never skip this step.** The field being absent in the list output is
+   expected and is not evidence that the ticket is unpointed.
 
 Tickets in any other status are out of scope.
 
