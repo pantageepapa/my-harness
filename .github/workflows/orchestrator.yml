@@ -1,0 +1,130 @@
+name: Development Orchestrator agent
+
+on:
+  schedule:
+    - cron: '47 7 * * *'
+  workflow_dispatch:
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Install jira CLI
+        run: bash scripts/install-jira-cli.sh
+
+      - name: Put bin/ on PATH
+        run: echo "$PWD/bin" >> "$GITHUB_PATH"
+
+      - name: Write jira config
+        env:
+          JIRA_SERVER: ${{ vars.JIRA_SERVER }}
+          JIRA_LOGIN: ${{ vars.JIRA_LOGIN }}
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+          JIRA_BOARD_ID: ${{ vars.JIRA_BOARD_ID }}
+        run: |
+          set -euo pipefail
+          : "${JIRA_SERVER:?JIRA_SERVER repo variable is required}"
+          : "${JIRA_LOGIN:?JIRA_LOGIN repo variable is required}"
+          : "${JIRA_PROJECT_KEY:?JIRA_PROJECT_KEY repo variable is required}"
+          mkdir -p .jira
+          cat > .jira/config.yml <<EOF
+          installation: Cloud
+          server: ${JIRA_SERVER}
+          login: ${JIRA_LOGIN}
+          project:
+              key: ${JIRA_PROJECT_KEY}
+              type: classic
+          board:
+              id: ${JIRA_BOARD_ID:-0}
+          EOF
+
+      - id: prompt
+        env:
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+        run: |
+          {
+            echo 'PROMPT<<PROMPT_EOF'
+            echo "JIRA_PROJECT_KEY: ${JIRA_PROJECT_KEY}"
+            echo
+            cat agents/orchestrator/prompt.md
+            echo PROMPT_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - id: claude
+        uses: anthropics/claude-code-action@v1
+        env:
+          JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: ${{ steps.prompt.outputs.PROMPT }}
+          settings: |
+            { "env": { "CONTEXT7_API_KEY": "${{ secrets.CONTEXT7_API_KEY }}" } }
+          claude_env: |
+            JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
+            JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+            JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: |
+            --allowedTools "Bash(jira:*),Bash(bin/jira:*),Bash(gh workflow run:*),Read,Glob,Grep,Write,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch"
+
+      - name: Post Slack summary
+        if: always() && hashFiles('slack-summary.md') != ''
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_MCP_XOXB_TOKEN }}
+          CHANNEL_ID: ${{ vars.SLACK_OBSERVABILITY_CHANNEL_ID }}
+        run: |
+          set -euo pipefail
+          : "${SLACK_TOKEN:?SLACK_MCP_XOXB_TOKEN secret is required}"
+          : "${CHANNEL_ID:?SLACK_OBSERVABILITY_CHANNEL_ID repo variable is required}"
+          payload=$(jq -n \
+            --arg channel "${CHANNEL_ID}" \
+            --rawfile text slack-summary.md \
+            '{channel: $channel, text: $text, mrkdwn: true}')
+          resp=$(curl -sS -X POST https://slack.com/api/chat.postMessage \
+            -H "Authorization: Bearer ${SLACK_TOKEN}" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data "${payload}")
+          echo "${resp}" | jq .
+          [ "$(echo "${resp}" | jq -r .ok)" = "true" ]
+
+      - name: Commit execution log to main
+        if: always() && steps.claude.outputs.execution_file != ''
+        env:
+          RUN_ID: ${{ github.run_id }}
+          LOG_PATH: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --depth=1 origin main
+          git checkout -B main origin/main
+          DATE="$(date -u +%F)"
+          DEST=".github/agent-logs/orchestrator/${DATE}/${RUN_ID}.json"
+          mkdir -p "$(dirname "$DEST")"
+          cp "$LOG_PATH" "$DEST"
+          git add "$DEST"
+          git commit -m "agent log: orchestrator run ${RUN_ID}"
+          git push origin main
+
+      - name: Trigger agent improver
+        if: always() && steps.claude.outputs.execution_file != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          DATE="$(date -u +%F)"
+          gh workflow run agent-improver.yml \
+            -f agent_name=orchestrator \
+            -f log_path=".github/agent-logs/orchestrator/${DATE}/${RUN_ID}.json" \
+            -f log_ref=main

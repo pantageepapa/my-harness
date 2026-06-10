@@ -1,0 +1,21 @@
+# STUB — placeholder pending KAN-4 (Build Senior Developer agent).
+# The orchestrator (KAN-1) dispatches this workflow for complex tickets
+# (story points >= 4). Until KAN-4 lands, this just echoes the input.
+name: Senior Developer agent (stub)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticket_key:
+        description: 'Jira ticket key (e.g. KAN-42)'
+        required: true
+        type: string
+
+jobs:
+  stub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Acknowledge dispatch
+        env:
+          TICKET_KEY: ${{ inputs.ticket_key }}
+        run: echo "senior-dev stub invoked for ${TICKET_KEY}"
