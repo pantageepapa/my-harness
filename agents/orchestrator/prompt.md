@@ -34,9 +34,12 @@ gives you keys only. The story-point value lives in `jira issue view
 
 2. **For each KEY, fetch the full ticket** to read story points:
    ```sh
-   jira issue view <KEY> --raw
+   jira issue view <KEY> --raw 2>&1
    ```
    `customfield_10016` lives at `.fields.customfield_10016` here.
+   Run the command bare — do not pipe through `python3` or any other
+   command, and do not redirect to a file. The JSON appears directly in
+   the bash result; read the field from it.
 
 Tickets in any other status are out of scope.
 
@@ -68,6 +71,8 @@ For each pointed Dev-Ready ticket, in this order:
    # or
    gh workflow run junior-dev.yml -f ticket_key=<KEY>
    ```
+   Run these bare — do not append `; echo "EXIT:$?"` or other status
+   checks. The exit code is visible in the bash result.
    If `gh workflow run` exits non-zero, **stop processing this ticket**
    — do not transition. Surface the failure in the Slack summary under
    *Dispatch failed*.
