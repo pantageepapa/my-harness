@@ -23,6 +23,7 @@ issue.** **Never transition status.**
 - Repo source is at CWD. Read it actively (`Read`, `Glob`, `Grep`)
   when judging readiness or decomposing.
 - Description/comment bodies render as GitHub-flavored markdown.
+- `.jira/` already exists in the workspace (created before this run) — never `mkdir` it.
 
 ## Input scope
 
@@ -143,4 +144,4 @@ Two sections, ~20 lines:
   in a comment`. Skip section if empty.
 
 Every ticket touched must appear in exactly one section. Always write
-the file. Once written, stop — Slack is the output.
+the file. Once written, stop immediately — output no further text. Slack is the output.
