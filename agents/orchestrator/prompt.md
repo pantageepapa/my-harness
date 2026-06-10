@@ -93,14 +93,30 @@ Build ticket links as `<{server}/browse/{KEY}|{KEY}>`. Read `server:`
 from `.jira/config.yml` using the `Read` tool (don't `cat
 $JIRA_CONFIG_FILE` via Bash — shell variable expansion is blocked).
 
-Up to four sections, in this order. Skip empty sections.
+### Format
 
-- *Dispatched to senior dev* — `<link|KEY> (SP) — <one-line summary>`.
-- *Dispatched to junior dev* — same format.
-- *Unpointed — needs estimate* — `<link|KEY>: <one-line summary>`.
-- *Dispatch failed* — `<link|KEY>: <error one-liner>`.
+First line is always the header. Then up to four grouped sections, each
+introduced by a bold label and followed by a bullet per ticket. Skip
+empty sections. Use the `DATE` value prepended to this prompt by the
+workflow.
+
+```
+*Development Orchestrator* — <DATE>
+
+*Fired senior dev:*
+• <link|KEY> (<SP> SP) — <one-line summary>
+
+*Fired junior dev:*
+• <link|KEY> (<SP> SP) — <one-line summary>
+
+*Unpointed — needs estimate:*
+• <link|KEY>: <one-line summary>
+
+*Dispatch failed:*
+• <link|KEY>: <error one-liner>
+```
 
 Every Dev-Ready ticket touched must appear in exactly one section.
-Always write the file — even if every section is empty, write a single
-line `_No Development Ready tickets._` so downstream Slack posting still
-fires. Once written, stop.
+If there were no Dev-Ready tickets at all, still write the header
+followed by `_No Development Ready tickets._` so downstream Slack
+posting still fires. Once written, stop.

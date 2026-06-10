@@ -53,6 +53,7 @@ jobs:
           {
             echo 'PROMPT<<PROMPT_EOF'
             echo "JIRA_PROJECT_KEY: ${JIRA_PROJECT_KEY}"
+            echo "DATE: $(date -u +%F)"
             echo
             cat agents/jira-ticket/prompt.md
             echo PROMPT_EOF

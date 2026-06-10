@@ -136,12 +136,24 @@ Build ticket links as `<{server}/browse/{KEY}|{KEY}>`. Read `server:`
 from `.jira/config.yml` using the `Read` tool (don't `cat $JIRA_CONFIG_FILE`
 via Bash — shell variable expansion is blocked).
 
-Two sections, ~20 lines:
+### Format
 
-- **Ready for review and Dev Ready** — review the description, then
-  transition. `<link|KEY>: <one-line summary>`. One line if empty.
-- **Awaiting human input** — `<link|KEY>: <N> open question(s) — reply
-  in a comment`. Skip section if empty.
+First line is always the header. Then up to two grouped sections, each
+introduced by a bold label and followed by a bullet per ticket. Skip
+empty sections. Use the `DATE` value prepended to this prompt by the
+workflow.
 
-Every ticket touched must appear in exactly one section. Always write
-the file. Once written, stop immediately — output no further text. Slack is the output.
+```
+*Jira Ticket Agent* — <DATE>
+
+*Transition to Dev Ready:*
+• <link|KEY>: <one-line summary>
+
+*Awaiting human input:*
+• <link|KEY>: <N> open question(s) — reply in a comment
+```
+
+Every ticket touched must appear in exactly one section. If neither
+section has entries, still write the header followed by `_Nothing to
+report._` so downstream Slack posting still fires. Once written, stop
+immediately — output no further text. Slack is the output.
