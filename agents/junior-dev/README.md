@@ -114,17 +114,31 @@ agent-improver `jq` queries work unchanged). Browse with
 In addition to `CLAUDE_CODE_OAUTH_TOKEN` (see
 [`agents/pr-review/README.md`](../pr-review/README.md)) and the Jira
 secrets/variables documented in
-[`agents/jira-ticket/README.md`](../jira-ticket/README.md), no new
-secrets or variables are required.
+[`agents/jira-ticket/README.md`](../jira-ticket/README.md):
+
+- **`DEV_PAT`** (repo secret) — fine-grained PAT scoped to this
+  repo with permissions: `Contents: write`, `Pull requests: write`,
+  `Workflows: write`. Used by the agent for `git push` and
+  `gh pr create`, and by the workflow's fallback PR step. The
+  `Workflows: write` scope is required for tickets that scaffold a
+  new agent (which adds a file under `.github/workflows/`); the
+  default `GITHUB_TOKEN` cannot push workflow files. The workflow
+  falls back to `GITHUB_TOKEN` if `DEV_PAT` is unset, but
+  workflow-file pushes will then be rejected at push time.
+
+  Bonus: because the PAT is a user token rather than the runner's
+  `GITHUB_TOKEN`, PRs it opens *do* trigger downstream workflows —
+  so `pr-review.yml` fires automatically on junior-dev's PRs.
+
+- **Repo setting** — *Settings → Actions → General → Allow GitHub
+  Actions to create and approve pull requests* must be enabled.
+  Without this, the workflow's fallback `gh pr create` step fails
+  with `GitHub Actions is not permitted to create or approve pull
+  requests` even when the PAT is configured for the agent's own
+  `gh pr create` call.
 
 ## Known limitations
 
-- **Downstream workflows don't auto-fire on bot-opened PRs.** The Draft
-  PR is opened with the runner's `GITHUB_TOKEN`, which by GitHub policy
-  cannot trigger other workflows. So `pr-review.yml` (which fires on
-  `pull_request: opened`) won't run automatically on these PRs. The
-  workaround when wanted later is a fine-grained PAT used for
-  `gh pr create`. Out of scope for this agent.
 - **No automated test step.** The agent runs whatever tests it deems
   relevant to the change, but there's no separate testing agent
   enforcing coverage. Reviewers carry that load until/unless a

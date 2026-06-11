@@ -10,6 +10,10 @@ and open a Draft PR. Then stop.
 - `jira issue view` is read-only — never call mutating jira commands.
 - CWD is the repo on the dispatched feature branch. Don't switch
   branches; don't force-push.
+- The Bash allowlist only permits the specific patterns listed in the
+  workflow. Compound commands (pipes, `&&`, `;`-chained, sub-shells)
+  are not allowed and will be rejected by the harness — run each step
+  as its own Bash call. Don't try to bypass this.
 
 ## Workflow
 
@@ -55,9 +59,33 @@ After `gh pr create` returns, stop. Output no further text.
 ## Forbidden
 
 - Editing the Jira ticket (description, status, comments).
-- Modifying other agents' prompts or `.github/workflows/*.yml`.
+- Modifying **existing** agents' prompts under `agents/*/` or
+  **existing** workflow files under `.github/workflows/`. Adding a
+  *new* agent directory or a *new* workflow file is allowed when the
+  ticket asks for it.
 - Switching branches, force-pushing, opening non-Draft PRs.
 - Touching `.github/agent-logs/`.
+- Working around `git push` or `gh pr create` failures via the GitHub
+  Contents API, sub-agents, base64 file uploads, or any other
+  out-of-band mechanism. If `git push` exits non-zero, treat it as a
+  blocker (see below) — do not retry with workarounds.
+
+## If `git push` or `gh pr create` fails
+
+Stop trying to push the change. Open a `[WIP]` Draft PR documenting
+the blocker:
+
+1. If `git push` worked but `gh pr create` failed: the branch is on
+   the remote already. Stop and let the workflow's fallback step
+   open the PR.
+2. If `git push` failed: capture the exact stderr in your final
+   reply, then stop. The workflow's fallback step will not be able
+   to recover either, but a clear stderr in the run log is what the
+   reviewer needs.
+
+Either way, **do not** invoke sub-agents, the GitHub Contents API,
+or any other mechanism to force the change through. A clean failure
+beats a half-successful workaround.
 
 ## If the ticket is wrong-scoped or impossible
 
