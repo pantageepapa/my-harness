@@ -117,7 +117,7 @@ jobs:
         run: |
           set -e
           git fetch --depth=1 origin main
-          git checkout -B main origin/main
+          git checkout -f -B main origin/main
           DATE="$(date -u +%F)"
           DEST=".github/agent-logs/agent-improver/${DATE}/${RUN_ID}.json"
           mkdir -p "$(dirname "$DEST")"
