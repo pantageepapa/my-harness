@@ -68,13 +68,15 @@ Two adaptations because you run headless:
      numbered list of blocking questions. No design/tasks yet —
      don't build on guesses.
 4. Commit the change directory, push: `git push -u origin HEAD`.
-5. Open the Draft PR:
+5. Open the Draft PR. Write the body to `/tmp/pr-body.md` first
+   (inline `--body` fails on `!` characters via shell history expansion),
+   then:
 
    ```sh
    gh pr create --draft \
      --base main \
      --title "[${TICKET_KEY}] <one-line summary>" \
-     --body "<body>"
+     --body-file /tmp/pr-body.md
    ```
 
    PR body sections, in order:
