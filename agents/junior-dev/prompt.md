@@ -60,7 +60,7 @@ Once `gh pr create` returns, capture the PR URL and close out on Jira:
 
 ```sh
 PR_URL="<the URL gh pr create printed>"
-jira issue comment add "$TICKET_KEY" "Implementation ready for review: $PR_URL" --no-input
+jira issue comment add "$TICKET_KEY" "Implementation ready for review: $PR_URL"
 jira issue move "$TICKET_KEY" "In Review"
 ```
 
