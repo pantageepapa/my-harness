@@ -18,7 +18,7 @@ Humans create tickets
         ▼
 Development Orchestrator
         │
-        ├──── complex ────► Senior developer agent  (/openspec:explore)
+        ├──── complex ────► Senior developer agent  (OpenSpec /opsx)
         │                          │
         │                          ▼
         │                    PR Review agent ◄────┐
@@ -60,13 +60,18 @@ Development Orchestrator
 - Reads the ticket.
 - Decides the complexity (complex vs. easy) and routes accordingly.
 
-### Senior Developer Agent — `/openspec:explore`
+### Senior Developer Agent — OpenSpec (`/opsx` conventions)
 **Goal:** tackle complex tasks **with a human in the loop**.
 
-- Uses spec-driven development.
-- Requests human input before moving to implementation.
+- Uses spec-driven development via the [OpenSpec](https://github.com/Fission-AI/OpenSpec)
+  library (the originally sketched `/openspec:explore` doesn't exist;
+  OpenSpec's `/opsx:*` commands are the real equivalent — see
+  [`agents/senior-dev/README.md`](../agents/senior-dev/README.md)).
+- Requests human input before moving to implementation: spec lands as a
+  Draft PR; a native PR review (Approve / Request changes) resumes the
+  agent into implement / revise.
 - Same runtime shape as Junior: headless `claude -p` on a GHA runner with
-  `--max-turns` and a workflow timeout. The `/openspec:explore` skill and
+  `--max-turns` and a workflow timeout. The OpenSpec conventions and
   human-in-the-loop pauses layer on top of that base.
 
 ### Junior Developer Agent

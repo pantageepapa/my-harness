@@ -1,0 +1,56 @@
+# Resumes the Senior Developer agent when a human reviews the spec
+# Draft PR (KAN-4 human-in-the-loop checkpoint).
+#
+#   Approve          -> dispatch senior-dev.yml phase=implement
+#   Request changes  -> dispatch senior-dev.yml phase=revise
+#   Comment-only     -> ignored (discussion; the agent reads the thread
+#                       on its next run)
+#
+# Reviews only count while the PR is still a draft. Once the implement
+# phase flips it to ready-for-review, reviews mean ordinary code review
+# again and this workflow stays out of the way.
+name: Senior Developer spec review trigger
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  actions: write
+  pull-requests: write
+
+jobs:
+  resume:
+    # Gates: senior-dev branch, still a draft, an actionable review
+    # state, and a reviewer with push rights (no drive-by approvals).
+    if: >-
+      github.event.pull_request.draft &&
+      startsWith(github.event.pull_request.head.ref, 'senior-dev/') &&
+      (github.event.review.state == 'approved' ||
+       github.event.review.state == 'changes_requested') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'),
+               github.event.review.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch senior-dev phase
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          REVIEW_STATE: ${{ github.event.review.state }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TICKET_KEY="${HEAD_REF#senior-dev/}"
+          if [ "$REVIEW_STATE" = "approved" ]; then
+            PHASE=implement
+            ACK="Spec approved — dispatching the implementation run."
+          else
+            PHASE=revise
+            ACK="Changes requested — dispatching a spec revision run."
+          fi
+          gh pr comment "$PR_NUMBER" --repo "$REPO" \
+            --body "${ACK} (\`senior-dev.yml\`, \`phase=${PHASE}\`, ticket \`${TICKET_KEY}\`)"
+          gh workflow run senior-dev.yml --repo "$REPO" \
+            -f ticket_key="$TICKET_KEY" \
+            -f phase="$PHASE"

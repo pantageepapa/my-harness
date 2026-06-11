@@ -25,8 +25,8 @@ be set.
 
 | Story points (`customfield_10016`) | Path |
 | ---------------------------------- | ---- |
-| `1`, `2`, `3`                      | Junior — autonomous (`/goal` or `/ralph-loop`). |
-| `≥ 4`                              | Senior — human-in-the-loop (`/openspec:explore`). |
+| `1`, `2`, `3`                      | Junior — autonomous. |
+| `≥ 4`                              | Senior — human-in-the-loop (spec-driven, OpenSpec). |
 | `null` / unset / non-numeric       | Skip + surface in Slack as *Unpointed — needs estimate*. |
 
 **Why story points over the doc's three options:**
@@ -81,12 +81,15 @@ takes effect on the next workflow run.
 
 ## Senior / Junior dev workflows
 
-Currently `senior-dev.yml` and `junior-dev.yml` are **stubs**: they
-accept a `ticket_key` input, echo it, and exit. Real implementations
-land in [KAN-4](https://jaeyoonsworkspace-23358853.atlassian.net/browse/KAN-4)
-(senior) and [KAN-2](https://jaeyoonsworkspace-23358853.atlassian.net/browse/KAN-2)
-(junior). The stubs let the orchestrator be exercised end-to-end today
-without dispatch errors.
+Both paths are implemented: `junior-dev.yml`
+([KAN-2](https://jaeyoonsworkspace-23358853.atlassian.net/browse/KAN-2),
+see [`agents/junior-dev/README.md`](../junior-dev/README.md)) and
+`senior-dev.yml`
+([KAN-4](https://jaeyoonsworkspace-23358853.atlassian.net/browse/KAN-4),
+see [`agents/senior-dev/README.md`](../senior-dev/README.md)). The
+orchestrator only ever dispatches with `-f ticket_key=KEY`; senior-dev's
+extra `phase` input defaults to `propose`, which is exactly the
+spec-first entry point the complex path wants.
 
 ## Required setup (one-time, per clone)
 
