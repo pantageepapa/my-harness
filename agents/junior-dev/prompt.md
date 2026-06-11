@@ -78,10 +78,11 @@ the blocker:
 1. If `git push` worked but `gh pr create` failed: the branch is on
    the remote already. Stop and let the workflow's fallback step
    open the PR.
-2. If `git push` failed: capture the exact stderr in your final
-   reply, then stop. The workflow's fallback step will not be able
-   to recover either, but a clear stderr in the run log is what the
-   reviewer needs.
+2. If `git push` failed with a non-fast-forward error: run
+   `git fetch origin <branch>` then `git pull --rebase origin <branch>`
+   and push again. If the second push also fails, capture the exact
+   stderr and stop. For any other push failure, capture the exact
+   stderr and stop immediately.
 
 Either way, **do not** invoke sub-agents, the GitHub Contents API,
 or any other mechanism to force the change through. A clean failure
