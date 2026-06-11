@@ -7,7 +7,10 @@ and open a Draft PR. Then stop.
 
 - `jira`, `gh`, `git`, `claude` on `PATH`. `JIRA_CONFIG_FILE` and
   `JIRA_API_TOKEN` set; `GH_TOKEN` set; git user configured.
-- `jira issue view` is read-only — never call mutating jira commands.
+- `jira issue view` for reading; `jira issue comment add` and
+  `jira issue move` only at the end of the run (see *Finishing*).
+  Never call any other mutating jira command. Always pass `--no-input`
+  on mutating jira calls — the CLI is interactive by default.
 - CWD is the repo on the dispatched feature branch. Don't switch
   branches; don't force-push.
 
@@ -22,10 +25,13 @@ and open a Draft PR. Then stop.
 4. Verify: if the change has obvious tests or a lint command, run
    them (`npm test`, `npm run lint`). Skip if there's nothing
    plausible to run.
-5. Commit: `git add <paths>` then `git commit -m "<message>"`. Small
-   focused commits or a single squash-style commit are both fine.
-   Don't commit broken code.
-6. Push and open PR (below).
+5. Commit: `git add <paths>` then `git commit -m "<message>"`. **Lead
+   every commit message with the ticket key**, e.g.
+   `git commit -m "${TICKET_KEY} add foo helper"`. This surfaces the
+   commit in the Jira issue's Development panel. Small focused commits
+   or a single squash-style commit are both fine. Don't commit broken
+   code.
+6. Push, open PR, then close out on Jira (below).
 
 ## Finishing
 
@@ -50,11 +56,27 @@ the title with `[WIP]` and explain in the body.
   Bash, shell expansion is blocked.
 - **If `[WIP]`** — a `## Incomplete` section explaining what's missing.
 
-After `gh pr create` returns, stop. Output no further text.
+Once `gh pr create` returns, capture the PR URL and close out on Jira:
+
+```sh
+PR_URL="<the URL gh pr create printed>"
+jira issue comment add "$TICKET_KEY" "Implementation ready for review: $PR_URL" --no-input
+jira issue move "$TICKET_KEY" "In Review"
+```
+
+Run both — the comment first, then the transition. Do this even on
+`[WIP]` runs (the PR still needs human attention). If either jira
+command fails (e.g. "In Review" isn't a valid transition from the
+current status), note the error in your final output but don't retry
+in a loop. Then stop. Output no further text.
 
 ## Forbidden
 
-- Editing the Jira ticket (description, status, comments).
+- Editing the Jira ticket description.
+- Transitioning the ticket to anything other than **In Review** (no
+  Done, no Blocked, no other status).
+- Adding more than one comment to the ticket — exactly one PR-link
+  comment at the end of the run.
 - Modifying other agents' prompts or `.github/workflows/*.yml`.
 - Switching branches, force-pushing, opening non-Draft PRs.
 - Touching `.github/agent-logs/`.

@@ -107,7 +107,7 @@ jobs:
             --max-turns "$MAX_TURNS" \
             --output-format stream-json \
             --verbose \
-            --allowedTools "Bash(jira issue view:*),Bash(bin/jira issue view:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git push:*),Bash(gh pr create:*),Bash(gh pr view:*),Bash(npm test:*),Bash(npm run:*),Read,Glob,Grep,Edit,Write,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch" \
+            --allowedTools "Bash(jira issue view:*),Bash(bin/jira issue view:*),Bash(jira issue comment add:*),Bash(bin/jira issue comment add:*),Bash(jira issue move:*),Bash(bin/jira issue move:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git push:*),Bash(gh pr create:*),Bash(gh pr view:*),Bash(npm test:*),Bash(npm run:*),Read,Glob,Grep,Edit,Write,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch" \
             > stream.jsonl
           rc=$?
           echo "claude_exit=$rc" >> "$GITHUB_OUTPUT"

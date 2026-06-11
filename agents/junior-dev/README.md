@@ -26,7 +26,22 @@ Dispatches come from two places:
 The workflow installs `jira` and the Claude Code CLI, configures git,
 creates branch `junior-dev/<TICKET_KEY>` from `origin/main`, then hands
 off to a single `claude -p` invocation. The agent reads the ticket,
-implements, commits, pushes, and opens the Draft PR itself.
+implements, commits, pushes, opens the Draft PR, comments the PR URL
+on the Jira ticket, and transitions it to **In Review**.
+
+## Jira ↔ GitHub linkage
+
+The agent leads every commit message with the ticket key (e.g.
+`KAN-42 add foo helper`) so commits surface in the issue's Development
+panel. The PR title is `[<KEY>] <summary>` and the body links the
+ticket via `<JIRA_SERVER>/browse/<KEY>` — the GitHub for Jira
+integration picks up any of these signals.
+
+After `gh pr create` succeeds, the agent posts a single comment on
+the ticket with the PR URL and transitions the status from **In
+Progress** → **In Review**. If the transition is invalid (e.g. the
+project's workflow doesn't have an "In Review" column), the run logs
+the error and continues — the PR is still open for review.
 
 ## Decisions
 
