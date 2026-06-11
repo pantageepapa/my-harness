@@ -105,9 +105,15 @@ agent-improver `jq` queries work unchanged). Browse with
 
 ## What's deliberately not configured
 
-- No `--model` — uses the CLI's default.
 - No assignee or label filtering. The orchestrator gates which tickets
   get dispatched.
+
+## Model
+
+Pinned to **Opus 4.7** (`--model claude-opus-4-7`). Implementation
+benefits more from raw capability than the read/triage agents do, and
+the orchestrator's 1–3 SP gate keeps run length bounded. Revisit if
+cost or run length becomes a problem.
 
 ## Required setup
 

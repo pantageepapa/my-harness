@@ -102,6 +102,7 @@ jobs:
         run: |
           set +e
           claude -p "$PROMPT" \
+            --model claude-opus-4-7 \
             --permission-mode acceptEdits \
             --max-turns "$MAX_TURNS" \
             --output-format stream-json \
