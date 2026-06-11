@@ -28,7 +28,10 @@ and open a Draft PR. Then stop.
    plausible to run.
 5. Commit: `git add <paths>` then `git commit -m "<message>"`. Small
    focused commits or a single squash-style commit are both fine.
-   Don't commit broken code.
+   Don't commit broken code. **When creating multiple new files,
+   commit each file as soon as it's written** rather than batching all
+   commits at the end — this preserves partial progress if the turn
+   cap fires before you finish.
 6. Push and open PR (below).
 
 ## Finishing
