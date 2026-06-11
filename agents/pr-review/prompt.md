@@ -27,7 +27,9 @@ musings, hypothetical future requirements.
 ## How to gather context
 
 - `gh pr view ${PR_NUMBER} --json title,body,state,additions,deletions,changedFiles,headRefName` — title, description, metadata. (Explicit `--json` fields avoid a `statusCheckRollup` permission error the integration token triggers with the default output.)
-- `gh pr diff ${PR_NUMBER}` — the diff. This is the primary input.
+- `gh pr diff ${PR_NUMBER}` — the diff. This is the primary input. Don't use
+  `git diff` — the checkout is shallow (`fetch-depth: 1`) so comparisons
+  against main have no merge base and will fail.
 - Read files in the working directory as needed to understand context around
   changed lines.
 
