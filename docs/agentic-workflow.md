@@ -30,11 +30,11 @@ Development Orchestrator
         │                Humans test & merge PR   │
         │                                         │
         └──── easy ──────► Junior developer agent │
-                                  │   (/goal or /ralph-loop)
+                                  │   (headless `claude -p`, --max-turns)
                                   ▼               │
-                            Testing agent ────────┘
-                          (loops back to dev
-                           agent on failure)
+                              Draft PR ───────────┘
+                          (human picks up &
+                           merges, or re-runs)
 ```
 
 ## Human touchpoints
@@ -65,17 +65,17 @@ Development Orchestrator
 
 - Uses spec-driven development.
 - Requests human input before moving to implementation.
+- Same runtime shape as Junior: headless `claude -p` on a GHA runner with
+  `--max-turns` and a workflow timeout. The `/openspec:explore` skill and
+  human-in-the-loop pauses layer on top of that base.
 
-### Junior Developer Agent — `/goal` or `/ralph-loop`
+### Junior Developer Agent
 **Goal:** tackle easy tasks **without a human in the loop**.
 
-- Uses headless Claude, planning straight through to execution.
-- Creates a PR and launches the testing agent.
-
-### Testing Agent
-**Goal:** write dedicated tests and run them.
-
-- If tests fail, hands the work back to the developer agent.
+- Headless `claude -p` invoked directly from a GitHub Actions workflow
+  (no skill wrapper). Plans straight through to execution.
+- Bounded by `--max-turns` per dispatch + a workflow-level `timeout-minutes`.
+- Creates a Draft PR; a human picks it up from there.
 
 ### PR Review Agent
 **Goal:** daily review of updated PRs.
@@ -94,8 +94,14 @@ Development Orchestrator
 
 - **Complexity gate at the orchestrator.** Two-tier routing keeps the
   human-in-the-loop cost only on work that needs it.
-- **Junior ↔ Testing tight loop.** The easy path stays fully autonomous —
-  failures bounce inside the loop, not back to a human.
+- **Runtime split.** `claude-code-action` for read/triage surfaces
+  (orchestrator, ticket grooming, PR review, agent-improver); raw
+  `claude -p` for implementation lanes (junior-dev, senior-dev). The
+  action's PR-comment plumbing is dead weight when the agent's job is to
+  edit files, push a branch, and open a PR.
+- **Bounded dev-agent runs.** `--max-turns` per dispatch + `timeout-minutes`
+  on the job stop a hard ticket from spinning forever. Tickets stay in
+  **In Progress** so the orchestrator won't re-fire them.
 - **Review ↔ Refinement as an adversarial pair.** Using a different model for
   refinement is a deliberate hedge against single-model review bias.
 - **Daily cadence** on review and refinement rather than per-PR-event triggers.
@@ -105,7 +111,6 @@ Development Orchestrator
 - How is "complex vs. easy" actually decided? Heuristic, classifier, or LLM
   judgment with calibration?
 - Where does the orchestrator live (cron, webhook, queue)?
-- What stops the Junior↔Testing loop from running forever on a hard ticket?
 - How does the Refinement agent know when to stop counteracting?
 - How are the two daily passes (review + refinement) sequenced — same run, or
   staggered?
