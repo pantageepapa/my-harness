@@ -1,7 +1,20 @@
-# STUB — placeholder pending KAN-4 (Build Senior Developer agent).
-# The orchestrator (KAN-1) dispatches this workflow for complex tickets
-# (story points >= 4). Until KAN-4 lands, this just echoes the input.
-name: Senior Developer agent (stub)
+# Senior Developer agent (KAN-4): spec-driven implementation for
+# complex tickets (story points >= 4), with a human checkpoint between
+# spec and implementation.
+#
+# Phases (one headless `claude -p` run each; state lives on the
+# senior-dev/<TICKET_KEY> branch and its Draft PR):
+#
+#   propose    orchestrator-dispatched. Explore + write an OpenSpec
+#              change, open a Draft PR, stop. The pause is the end of
+#              the run — nothing stays running while humans review.
+#   revise     dispatched by senior-dev-resume.yml on a
+#              "Request changes" review. Update the spec from the
+#              review thread, push, stop.
+#   implement  dispatched by senior-dev-resume.yml on an "Approve"
+#              review. Execute tasks.md, push, flip the PR to
+#              ready-for-review (which hands off to pr-review.yml).
+name: Senior Developer agent
 
 on:
   workflow_dispatch:
@@ -10,12 +23,230 @@ on:
         description: 'Jira ticket key (e.g. KAN-42)'
         required: true
         type: string
+      phase:
+        description: 'Run phase'
+        required: false
+        type: choice
+        options:
+          - propose
+          - revise
+          - implement
+        default: propose
+      max_turns:
+        description: 'Override --max-turns (defaults: propose 30, revise 20, implement 60)'
+        required: false
+        type: string
+        default: ''
 
 jobs:
-  stub:
+  run:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+      actions: write
     steps:
-      - name: Acknowledge dispatch
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          # PAT with workflows:write so the agent can push branches that
+          # add or modify .github/workflows/*. Falls back to GITHUB_TOKEN
+          # when the PAT isn't configured (workflow-file changes will then
+          # be rejected at push time, by design).
+          token: ${{ secrets.DEV_PAT || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install jira CLI
+        run: bash scripts/install-jira-cli.sh
+
+      - name: Put bin/ on PATH
+        run: echo "$PWD/bin" >> "$GITHUB_PATH"
+
+      - name: Write jira config
+        env:
+          JIRA_SERVER: ${{ vars.JIRA_SERVER }}
+          JIRA_LOGIN: ${{ vars.JIRA_LOGIN }}
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
+          JIRA_BOARD_ID: ${{ vars.JIRA_BOARD_ID }}
+        run: |
+          set -euo pipefail
+          : "${JIRA_SERVER:?JIRA_SERVER repo variable is required}"
+          : "${JIRA_LOGIN:?JIRA_LOGIN repo variable is required}"
+          : "${JIRA_PROJECT_KEY:?JIRA_PROJECT_KEY repo variable is required}"
+          mkdir -p .jira
+          cat > .jira/config.yml <<EOF
+          installation: Cloud
+          server: ${JIRA_SERVER}
+          login: ${JIRA_LOGIN}
+          project:
+              key: ${JIRA_PROJECT_KEY}
+              type: classic
+          board:
+              id: ${JIRA_BOARD_ID:-0}
+          EOF
+
+      - name: Install Claude Code and OpenSpec CLIs
+        # OpenSpec pinned to the major that generated the vendored
+        # skills (.claude/skills/openspec-*, generatedBy 1.3.1) so the
+        # CLI and the committed instructions can't drift apart.
+        run: npm install -g @anthropic-ai/claude-code @fission-ai/openspec@1
+
+      - name: Configure git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Check out phase branch
         env:
           TICKET_KEY: ${{ inputs.ticket_key }}
-        run: echo "senior-dev stub invoked for ${TICKET_KEY}"
+          PHASE: ${{ inputs.phase }}
+        run: |
+          set -euo pipefail
+          if [ "$PHASE" = "propose" ]; then
+            # Fresh start from main; force-reset the remote ref so a
+            # re-dispatch of the same ticket starts clean (matches the
+            # junior-dev re-dispatch semantics).
+            git fetch --depth=1 origin main
+            git checkout -B "senior-dev/${TICKET_KEY}" origin/main
+            git push --force origin "senior-dev/${TICKET_KEY}"
+          else
+            # revise/implement resume on the existing spec branch — the
+            # committed spec and PR thread ARE the state. Never reset.
+            git fetch origin "senior-dev/${TICKET_KEY}"
+            git checkout -B "senior-dev/${TICKET_KEY}" "origin/senior-dev/${TICKET_KEY}"
+          fi
+
+      - id: prompt
+        env:
+          TICKET_KEY: ${{ inputs.ticket_key }}
+          PHASE: ${{ inputs.phase }}
+        run: |
+          {
+            echo 'PROMPT<<PROMPT_EOF'
+            echo "TICKET_KEY: ${TICKET_KEY}"
+            echo "PHASE: ${PHASE}"
+            echo "DATE: $(date -u +%F)"
+            echo
+            cat agents/senior-dev/prompt.md
+            echo PROMPT_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - id: claude
+        name: Run Claude (headless)
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CONTEXT7_API_KEY: ${{ secrets.CONTEXT7_API_KEY }}
+          JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          GH_TOKEN: ${{ secrets.DEV_PAT || secrets.GITHUB_TOKEN }}
+          PROMPT: ${{ steps.prompt.outputs.PROMPT }}
+          PHASE: ${{ inputs.phase }}
+          MAX_TURNS: ${{ inputs.max_turns }}
+        run: |
+          set +e
+          if [ -z "$MAX_TURNS" ]; then
+            case "$PHASE" in
+              propose)   MAX_TURNS=30 ;;
+              revise)    MAX_TURNS=20 ;;
+              implement) MAX_TURNS=60 ;;
+            esac
+          fi
+          claude -p "$PROMPT" \
+            --permission-mode acceptEdits \
+            --max-turns "$MAX_TURNS" \
+            --output-format stream-json \
+            --verbose \
+            --allowedTools "Bash(jira issue view:*),Bash(bin/jira issue view:*),Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git push:*),Bash(git rev-parse:*),Bash(git remote:*),Bash(git config --get:*),Bash(git config --list),Bash(git branch:*),Bash(git show:*),Bash(gh pr create:*),Bash(gh pr view:*),Bash(gh pr comment:*),Bash(gh pr ready:*),Bash(gh auth status),Bash(gh api repos/:*),Bash(openspec:*),Bash(npm test:*),Bash(npm run:*),Bash(ls:*),Bash(cat:*),Bash(printenv:*),Bash(env),Read,Glob,Grep,Edit,Write,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch" \
+            > stream.jsonl
+          rc=$?
+          echo "claude_exit=$rc" >> "$GITHUB_OUTPUT"
+          # Always succeed; downstream steps handle non-zero claude exit.
+          exit 0
+
+      - name: Convert log to JSON array
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ -s stream.jsonl ]; then
+            jq -s '.' stream.jsonl > execution.json
+          else
+            echo '[]' > execution.json
+          fi
+
+      - name: Open fallback Draft PR if agent didn't (propose only)
+        if: always() && inputs.phase == 'propose'
+        env:
+          GH_TOKEN: ${{ secrets.DEV_PAT || secrets.GITHUB_TOKEN }}
+          TICKET_KEY: ${{ inputs.ticket_key }}
+          CLAUDE_EXIT: ${{ steps.claude.outputs.claude_exit }}
+        run: |
+          set -euo pipefail
+
+          # Skip if the agent already opened a PR for this branch.
+          if gh pr view "senior-dev/${TICKET_KEY}" --json url >/dev/null 2>&1; then
+            echo "PR already exists for senior-dev/${TICKET_KEY}; skipping fallback."
+            exit 0
+          fi
+
+          # Need at least one commit beyond origin/main to have something to push.
+          commits=$(git rev-list --count "origin/main..HEAD" 2>/dev/null || echo 0)
+          if [ "$commits" -eq 0 ]; then
+            echo "No commits on branch; nothing to push."
+            exit 0
+          fi
+
+          # Push the branch (no-op if the agent already pushed).
+          git push -u origin "senior-dev/${TICKET_KEY}" || true
+
+          gh pr create --draft \
+            --base main \
+            --head "senior-dev/${TICKET_KEY}" \
+            --title "[WIP] [${TICKET_KEY}] senior-dev exited before opening spec PR" \
+            --body "Senior-dev propose run terminated before opening a PR itself (claude exit code ${CLAUDE_EXIT:-unknown}; likely \`--max-turns\` cap or runtime error). Branch holds whatever the agent committed. See \`.github/agent-logs/senior-dev/\` for the run log."
+
+      - name: Comment on PR if resumed run exited early
+        if: always() && inputs.phase != 'propose' && steps.claude.outputs.claude_exit != '0'
+        env:
+          GH_TOKEN: ${{ secrets.DEV_PAT || secrets.GITHUB_TOKEN }}
+          TICKET_KEY: ${{ inputs.ticket_key }}
+          PHASE: ${{ inputs.phase }}
+          CLAUDE_EXIT: ${{ steps.claude.outputs.claude_exit }}
+        run: |
+          set -euo pipefail
+          # Without this the human's review action appears to vanish.
+          gh pr comment "senior-dev/${TICKET_KEY}" \
+            --body "senior-dev \`${PHASE}\` run exited early (claude exit code ${CLAUDE_EXIT:-unknown}; likely \`--max-turns\` cap or runtime error). The branch holds whatever was committed before the stop. See \`.github/agent-logs/senior-dev/\` for the run log. Re-trigger by submitting the review again." \
+            || echo "No PR found for senior-dev/${TICKET_KEY}; skipping comment."
+
+      - name: Commit execution log to main
+        if: always() && hashFiles('execution.json') != ''
+        env:
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          set -e
+          git fetch --depth=1 origin main
+          git checkout -f -B main origin/main
+          DATE="$(date -u +%F)"
+          DEST=".github/agent-logs/senior-dev/${DATE}/${RUN_ID}.json"
+          mkdir -p "$(dirname "$DEST")"
+          cp execution.json "$DEST"
+          git add "$DEST"
+          git commit -m "agent log: senior-dev run ${RUN_ID}"
+          git push origin main
+
+      - name: Trigger agent improver
+        if: always() && hashFiles('execution.json') != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          DATE="$(date -u +%F)"
+          gh workflow run agent-improver.yml \
+            -f agent_name=senior-dev \
+            -f log_path=".github/agent-logs/senior-dev/${DATE}/${RUN_ID}.json" \
+            -f log_ref=main
