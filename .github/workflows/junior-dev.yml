@@ -80,6 +80,11 @@ jobs:
           set -euo pipefail
           git fetch --depth=1 origin main
           git checkout -B "junior-dev/${TICKET_KEY}" origin/main
+          # Reset the remote ref so re-runs of the same ticket start
+          # clean — matches the local `checkout -B` semantic. A prior
+          # failed run can leave commits on the remote that diverge
+          # from current main, which would block fast-forward push.
+          git push --force origin "junior-dev/${TICKET_KEY}"
 
       - id: prompt
         env:
