@@ -15,11 +15,15 @@ log "Creating worktree (branch: $BRANCH)..."
 mkdir -p "$WORKTREE_PARENT"
 git worktree add -b "$BRANCH" "$WORKTREE_PATH" >/dev/null 2>&1
 
-# Symlink shared config dirs — edits stay in sync across worktrees
+# Symlink shared config dirs — edits stay in sync across worktrees.
+# Use `ln -sn` and skip if the target already exists, so that if $d is
+# already a symlink to a directory we don't follow it and write the new
+# link *inside* the real target (that's how a self-referential
+# `.claude/.claude` symlink got committed in PR #43).
 log "  Symlinking config dirs..."
 for d in .claude .cursor .instrumental .agent_os; do
-  if [ -d "${REPO_PATH}/$d" ]; then
-    ln -s "${REPO_PATH}/$d" "${WORKTREE_PATH}/$d"
+  if [ -d "${REPO_PATH}/$d" ] && [ ! -e "${WORKTREE_PATH}/$d" ] && [ ! -L "${WORKTREE_PATH}/$d" ]; then
+    ln -sn "${REPO_PATH}/$d" "${WORKTREE_PATH}/$d"
     log "    linked $d"
   fi
 done

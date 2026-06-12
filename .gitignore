@@ -14,3 +14,8 @@ tools/log-index.json
 
 # Per-user Claude Code overrides — keep out of the shared repo.
 .claude/settings.local.json
+
+# Self-referential symlink the worktree skill used to produce when re-run
+# inside an existing worktree (`.claude/.claude` -> repo's `.claude/`).
+# Tracking it broke CI with ENOENT on the runner; guard against re-add.
+.claude/.claude
