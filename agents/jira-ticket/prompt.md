@@ -31,6 +31,8 @@ issue.** **Never transition status.**
 jira issue list -q "project = $JIRA_PROJECT_KEY AND resolution = Unresolved AND status != \"Development Ready\"" --raw
 ```
 
+If this command exits non-zero with "No result found", the backlog is empty — write the Slack summary immediately and stop. Do **not** retry with different queries or explore whether the project exists.
+
 Tickets in **Development Ready** are out of scope.
 
 ## Readiness bar
