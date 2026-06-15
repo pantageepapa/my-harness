@@ -85,6 +85,9 @@ jobs:
         env:
           TICKET_KEY: ${{ github.event.client_payload.ticket_key || inputs.ticket_key }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_SERVER: ${{ vars.JIRA_SERVER }}
+          JIRA_LOGIN: ${{ vars.JIRA_LOGIN }}
+          JIRA_PROJECT_KEY: ${{ vars.JIRA_PROJECT_KEY }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
         run: |
@@ -94,6 +97,8 @@ jobs:
           echo "::group::Diagnostics: does ${TICKET_KEY} exist?"
           echo "-- jira CLI list by key --"
           jira issue list -q "key = ${TICKET_KEY}" --plain || true
+          echo "-- recent issues in project ${JIRA_PROJECT_KEY} --"
+          jira issue list -q "project = ${JIRA_PROJECT_KEY} ORDER BY created DESC" --plain | head -20 || true
           echo "-- raw REST v3 lookup --"
           http_code=$(curl -sS -o /tmp/jira_issue.json -w '%{http_code}' \
             -u "${JIRA_LOGIN}:${JIRA_API_TOKEN}" \
