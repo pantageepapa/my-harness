@@ -17,11 +17,11 @@ The workflow `junior-dev.yml` triggers on `workflow_dispatch` only.
 Dispatches come from two places:
 
 - **Manual** — `gh workflow run junior-dev.yml -f ticket_key=KAN-42`.
-- **Automated** — the Development Orchestrator's post-step
-  ([`orchestrator.yml:111`](../../.github/workflows/orchestrator.yml))
-  fires it for every Dev-Ready ticket with story points 1–3, then
-  transitions the ticket to **In Progress** so it doesn't re-fire on
-  the next orchestrator pass.
+- **Automated** — the Development Orchestrator
+  ([`orchestrator.yml`](../../.github/workflows/orchestrator.yml))
+  fires it on the Jira "Dev Ready" transition for every ticket with
+  story points 1–3, then moves the ticket to **In Progress** so the
+  same transition can't re-fire it.
 
 The workflow installs `jira` and the Claude Code CLI, configures git,
 creates branch `junior-dev/<TICKET_KEY>` from `origin/main`, then hands
@@ -53,8 +53,9 @@ author to make. Each decision and why:
 
 This agent is the first to run **headless `claude -p` directly** rather
 than through `anthropics/claude-code-action@v1`. The action stays for
-read/triage agents (orchestrator, jira-ticket, pr-review,
-agent-improver) where its event-shaped plumbing is useful. For
+read/triage agents (jira-ticket, pr-review, agent-improver) where its
+event-shaped plumbing is useful. The orchestrator now runs as plain
+bash with no model. For
 implementation, the action's PR-comment surface is dead weight; running
 the CLI directly gives full control over `--max-turns`, allowed tools,
 and exit handling. See the *Design choices* section in

@@ -51,9 +51,9 @@ re-reads the ticket, the committed spec, and the full PR conversation
 
 Dispatches come from three places:
 
-- **Automated** — the Development Orchestrator's post-step fires
-  `phase=propose` for every Dev-Ready ticket with story points ≥ 4,
-  then transitions the ticket to **In Progress**.
+- **Automated** — the Development Orchestrator fires `phase=propose`
+  on the Jira "Dev Ready" transition for every ticket with story
+  points ≥ 4, then moves the ticket to **In Progress**.
 - **Reviews** — `senior-dev-resume.yml` fires `phase=revise` /
   `phase=implement` from human review verdicts (see below).
 - **Manual** — `gh workflow run senior-dev.yml -f ticket_key=KAN-42
