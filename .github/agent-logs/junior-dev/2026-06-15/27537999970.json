@@ -1,0 +1,2577 @@
+[
+  {
+    "type": "system",
+    "subtype": "init",
+    "cwd": "/home/runner/work/my-harness/my-harness",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "tools": [
+      "Task",
+      "AskUserQuestion",
+      "Bash",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "DesignSync",
+      "Edit",
+      "EnterPlanMode",
+      "EnterWorktree",
+      "ExitPlanMode",
+      "ExitWorktree",
+      "Glob",
+      "Grep",
+      "Monitor",
+      "NotebookEdit",
+      "PushNotification",
+      "Read",
+      "RemoteTrigger",
+      "ScheduleWakeup",
+      "Skill",
+      "TaskCreate",
+      "TaskGet",
+      "TaskList",
+      "TaskOutput",
+      "TaskStop",
+      "TaskUpdate",
+      "ToolSearch",
+      "WebFetch",
+      "WebSearch",
+      "Workflow",
+      "Write"
+    ],
+    "mcp_servers": [
+      {
+        "name": "context7",
+        "status": "pending"
+      }
+    ],
+    "model": "claude-sonnet-4-6",
+    "permissionMode": "acceptEdits",
+    "slash_commands": [
+      "jira-cli",
+      "openspec-apply-change",
+      "openspec-archive-change",
+      "openspec-explore",
+      "openspec-propose",
+      "start-wt",
+      "opsx:apply",
+      "opsx:archive",
+      "opsx:explore",
+      "opsx:propose",
+      "deep-research",
+      "design-sync",
+      "update-config",
+      "verify",
+      "debug",
+      "code-review",
+      "simplify",
+      "batch",
+      "fewer-permission-prompts",
+      "loop",
+      "schedule",
+      "claude-api",
+      "run",
+      "run-skill-generator",
+      "clear",
+      "compact",
+      "context",
+      "heapdump",
+      "init",
+      "reload-skills",
+      "review",
+      "security-review",
+      "usage",
+      "insights",
+      "goal",
+      "team-onboarding"
+    ],
+    "apiKeySource": "none",
+    "claude_code_version": "2.1.177",
+    "output_style": "default",
+    "agents": [
+      "claude",
+      "Explore",
+      "general-purpose",
+      "Plan",
+      "statusline-setup"
+    ],
+    "skills": [
+      "jira-cli",
+      "openspec-apply-change",
+      "openspec-archive-change",
+      "openspec-explore",
+      "openspec-propose",
+      "start-wt",
+      "deep-research",
+      "design-sync",
+      "update-config",
+      "verify",
+      "debug",
+      "code-review",
+      "simplify",
+      "batch",
+      "fewer-permission-prompts",
+      "loop",
+      "schedule",
+      "claude-api",
+      "run",
+      "run-skill-generator"
+    ],
+    "plugins": [],
+    "analytics_disabled": false,
+    "product_feedback_disabled": false,
+    "uuid": "93e17744-0569-48a9-9437-b5e35d88b272",
+    "memory_paths": {
+      "auto": "/home/runner/.claude/projects/-home-runner-work-my-harness-my-harness/memory/"
+    },
+    "fast_mode_state": "off"
+  },
+  {
+    "type": "rate_limit_event",
+    "rate_limit_info": {
+      "status": "allowed",
+      "resetsAt": 1781517000,
+      "rateLimitType": "five_hour",
+      "overageStatus": "rejected",
+      "overageDisabledReason": "org_level_disabled",
+      "isUsingOverage": false
+    },
+    "uuid": "10cdedec-996b-4f2b-9364-a58a94b12ea4",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1,
+    "estimated_tokens_delta": 1,
+    "uuid": "8d798963-d37a-4b4c-85f1-8b9750e6ae6b",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 21,
+    "estimated_tokens_delta": 20,
+    "uuid": "f69029f4-dff0-42ec-8d06-867469303ad2",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 72,
+    "estimated_tokens_delta": 51,
+    "uuid": "dcdf118f-af22-4149-8abd-9a4c901d0590",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01FkC1i92nWjobJGimLQjGAb",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "Let me start by reading the Jira ticket to understand what needs to be implemented.",
+          "signature": "EpsCCmUIDhgCKkBgflNOsThE2gSqBltmvH8xZKF+Mfd9vD/7UEkdll7alPBej1baYpqY+EXIzhECvldZOVnu6P9g0HeiSRcsUIReMhFjbGF1ZGUtc29ubmV0LTQtNjgAQgh0aGlua2luZxIMys9iVH/eqjyHoLr/GgyWS25e7XWZdPnvvVEiMH//Ju/8v3iumZRh/fxsWcw2MuX7D67gqmC9dCGyA+jXfUf9ajfdY9K+ej8GRNkHVSpk7la0eQru8KoO3ibJhHiaWOXqbaP9Nsoc3LNoGW422RBedmoJyd1S08TlxmjxgG9x+aGjYQXl/g1qVRFb8VqOCao9effZ79LHV9atRJD/NCBOuKGIbJMi3PDbsWcJvslUqZVfGxgB"
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 3,
+        "cache_creation_input_tokens": 7387,
+        "cache_read_input_tokens": 18535,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 7387
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "8fb9cb8c-8d13-49c8-a6ba-41c2fb28f3a0",
+    "request_id": "req_011Cc4qSoAtUhAA7jxp2N3fk"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01FkC1i92nWjobJGimLQjGAb",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll start by reading the Jira ticket to understand what needs to be implemented."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 3,
+        "cache_creation_input_tokens": 7387,
+        "cache_read_input_tokens": 18535,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 7387
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "632d4ea2-aa3c-4171-8c6a-72fea71d882e",
+    "request_id": "req_011Cc4qSoAtUhAA7jxp2N3fk"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01FkC1i92nWjobJGimLQjGAb",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01KK5ZkMA7Zt1AFosrSfCnDw",
+          "name": "Bash",
+          "input": {
+            "command": "jira issue view KAN-5 --plain",
+            "description": "Read Jira ticket KAN-5"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 3,
+        "cache_creation_input_tokens": 7387,
+        "cache_read_input_tokens": 18535,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 7387
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "26bce1dc-a111-4838-a649-f9128a1ceb55",
+    "request_id": "req_011Cc4qSoAtUhAA7jxp2N3fk"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01KK5ZkMA7Zt1AFosrSfCnDw",
+          "type": "tool_result",
+          "content": "  ⭐ Task  🚧 In Progress  ⌛ Mon, 15 Jun 26  👷 Unassigned  🔑️ KAN-5  💭 1 comments  🧵 0 linked                    \n                                                                                                                      \n  # Build PR Refinement agent (counter-voice to PR Review)                                                            \n                                                                                                                      \n  ⏱️  Fri, 05 Jun 26  🔎 Jae Yoon Bae  🚀 Medium  📦 None  🏷️  None  👀 You are watching                              \n                                                                                                                      \n  ------------------------ Description ------------------------                                                       \n                                                                                                                      \n  ## Description                                                                                                      \n                                                                                                                      \n  Create the PR Refinement agent: a daily cron job that reads inline comments posted by the PR Review agent and pushes\n  back on comments that are wrong, over-eager, or low-signal.                                                         \n                                                                                                                      \n  Three files to create:                                                                                              \n                                                                                                                      \n  • agents/pr-refinement/prompt.md — modeled on agents/pr-review/prompt.md                                            \n  • agents/pr-refinement/README.md — mirrors agents/pr-review/README.md in structure                                  \n  • .github/workflows/pr-refinement.yml — daily cron sweep (not event-triggered); scans all open PRs that already have\n  pr-review inline comments                                                                                           \n                                                                                                                      \n  Note: pr-review ( .github/workflows/pr-review.yml ) triggers on pull_request events; refinement runs its own daily  \n  cron.                                                                                                               \n                                                                                                                      \n  ## Context                                                                                                          \n                                                                                                                      \n  The PR Review + PR Refinement pair acts as a deliberate adversarial check: one model flags issues, a different model\n  pushes back. This hedge against single-model review bias is a named design choice in docs/agentic-workflow.md       \n  (Design                                                                                                             \n  choices). The pr-review workflow already exists at .github/workflows/pr-review.yml ; refinement is its complement.  \n                                                                                                                      \n  ## Implementation notes                                                                                             \n                                                                                                                      \n  **Model choice:** Use a different Claude model than pr-review's default ( anthropics/claude-code-action@v1 with no --\n  model override). Specify via claude_args: --model ❬model-id❭ in the workflow. Verify current model IDs against      \n  Anthropic docs and document the choice and rationale in agents/pr-refinement/README.md .                            \n                                                                                                                      \n  **Stop condition:** Use a PR label to track the refinement round count (e.g., refinement-rounds:N ). Skip the PR    \n  once                                                                                                                \n  the label reaches the configured cap. Default cap: 1 round. Make the cap configurable via a workflow-level env var  \n  or                                                                                                                  \n  dispatch input so it can be changed without code edits.                                                             \n                                                                                                                      \n  ## Acceptance Criteria                                                                                              \n                                                                                                                      \n  • A PR that has pr-review inline comments receives a refinement pass that selectively pushes back on specific       \n  comments.                                                                                                           \n  • A PR that has reached the round cap is skipped in subsequent daily runs.                                          \n  • Run log committed under .github/agent-logs/pr-refinement/pr-❬PR_NUMBER❭/❬RUN_ID❭.json — matching the convention in\n  the \"Commit execution log\" step of .github/workflows/pr-review.yml .                                                \n                                                                                                                      \n  ------------------------ 1 Comments ------------------------                                                        \n                                                                                                                      \n  Jae Yoon Bae • Thu, 11 Jun 26 • Latest comment                                                                      \n                                                                                                                      \n  Yes, maybe let's try to track how many times it was refined, and then, based on that, stop. For now, I think one    \n  round would be sufficient, but it should be variable.                                                               \n                                                                                                                      \n\u001b[0;90m\u001b[0m\u001b[0;90m\u001b[0m  \u001b[0;90mView this issue on Jira: https://jaeyoonsworkspace-23358853.atlassian.net/browse/KAN-5\u001b[0m",
+          "is_error": false
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "e508563b-4e85-49d0-9a66-4b1759d9447a",
+    "timestamp": "2026-06-15T09:49:15.961Z",
+    "tool_use_result": {
+      "stdout": "  ⭐ Task  🚧 In Progress  ⌛ Mon, 15 Jun 26  👷 Unassigned  🔑️ KAN-5  💭 1 comments  🧵 0 linked                    \n                                                                                                                      \n  # Build PR Refinement agent (counter-voice to PR Review)                                                            \n                                                                                                                      \n  ⏱️  Fri, 05 Jun 26  🔎 Jae Yoon Bae  🚀 Medium  📦 None  🏷️  None  👀 You are watching                              \n                                                                                                                      \n  ------------------------ Description ------------------------                                                       \n                                                                                                                      \n  ## Description                                                                                                      \n                                                                                                                      \n  Create the PR Refinement agent: a daily cron job that reads inline comments posted by the PR Review agent and pushes\n  back on comments that are wrong, over-eager, or low-signal.                                                         \n                                                                                                                      \n  Three files to create:                                                                                              \n                                                                                                                      \n  • agents/pr-refinement/prompt.md — modeled on agents/pr-review/prompt.md                                            \n  • agents/pr-refinement/README.md — mirrors agents/pr-review/README.md in structure                                  \n  • .github/workflows/pr-refinement.yml — daily cron sweep (not event-triggered); scans all open PRs that already have\n  pr-review inline comments                                                                                           \n                                                                                                                      \n  Note: pr-review ( .github/workflows/pr-review.yml ) triggers on pull_request events; refinement runs its own daily  \n  cron.                                                                                                               \n                                                                                                                      \n  ## Context                                                                                                          \n                                                                                                                      \n  The PR Review + PR Refinement pair acts as a deliberate adversarial check: one model flags issues, a different model\n  pushes back. This hedge against single-model review bias is a named design choice in docs/agentic-workflow.md       \n  (Design                                                                                                             \n  choices). The pr-review workflow already exists at .github/workflows/pr-review.yml ; refinement is its complement.  \n                                                                                                                      \n  ## Implementation notes                                                                                             \n                                                                                                                      \n  **Model choice:** Use a different Claude model than pr-review's default ( anthropics/claude-code-action@v1 with no --\n  model override). Specify via claude_args: --model ❬model-id❭ in the workflow. Verify current model IDs against      \n  Anthropic docs and document the choice and rationale in agents/pr-refinement/README.md .                            \n                                                                                                                      \n  **Stop condition:** Use a PR label to track the refinement round count (e.g., refinement-rounds:N ). Skip the PR    \n  once                                                                                                                \n  the label reaches the configured cap. Default cap: 1 round. Make the cap configurable via a workflow-level env var  \n  or                                                                                                                  \n  dispatch input so it can be changed without code edits.                                                             \n                                                                                                                      \n  ## Acceptance Criteria                                                                                              \n                                                                                                                      \n  • A PR that has pr-review inline comments receives a refinement pass that selectively pushes back on specific       \n  comments.                                                                                                           \n  • A PR that has reached the round cap is skipped in subsequent daily runs.                                          \n  • Run log committed under .github/agent-logs/pr-refinement/pr-❬PR_NUMBER❭/❬RUN_ID❭.json — matching the convention in\n  the \"Commit execution log\" step of .github/workflows/pr-review.yml .                                                \n                                                                                                                      \n  ------------------------ 1 Comments ------------------------                                                        \n                                                                                                                      \n  Jae Yoon Bae • Thu, 11 Jun 26 • Latest comment                                                                      \n                                                                                                                      \n  Yes, maybe let's try to track how many times it was refined, and then, based on that, stop. For now, I think one    \n  round would be sufficient, but it should be variable.                                                               \n                                                                                                                      \n\u001b[0;90m\u001b[0m\u001b[0;90m\u001b[0m  \u001b[0;90mView this issue on Jira: https://jaeyoonsworkspace-23358853.atlassian.net/browse/KAN-5\u001b[0m",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "noOutputExpected": false
+    }
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1,
+    "estimated_tokens_delta": 1,
+    "uuid": "d8faa36e-8996-4ea6-9f38-e4b751d3b3b2",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 21,
+    "estimated_tokens_delta": 20,
+    "uuid": "d9c98f1c-f6ea-40fc-86f9-1a5a6af6a162",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 24,
+    "estimated_tokens_delta": 3,
+    "uuid": "e8fe0180-7dd8-4cce-89ef-fa2a68601038",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 75,
+    "estimated_tokens_delta": 51,
+    "uuid": "98d5f1ba-741f-4a4b-9dd9-091d7fa48677",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01B9o2Z8SkKb57adBbrhfNMT",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "Now let me explore the existing PR Review agent to understand the structure I need to mirror.",
+          "signature": "EqUCCmUIDhgCKkBrPD7or6cFF9vgYCwZIH1hidqGlYzi7ffJ9qQV3KsboPy3OHUkVsgimroBgiBVBYwHDWzCw4cx21Zeu6ER+XEJMhFjbGF1ZGUtc29ubmV0LTQtNjgAQgh0aGlua2luZxIMuv7xvrzkTegqCHZEGgxvSwvIQ/aH+dz0oCoiMAvPY1TAcLli4AfIbv/4CVHo71DM7Ktrug2qmwCiYqF8A60Aqp6vx6LEz/DqQqqt2SpuODNe23LkSjPVLXipcKePyjC7A2YbyX2rZAIgw2pWwIm1ZuIRNwkbw/0zpoFtaOTn+5G4ye7YH8sz9JLO0MIwqcUxtQm/08GZurAdnQQu59VssDYY08UnNKVlf7CJsau784YP/64MwA1s4tvoa3cYAQ=="
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1311,
+        "cache_read_input_tokens": 25922,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1311
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "2d5c3e05-73dd-408d-a4af-693f9625860e",
+    "request_id": "req_011Cc4qTUfvtcvrJoqEZLumq"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01B9o2Z8SkKb57adBbrhfNMT",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Now let me explore the existing PR Review agent and workflow to understand the structure I need to mirror."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1311,
+        "cache_read_input_tokens": 25922,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1311
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "773fd421-3b53-4d52-a1ed-1ce84264bdf2",
+    "request_id": "req_011Cc4qTUfvtcvrJoqEZLumq"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01B9o2Z8SkKb57adBbrhfNMT",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01WGSt3Nu5zH8q3j1mxdyHBS",
+          "name": "Read",
+          "input": {
+            "file_path": "/home/runner/work/my-harness/my-harness/agents/pr-review/prompt.md"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1311,
+        "cache_read_input_tokens": 25922,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1311
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "b891fb83-3822-45fe-bac1-fbc6d82c3485",
+    "request_id": "req_011Cc4qTUfvtcvrJoqEZLumq"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01WGSt3Nu5zH8q3j1mxdyHBS",
+          "type": "tool_result",
+          "content": "1\tYou are the **PR Review agent** for this repository. The PR branch is already\n2\tchecked out in the current working directory. The workflow has prepended `REPO`\n3\tand `PR NUMBER` lines above this prompt — use them.\n4\t\n5\t## Your job\n6\t\n7\tReview the changes in this PR and post review feedback as GitHub comments.\n8\tNothing else.\n9\t\n10\t## What to look for\n11\t\n12\tFocus on these four buckets, in this order:\n13\t\n14\t1. **Correctness bugs** — logic errors, off-by-ones, wrong conditions,\n15\t   misuse of APIs, broken error handling, race conditions.\n16\t2. **Security issues** — injection risks, auth bypass, leaked secrets,\n17\t   unsafe deserialization, SSRF, missing input validation at trust\n18\t   boundaries.\n19\t3. **Performance** — only when the cost is clearly meaningful (N+1 queries,\n20\t   accidental quadratic loops, unbounded memory). Don't nitpick micro-perf.\n21\t4. **Code quality** — only when it materially hurts readability or\n22\t   maintainability. Don't enforce style preferences.\n23\t\n24\tSkim out of scope: formatting, naming bikeshedding, \"have you considered…\"\n25\tmusings, hypothetical future requirements.\n26\t\n27\t## How to gather context\n28\t\n29\t- `gh pr view ${PR_NUMBER} --json title,body,state,additions,deletions,changedFiles,headRefName` — title, description, metadata. (Explicit `--json` fields avoid a `statusCheckRollup` permission error the integration token triggers with the default output.)\n30\t- `gh pr diff ${PR_NUMBER}` — the diff. This is the primary input. Don't use\n31\t  `git diff` — the checkout is shallow (`fetch-depth: 1`) so comparisons\n32\t  against main have no merge base and will fail.\n33\t- Read files in the working directory as needed to understand context around\n34\t  changed lines.\n35\t\n36\t### Verifying external facts\n37\t\n38\tDo not rely on training-data recall for anything externally verifiable —\n39\tlibrary APIs, SDK versions, model names, CVE details, deprecation status.\n40\tLook it up before flagging it.\n41\t\n42\t- **Library / framework / SDK / API / CLI questions** — use Context7\n43\t  (`mcp__context7__resolve-library-id` then `mcp__context7__query-docs`).\n44\t  Prefer this over web search for docs.\n45\t- **Everything else** (model versions, CVEs, blog posts, changelogs not on\n46\t  Context7) — use `WebSearch`, then `WebFetch` for specific pages. When\n47\t  fetching package docs, prefer the GitHub source (e.g. the package README)\n48\t  over npmjs.com — npmjs.com commonly returns 403.\n49\t\n50\tIf you can't verify a claim, either drop the comment or downgrade it to a\n51\tquestion rather than asserting a fact you're unsure about.\n52\t\n53\t## How to post feedback\n54\t\n55\t### Inline comments (primary)\n56\t\n57\tSpecific issues go in inline comments via\n58\t`mcp__github_inline_comment__create_inline_comment` with `confirmed: true`.\n59\tOne comment per distinct issue, anchored to the specific changed line. Each\n60\tcomment must include:\n61\t\n62\t- A one-line description of the issue.\n63\t- **Severity:** one of `Critical` / `High` / `Medium` / `Low`.\n64\t- **Reasoning:** 1–3 sentences explaining *why* it's a problem and what to\n65\t  change. Be concrete; reference the code.\n66\t\n67\tSeverity rubric:\n68\t- `Critical` — will break production, lose data, or expose a vulnerability.\n69\t- `High` — likely bug or security weakness; should block merge.\n70\t- `Medium` — real issue but contained; should be fixed before merge if cheap.\n71\t- `Low` — small correctness or clarity nit worth flagging.\n72\t\n73\t### High-level overview (optional)\n74\t\n75\tIf the PR has a recurring pattern, an architectural concern, or anything\n76\telse that doesn't anchor to a single line, post one short top-level comment\n77\tvia `gh pr comment ${PR_NUMBER} --body \"...\"`. Keep it brief — a few\n78\tsentences, not a recap of the inline comments. Skip this entirely if you\n79\thave nothing to add at that level. Escape any backticks in the `--body` string as `\\`` to avoid shell interpretation.\n80\t\n81\tIf the PR looks good and you have no inline issues to raise, post a brief\n82\t\"Looks good to me\" top-level comment via `gh pr comment` and stop.\n83\t\n84\t## When you're done\n85\t\n86\tStop immediately after your last tool call. Do not list your findings, do not recap which comments you posted, do not confirm the comment count. The runner will exit.\n87\t"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "989b7f07-704d-48af-9925-3d7ee5563e24",
+    "timestamp": "2026-06-15T09:49:22.015Z",
+    "tool_use_result": {
+      "type": "text",
+      "file": {
+        "filePath": "/home/runner/work/my-harness/my-harness/agents/pr-review/prompt.md",
+        "content": "You are the **PR Review agent** for this repository. The PR branch is already\nchecked out in the current working directory. The workflow has prepended `REPO`\nand `PR NUMBER` lines above this prompt — use them.\n\n## Your job\n\nReview the changes in this PR and post review feedback as GitHub comments.\nNothing else.\n\n## What to look for\n\nFocus on these four buckets, in this order:\n\n1. **Correctness bugs** — logic errors, off-by-ones, wrong conditions,\n   misuse of APIs, broken error handling, race conditions.\n2. **Security issues** — injection risks, auth bypass, leaked secrets,\n   unsafe deserialization, SSRF, missing input validation at trust\n   boundaries.\n3. **Performance** — only when the cost is clearly meaningful (N+1 queries,\n   accidental quadratic loops, unbounded memory). Don't nitpick micro-perf.\n4. **Code quality** — only when it materially hurts readability or\n   maintainability. Don't enforce style preferences.\n\nSkim out of scope: formatting, naming bikeshedding, \"have you considered…\"\nmusings, hypothetical future requirements.\n\n## How to gather context\n\n- `gh pr view ${PR_NUMBER} --json title,body,state,additions,deletions,changedFiles,headRefName` — title, description, metadata. (Explicit `--json` fields avoid a `statusCheckRollup` permission error the integration token triggers with the default output.)\n- `gh pr diff ${PR_NUMBER}` — the diff. This is the primary input. Don't use\n  `git diff` — the checkout is shallow (`fetch-depth: 1`) so comparisons\n  against main have no merge base and will fail.\n- Read files in the working directory as needed to understand context around\n  changed lines.\n\n### Verifying external facts\n\nDo not rely on training-data recall for anything externally verifiable —\nlibrary APIs, SDK versions, model names, CVE details, deprecation status.\nLook it up before flagging it.\n\n- **Library / framework / SDK / API / CLI questions** — use Context7\n  (`mcp__context7__resolve-library-id` then `mcp__context7__query-docs`).\n  Prefer this over web search for docs.\n- **Everything else** (model versions, CVEs, blog posts, changelogs not on\n  Context7) — use `WebSearch`, then `WebFetch` for specific pages. When\n  fetching package docs, prefer the GitHub source (e.g. the package README)\n  over npmjs.com — npmjs.com commonly returns 403.\n\nIf you can't verify a claim, either drop the comment or downgrade it to a\nquestion rather than asserting a fact you're unsure about.\n\n## How to post feedback\n\n### Inline comments (primary)\n\nSpecific issues go in inline comments via\n`mcp__github_inline_comment__create_inline_comment` with `confirmed: true`.\nOne comment per distinct issue, anchored to the specific changed line. Each\ncomment must include:\n\n- A one-line description of the issue.\n- **Severity:** one of `Critical` / `High` / `Medium` / `Low`.\n- **Reasoning:** 1–3 sentences explaining *why* it's a problem and what to\n  change. Be concrete; reference the code.\n\nSeverity rubric:\n- `Critical` — will break production, lose data, or expose a vulnerability.\n- `High` — likely bug or security weakness; should block merge.\n- `Medium` — real issue but contained; should be fixed before merge if cheap.\n- `Low` — small correctness or clarity nit worth flagging.\n\n### High-level overview (optional)\n\nIf the PR has a recurring pattern, an architectural concern, or anything\nelse that doesn't anchor to a single line, post one short top-level comment\nvia `gh pr comment ${PR_NUMBER} --body \"...\"`. Keep it brief — a few\nsentences, not a recap of the inline comments. Skip this entirely if you\nhave nothing to add at that level. Escape any backticks in the `--body` string as `\\`` to avoid shell interpretation.\n\nIf the PR looks good and you have no inline issues to raise, post a brief\n\"Looks good to me\" top-level comment via `gh pr comment` and stop.\n\n## When you're done\n\nStop immediately after your last tool call. Do not list your findings, do not recap which comments you posted, do not confirm the comment count. The runner will exit.\n",
+        "numLines": 87,
+        "startLine": 1,
+        "totalLines": 87
+      }
+    }
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01B9o2Z8SkKb57adBbrhfNMT",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01Hh3wsWMgrAC1haJNmc9m4b",
+          "name": "Read",
+          "input": {
+            "file_path": "/home/runner/work/my-harness/my-harness/agents/pr-review/README.md"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1311,
+        "cache_read_input_tokens": 25922,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1311
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "9cc49af6-b775-4df1-a8be-62249c097682",
+    "request_id": "req_011Cc4qTUfvtcvrJoqEZLumq"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01Hh3wsWMgrAC1haJNmc9m4b",
+          "type": "tool_result",
+          "content": "1\t# PR Review agent\n2\t\n3\tDaily/per-PR reviewer. Reads the PR diff, posts inline comments with severity\n4\tand reasoning, optionally a short top-level summary. Comment-only — never\n5\tapproves, merges, or pushes code.\n6\t\n7\tPart of the agentic workflow sketched in [`docs/agentic-workflow.md`](../../docs/agentic-workflow.md).\n8\t\n9\t## Files\n10\t\n11\t- `prompt.md` — the agent's prompt. Edit this to change behavior.\n12\t- `../../.github/workflows/pr-review.yml` — workflow that runs the agent.\n13\t\n14\t## How it runs\n15\t\n16\tThe workflow `pr-review.yml` triggers on pull_request events\n17\t(`opened`, `synchronize`, `ready_for_review`, `reopened`). It checks out the\n18\tPR, prepends repo and PR number to `prompt.md`, and feeds the result to\n19\t`anthropics/claude-code-action@v1`. The action installs Claude Code on the\n20\trunner and runs a headless session in the working directory.\n21\t\n22\t`track_progress: true` is enabled — the action posts a sticky tracking\n23\tcomment (\"Claude Code is reviewing this pull request…\") and updates it as\n24\twork progresses.\n25\t\n26\t## Manual run\n27\t\n28\t```sh\n29\tgh workflow run pr-review.yml\n30\t```\n31\t\n32\tThis uses the `workflow_dispatch` trigger and runs against the default branch.\n33\tFor a real review, push to a PR — the `pull_request` trigger fires\n34\tautomatically.\n35\t\n36\t## Editing the prompt\n37\t\n38\tEdit `prompt.md` directly. The workflow reads it at run-time, so a change to\n39\tthe prompt takes effect on the next workflow run — no other plumbing needed.\n40\t\n41\t## What's deliberately not configured\n42\t\n43\t- No `--model` — uses the action's default.\n44\t- No `--max-turns` — runs to completion.\n45\t- No `--system-prompt` flag — `prompt.md` *is* the system-level guidance.\n46\t- No write access to `contents:` — review-only by construction.\n47\t\n48\t## Required setup (one-time)\n49\t\n50\tAuthenticated via Claude Pro/Max OAuth (uses your subscription quota, not\n51\tper-token API billing):\n52\t\n53\t1. Locally: `claude setup-token` → log in with your Claude.ai account →\n54\t   it prints a long-lived OAuth token.\n55\t2. On GitHub: **Settings → Secrets and variables → Actions → New repository\n56\t   secret**, name `CLAUDE_CODE_OAUTH_TOKEN`, paste the token.\n57\t\n58\tHeads up: CI runs draw from the same 5-hour usage buckets as your local\n59\tClaude Code sessions. If you'd rather use per-token API billing, swap\n60\t`claude_code_oauth_token:` for `anthropic_api_key:` in the workflow and use\n61\tan `ANTHROPIC_API_KEY` secret instead.\n62\t"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "e6d8866c-e548-41c8-a93e-f3162c32f0fa",
+    "timestamp": "2026-06-15T09:49:22.410Z",
+    "tool_use_result": {
+      "type": "text",
+      "file": {
+        "filePath": "/home/runner/work/my-harness/my-harness/agents/pr-review/README.md",
+        "content": "# PR Review agent\n\nDaily/per-PR reviewer. Reads the PR diff, posts inline comments with severity\nand reasoning, optionally a short top-level summary. Comment-only — never\napproves, merges, or pushes code.\n\nPart of the agentic workflow sketched in [`docs/agentic-workflow.md`](../../docs/agentic-workflow.md).\n\n## Files\n\n- `prompt.md` — the agent's prompt. Edit this to change behavior.\n- `../../.github/workflows/pr-review.yml` — workflow that runs the agent.\n\n## How it runs\n\nThe workflow `pr-review.yml` triggers on pull_request events\n(`opened`, `synchronize`, `ready_for_review`, `reopened`). It checks out the\nPR, prepends repo and PR number to `prompt.md`, and feeds the result to\n`anthropics/claude-code-action@v1`. The action installs Claude Code on the\nrunner and runs a headless session in the working directory.\n\n`track_progress: true` is enabled — the action posts a sticky tracking\ncomment (\"Claude Code is reviewing this pull request…\") and updates it as\nwork progresses.\n\n## Manual run\n\n```sh\ngh workflow run pr-review.yml\n```\n\nThis uses the `workflow_dispatch` trigger and runs against the default branch.\nFor a real review, push to a PR — the `pull_request` trigger fires\nautomatically.\n\n## Editing the prompt\n\nEdit `prompt.md` directly. The workflow reads it at run-time, so a change to\nthe prompt takes effect on the next workflow run — no other plumbing needed.\n\n## What's deliberately not configured\n\n- No `--model` — uses the action's default.\n- No `--max-turns` — runs to completion.\n- No `--system-prompt` flag — `prompt.md` *is* the system-level guidance.\n- No write access to `contents:` — review-only by construction.\n\n## Required setup (one-time)\n\nAuthenticated via Claude Pro/Max OAuth (uses your subscription quota, not\nper-token API billing):\n\n1. Locally: `claude setup-token` → log in with your Claude.ai account →\n   it prints a long-lived OAuth token.\n2. On GitHub: **Settings → Secrets and variables → Actions → New repository\n   secret**, name `CLAUDE_CODE_OAUTH_TOKEN`, paste the token.\n\nHeads up: CI runs draw from the same 5-hour usage buckets as your local\nClaude Code sessions. If you'd rather use per-token API billing, swap\n`claude_code_oauth_token:` for `anthropic_api_key:` in the workflow and use\nan `ANTHROPIC_API_KEY` secret instead.\n",
+        "numLines": 62,
+        "startLine": 1,
+        "totalLines": 62
+      }
+    }
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01B9o2Z8SkKb57adBbrhfNMT",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01C6wd33zK2uVqrfmbKjQ5gZ",
+          "name": "Read",
+          "input": {
+            "file_path": "/home/runner/work/my-harness/my-harness/.github/workflows/pr-review.yml"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1311,
+        "cache_read_input_tokens": 25922,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1311
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "3144d0f5-f38e-425b-a8ae-01081d57857b",
+    "request_id": "req_011Cc4qTUfvtcvrJoqEZLumq"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01C6wd33zK2uVqrfmbKjQ5gZ",
+          "type": "tool_result",
+          "content": "1\tname: PR Review agent\n2\t\n3\ton:\n4\t  pull_request:\n5\t    types: [opened, ready_for_review, reopened]\n6\t    paths-ignore:\n7\t      - '.github/agent-logs/**'\n8\t      - 'agents/**/prompt.md'\n9\t  workflow_dispatch:\n10\t\n11\tjobs:\n12\t  review:\n13\t    runs-on: ubuntu-latest\n14\t    permissions:\n15\t      contents: write\n16\t      pull-requests: write\n17\t      id-token: write\n18\t      actions: write\n19\t      checks: read\n20\t      statuses: read\n21\t    steps:\n22\t      - uses: actions/checkout@v6\n23\t        with:\n24\t          fetch-depth: 1\n25\t\n26\t      - id: prompt\n27\t        run: |\n28\t          {\n29\t            echo 'PROMPT<<PROMPT_EOF'\n30\t            echo \"REPO: ${{ github.repository }}\"\n31\t            echo \"PR NUMBER: ${{ github.event.pull_request.number }}\"\n32\t            echo\n33\t            cat agents/pr-review/prompt.md\n34\t            echo PROMPT_EOF\n35\t          } >> \"$GITHUB_OUTPUT\"\n36\t\n37\t      - id: claude\n38\t        uses: anthropics/claude-code-action@v1\n39\t        with:\n40\t          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}\n41\t          track_progress: false\n42\t          prompt: ${{ steps.prompt.outputs.PROMPT }}\n43\t          settings: |\n44\t            { \"env\": { \"CONTEXT7_API_KEY\": \"${{ secrets.CONTEXT7_API_KEY }}\" } }\n45\t          claude_args: |\n46\t            --allowedTools \"mcp__github_inline_comment__create_inline_comment,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Read,Grep,Glob\"\n47\t\n48\t      - name: Commit execution log to PR branch\n49\t        if: always() && steps.claude.outputs.execution_file != ''\n50\t        env:\n51\t          PR_NUMBER: ${{ github.event.pull_request.number }}\n52\t          RUN_ID: ${{ github.run_id }}\n53\t          LOG_PATH: ${{ steps.claude.outputs.execution_file }}\n54\t          BRANCH: ${{ github.event.pull_request.head.ref }}\n55\t        run: |\n56\t          set -e\n57\t          git config user.name \"github-actions[bot]\"\n58\t          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n59\t          git fetch --depth=1 origin \"$BRANCH\"\n60\t          git checkout -B \"$BRANCH\" \"origin/$BRANCH\"\n61\t          DEST=\".github/agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json\"\n62\t          mkdir -p \"$(dirname \"$DEST\")\"\n63\t          cp \"$LOG_PATH\" \"$DEST\"\n64\t          git add \"$DEST\"\n65\t          git commit -m \"agent log: PR #${PR_NUMBER} run ${RUN_ID}\"\n66\t          git push origin \"$BRANCH\"\n67\t\n68\t      - name: Trigger agent improver\n69\t        if: always() && steps.claude.outputs.execution_file != ''\n70\t        env:\n71\t          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n72\t          PR_NUMBER: ${{ github.event.pull_request.number }}\n73\t          RUN_ID: ${{ github.run_id }}\n74\t          LOG_REF: ${{ github.event.pull_request.head.ref }}\n75\t        run: |\n76\t          gh workflow run agent-improver.yml \\\n77\t            -f agent_name=pr-review \\\n78\t            -f log_path=\".github/agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json\" \\\n79\t            -f log_ref=\"${LOG_REF}\"\n80\t"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "ec87e0cd-3a51-4d20-b529-9548e7f52785",
+    "timestamp": "2026-06-15T09:49:22.739Z",
+    "tool_use_result": {
+      "type": "text",
+      "file": {
+        "filePath": "/home/runner/work/my-harness/my-harness/.github/workflows/pr-review.yml",
+        "content": "name: PR Review agent\n\non:\n  pull_request:\n    types: [opened, ready_for_review, reopened]\n    paths-ignore:\n      - '.github/agent-logs/**'\n      - 'agents/**/prompt.md'\n  workflow_dispatch:\n\njobs:\n  review:\n    runs-on: ubuntu-latest\n    permissions:\n      contents: write\n      pull-requests: write\n      id-token: write\n      actions: write\n      checks: read\n      statuses: read\n    steps:\n      - uses: actions/checkout@v6\n        with:\n          fetch-depth: 1\n\n      - id: prompt\n        run: |\n          {\n            echo 'PROMPT<<PROMPT_EOF'\n            echo \"REPO: ${{ github.repository }}\"\n            echo \"PR NUMBER: ${{ github.event.pull_request.number }}\"\n            echo\n            cat agents/pr-review/prompt.md\n            echo PROMPT_EOF\n          } >> \"$GITHUB_OUTPUT\"\n\n      - id: claude\n        uses: anthropics/claude-code-action@v1\n        with:\n          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}\n          track_progress: false\n          prompt: ${{ steps.prompt.outputs.PROMPT }}\n          settings: |\n            { \"env\": { \"CONTEXT7_API_KEY\": \"${{ secrets.CONTEXT7_API_KEY }}\" } }\n          claude_args: |\n            --allowedTools \"mcp__github_inline_comment__create_inline_comment,mcp__context7__resolve-library-id,mcp__context7__query-docs,WebSearch,WebFetch,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Read,Grep,Glob\"\n\n      - name: Commit execution log to PR branch\n        if: always() && steps.claude.outputs.execution_file != ''\n        env:\n          PR_NUMBER: ${{ github.event.pull_request.number }}\n          RUN_ID: ${{ github.run_id }}\n          LOG_PATH: ${{ steps.claude.outputs.execution_file }}\n          BRANCH: ${{ github.event.pull_request.head.ref }}\n        run: |\n          set -e\n          git config user.name \"github-actions[bot]\"\n          git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"\n          git fetch --depth=1 origin \"$BRANCH\"\n          git checkout -B \"$BRANCH\" \"origin/$BRANCH\"\n          DEST=\".github/agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json\"\n          mkdir -p \"$(dirname \"$DEST\")\"\n          cp \"$LOG_PATH\" \"$DEST\"\n          git add \"$DEST\"\n          git commit -m \"agent log: PR #${PR_NUMBER} run ${RUN_ID}\"\n          git push origin \"$BRANCH\"\n\n      - name: Trigger agent improver\n        if: always() && steps.claude.outputs.execution_file != ''\n        env:\n          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n          PR_NUMBER: ${{ github.event.pull_request.number }}\n          RUN_ID: ${{ github.run_id }}\n          LOG_REF: ${{ github.event.pull_request.head.ref }}\n        run: |\n          gh workflow run agent-improver.yml \\\n            -f agent_name=pr-review \\\n            -f log_path=\".github/agent-logs/pr-review/pr-${PR_NUMBER}/${RUN_ID}.json\" \\\n            -f log_ref=\"${LOG_REF}\"\n",
+        "numLines": 80,
+        "startLine": 1,
+        "totalLines": 80
+      }
+    }
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 10,
+    "estimated_tokens_delta": 10,
+    "uuid": "2e1b7a6c-686a-4b7b-9252-59fd2d92ea3d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 26,
+    "estimated_tokens_delta": 16,
+    "uuid": "0fb65246-7b59-433a-b648-8b1d02f7b832",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 30,
+    "estimated_tokens_delta": 4,
+    "uuid": "a6ecfb08-190a-4bc8-ab0d-e8cb754a72a9",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 81,
+    "estimated_tokens_delta": 51,
+    "uuid": "8ba1f8c8-8bec-4664-94b2-ed284282801b",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01BU8phQNnBPdFv1zExr1MZ9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "Now let me also look at the docs/agentic-workflow.md file to understand the design choices mentioned in the ticket.",
+          "signature": "Er0CCmUIDhgCKkAlXneFJkt2g4nM/4GD98pQ+RKlSqsSUqWsJoNwUWUtZlgtQBJShQZsDwk/Uhzwy2ndPd6GdPb0BYHV8KwP7GIjMhFjbGF1ZGUtc29ubmV0LTQtNjgAQgh0aGlua2luZxIMOmosv6cG4JuhVGl5Ggxv/bD9A6Vw87vScmAiMJtAzFtmH8cZ9bwIiaRUBX8gkgN12Rq+HwGB81WGZlyLRqFtOFVGQOqHSGCtkWT1NiqFAX1udqaUX27xdCmwUfLxKQq8mVlheZGVrfw9zKN2HEE53TLXfow+0I1WDNHIXsfRHcXIZ6ueCCb++1nyJSF4jau/HGAU7L9bxhvBenW/InceCmveNhwBBAE8mtZkRrqWxaRGLXvfm/yJgfBe6FuWNto0zizbW0foDIhUukqVVtsR0aE9LhEYAQ=="
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 3697,
+        "cache_read_input_tokens": 27233,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 3697
+        },
+        "output_tokens": 18,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "8b00b5ee-23ab-4a67-8b55-0d59c93c8212",
+    "request_id": "req_011Cc4qTyuarWnQRmgt1mf8c"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01BU8phQNnBPdFv1zExr1MZ9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Let me also read the agentic workflow docs and check the current model IDs."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 3697,
+        "cache_read_input_tokens": 27233,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 3697
+        },
+        "output_tokens": 18,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "ad5f87d8-38ea-4f6d-ac1c-3ec0249d8907",
+    "request_id": "req_011Cc4qTyuarWnQRmgt1mf8c"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01BU8phQNnBPdFv1zExr1MZ9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01SoPGmunyjbcoRsTe1KMcs1",
+          "name": "Read",
+          "input": {
+            "file_path": "/home/runner/work/my-harness/my-harness/docs/agentic-workflow.md"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 3697,
+        "cache_read_input_tokens": 27233,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 3697
+        },
+        "output_tokens": 18,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "555fd6aa-5040-4513-97e9-e78838104be6",
+    "request_id": "req_011Cc4qTyuarWnQRmgt1mf8c"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01SoPGmunyjbcoRsTe1KMcs1",
+          "type": "tool_result",
+          "content": "1\t# Agentic Development Workflow\n2\t\n3\t> **Status:** First-draft vision. Extracted from a hand-drawn diagram (2026-06-04).\n4\t> Not yet scoped, designed, or implemented.\n5\t\n6\tThe flow describes an end-to-end pipeline where humans create tickets and merge\n7\tfinal PRs, and a chain of agents handles everything in between: ticket grooming,\n8\tcomplexity routing, implementation, testing, review, and refinement.\n9\t\n10\t## High-level flow\n11\t\n12\t```\n13\tHumans create tickets\n14\t        │\n15\t        ▼\n16\t   Ticket Agent\n17\t        │\n18\t        ▼\n19\tDevelopment Orchestrator\n20\t        │\n21\t        ├──── complex ────► Senior developer agent  (OpenSpec /opsx)\n22\t        │                          │\n23\t        │                          ▼\n24\t        │                    PR Review agent ◄────┐\n25\t        │                          ▲              │\n26\t        │                          ▼              │\n27\t        │                    PR Refinement agent  │\n28\t        │                          │              │\n29\t        │                          ▼              │\n30\t        │                Humans test & merge PR   │\n31\t        │                                         │\n32\t        └──── easy ──────► Junior developer agent │\n33\t                                  │   (headless `claude -p`, --max-turns)\n34\t                                  ▼               │\n35\t                              Draft PR ───────────┘\n36\t                          (human picks up &\n37\t                           merges, or re-runs)\n38\t```\n39\t\n40\t## Human touchpoints\n41\t\n42\t- **Start:** humans create tickets.\n43\t- **End:** humans test the final PR and merge it.\n44\t- **Mid-loop (complex path only):** the Senior developer agent pulls a human\n45\t  into the loop before implementing.\n46\t\n47\t## Agents\n48\t\n49\t### Ticket Agent\n50\t**Goal:** manage Jira tickets.\n51\t\n52\t- Does **not** invent new tickets.\n53\t- Works on a daily basis. \n54\t- Decomposes tickets and improves descriptions based on the current code.\n55\t- Creates dependencies between tickets (`blocks`, `depends on`).\n56\t\n57\t### Development Orchestrator\n58\t**Goal:** decide which development agent to launch for each ticket.\n59\t\n60\t- **Deterministic, no LLM.** Pure routing on Jira story points: SP ≤ 3 →\n61\t  junior, SP ≥ 4 → senior. Unpointed tickets fail the workflow loudly so\n62\t  the team re-estimates before anything implements.\n63\t- **Triggered per-ticket** by a Jira automation rule on the \"Dev Ready\"\n64\t  status transition (GitHub `repository_dispatch`), not on a daily cron.\n65\t\n66\t### Senior Developer Agent — OpenSpec (`/opsx` conventions)\n67\t**Goal:** tackle complex tasks **with a human in the loop**.\n68\t\n69\t- Uses spec-driven development via the [OpenSpec](https://github.com/Fission-AI/OpenSpec)\n70\t  library (the originally sketched `/openspec:explore` doesn't exist;\n71\t  OpenSpec's `/opsx:*` commands are the real equivalent — see\n72\t  [`agents/senior-dev/README.md`](../agents/senior-dev/README.md)).\n73\t- Requests human input before moving to implementation: spec lands as a\n74\t  Draft PR; a native PR review (Approve / Request changes) resumes the\n75\t  agent into implement / revise.\n76\t- Same runtime shape as Junior: headless `claude -p` on a GHA runner with\n77\t  `--max-turns` and a workflow timeout. The OpenSpec conventions and\n78\t  human-in-the-loop pauses layer on top of that base.\n79\t\n80\t### Junior Developer Agent\n81\t**Goal:** tackle easy tasks **without a human in the loop**.\n82\t\n83\t- Headless `claude -p` invoked directly from a GitHub Actions workflow\n84\t  (no skill wrapper). Plans straight through to execution.\n85\t- Bounded by `--max-turns` per dispatch + a workflow-level `timeout-minutes`.\n86\t- Creates a Draft PR; a human picks it up from there.\n87\t\n88\t### PR Review Agent\n89\t**Goal:** daily review of updated PRs.\n90\t\n91\t- Inline comments.\n92\t- Severity.\n93\t- Reasoning.\n94\t\n95\t### PR Refinement Agent\n96\t**Goal:** daily refinement of the PR.\n97\t\n98\t- May use a different model (e.g. CODEX).\n99\t- Counteracts the review (acts as a deliberate counter-voice to the reviewer).\n100\t\n101\t## Design choices worth calling out\n102\t\n103\t- **Complexity gate at the orchestrator.** Two-tier routing keeps the\n104\t  human-in-the-loop cost only on work that needs it.\n105\t- **Runtime split.** `claude-code-action` for read/triage surfaces\n106\t  (ticket grooming, PR review, agent-improver); raw `claude -p` for\n107\t  implementation lanes (junior-dev, senior-dev); plain bash for the\n108\t  orchestrator (no LLM). The action's PR-comment plumbing is dead weight\n109\t  when the agent's job is to edit files, push a branch, and open a PR.\n110\t- **Bounded dev-agent runs.** `--max-turns` per dispatch + `timeout-minutes`\n111\t  on the job stop a hard ticket from spinning forever. Tickets stay in\n112\t  **In Progress** so the orchestrator won't re-fire them.\n113\t- **Review ↔ Refinement as an adversarial pair.** Using a different model for\n114\t  refinement is a deliberate hedge against single-model review bias.\n115\t- **Daily cadence** on review and refinement rather than per-PR-event triggers.\n116\t\n117\t## Open questions (for follow-up)\n118\t\n119\t- How does the Refinement agent know when to stop counteracting?\n120\t- How are the two daily passes (review + refinement) sequenced — same run, or\n121\t  staggered?\n122\t"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "288e132e-bc66-4721-b381-d3fe0cc96455",
+    "timestamp": "2026-06-15T09:49:29.567Z",
+    "tool_use_result": {
+      "type": "text",
+      "file": {
+        "filePath": "/home/runner/work/my-harness/my-harness/docs/agentic-workflow.md",
+        "content": "# Agentic Development Workflow\n\n> **Status:** First-draft vision. Extracted from a hand-drawn diagram (2026-06-04).\n> Not yet scoped, designed, or implemented.\n\nThe flow describes an end-to-end pipeline where humans create tickets and merge\nfinal PRs, and a chain of agents handles everything in between: ticket grooming,\ncomplexity routing, implementation, testing, review, and refinement.\n\n## High-level flow\n\n```\nHumans create tickets\n        │\n        ▼\n   Ticket Agent\n        │\n        ▼\nDevelopment Orchestrator\n        │\n        ├──── complex ────► Senior developer agent  (OpenSpec /opsx)\n        │                          │\n        │                          ▼\n        │                    PR Review agent ◄────┐\n        │                          ▲              │\n        │                          ▼              │\n        │                    PR Refinement agent  │\n        │                          │              │\n        │                          ▼              │\n        │                Humans test & merge PR   │\n        │                                         │\n        └──── easy ──────► Junior developer agent │\n                                  │   (headless `claude -p`, --max-turns)\n                                  ▼               │\n                              Draft PR ───────────┘\n                          (human picks up &\n                           merges, or re-runs)\n```\n\n## Human touchpoints\n\n- **Start:** humans create tickets.\n- **End:** humans test the final PR and merge it.\n- **Mid-loop (complex path only):** the Senior developer agent pulls a human\n  into the loop before implementing.\n\n## Agents\n\n### Ticket Agent\n**Goal:** manage Jira tickets.\n\n- Does **not** invent new tickets.\n- Works on a daily basis. \n- Decomposes tickets and improves descriptions based on the current code.\n- Creates dependencies between tickets (`blocks`, `depends on`).\n\n### Development Orchestrator\n**Goal:** decide which development agent to launch for each ticket.\n\n- **Deterministic, no LLM.** Pure routing on Jira story points: SP ≤ 3 →\n  junior, SP ≥ 4 → senior. Unpointed tickets fail the workflow loudly so\n  the team re-estimates before anything implements.\n- **Triggered per-ticket** by a Jira automation rule on the \"Dev Ready\"\n  status transition (GitHub `repository_dispatch`), not on a daily cron.\n\n### Senior Developer Agent — OpenSpec (`/opsx` conventions)\n**Goal:** tackle complex tasks **with a human in the loop**.\n\n- Uses spec-driven development via the [OpenSpec](https://github.com/Fission-AI/OpenSpec)\n  library (the originally sketched `/openspec:explore` doesn't exist;\n  OpenSpec's `/opsx:*` commands are the real equivalent — see\n  [`agents/senior-dev/README.md`](../agents/senior-dev/README.md)).\n- Requests human input before moving to implementation: spec lands as a\n  Draft PR; a native PR review (Approve / Request changes) resumes the\n  agent into implement / revise.\n- Same runtime shape as Junior: headless `claude -p` on a GHA runner with\n  `--max-turns` and a workflow timeout. The OpenSpec conventions and\n  human-in-the-loop pauses layer on top of that base.\n\n### Junior Developer Agent\n**Goal:** tackle easy tasks **without a human in the loop**.\n\n- Headless `claude -p` invoked directly from a GitHub Actions workflow\n  (no skill wrapper). Plans straight through to execution.\n- Bounded by `--max-turns` per dispatch + a workflow-level `timeout-minutes`.\n- Creates a Draft PR; a human picks it up from there.\n\n### PR Review Agent\n**Goal:** daily review of updated PRs.\n\n- Inline comments.\n- Severity.\n- Reasoning.\n\n### PR Refinement Agent\n**Goal:** daily refinement of the PR.\n\n- May use a different model (e.g. CODEX).\n- Counteracts the review (acts as a deliberate counter-voice to the reviewer).\n\n## Design choices worth calling out\n\n- **Complexity gate at the orchestrator.** Two-tier routing keeps the\n  human-in-the-loop cost only on work that needs it.\n- **Runtime split.** `claude-code-action` for read/triage surfaces\n  (ticket grooming, PR review, agent-improver); raw `claude -p` for\n  implementation lanes (junior-dev, senior-dev); plain bash for the\n  orchestrator (no LLM). The action's PR-comment plumbing is dead weight\n  when the agent's job is to edit files, push a branch, and open a PR.\n- **Bounded dev-agent runs.** `--max-turns` per dispatch + `timeout-minutes`\n  on the job stop a hard ticket from spinning forever. Tickets stay in\n  **In Progress** so the orchestrator won't re-fire them.\n- **Review ↔ Refinement as an adversarial pair.** Using a different model for\n  refinement is a deliberate hedge against single-model review bias.\n- **Daily cadence** on review and refinement rather than per-PR-event triggers.\n\n## Open questions (for follow-up)\n\n- How does the Refinement agent know when to stop counteracting?\n- How are the two daily passes (review + refinement) sequenced — same run, or\n  staggered?\n",
+        "numLines": 122,
+        "startLine": 1,
+        "totalLines": 122
+      }
+    }
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01BU8phQNnBPdFv1zExr1MZ9",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01MzDd53mpMkLBabod4ok5nu",
+          "name": "Read",
+          "input": {
+            "file_path": "/home/runner/work/my-harness/my-harness/.jira/config.yml"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 3697,
+        "cache_read_input_tokens": 27233,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 3697
+        },
+        "output_tokens": 18,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "35ffe3ca-4a9d-4a84-a6cc-4b82747b03c3",
+    "request_id": "req_011Cc4qTyuarWnQRmgt1mf8c"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01MzDd53mpMkLBabod4ok5nu",
+          "type": "tool_result",
+          "content": "1\tinstallation: Cloud\n2\tserver: https://jaeyoonsworkspace-23358853.atlassian.net\n3\tlogin: jaeyoonbae99@gmail.com\n4\tproject:\n5\t    key: KAN\n6\t    type: classic\n7\tboard:\n8\t    id: 1\n9\t"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "8479d25e-9df9-40e8-a634-a62c7e6fdac1",
+    "timestamp": "2026-06-15T09:49:29.735Z",
+    "tool_use_result": {
+      "type": "text",
+      "file": {
+        "filePath": "/home/runner/work/my-harness/my-harness/.jira/config.yml",
+        "content": "installation: Cloud\nserver: https://jaeyoonsworkspace-23358853.atlassian.net\nlogin: jaeyoonbae99@gmail.com\nproject:\n    key: KAN\n    type: classic\nboard:\n    id: 1\n",
+        "numLines": 9,
+        "startLine": 1,
+        "totalLines": 9
+      }
+    }
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1,
+    "estimated_tokens_delta": 1,
+    "uuid": "3759b831-500d-47b2-a31f-24bda1884035",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 22,
+    "estimated_tokens_delta": 21,
+    "uuid": "ab5e7bd0-1dc0-4a6b-8952-7052e562add6",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 37,
+    "estimated_tokens_delta": 15,
+    "uuid": "05c96f92-ee38-4a6b-a985-4e8ac1cbea06",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 61,
+    "estimated_tokens_delta": 24,
+    "uuid": "d1f6f31c-8b0d-4dbc-aea0-01775b8430d3",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 83,
+    "estimated_tokens_delta": 22,
+    "uuid": "22f8cc53-96c2-45fa-b960-4a236f5a5514",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 98,
+    "estimated_tokens_delta": 15,
+    "uuid": "8657a977-670d-467a-8511-c886d68f3191",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 109,
+    "estimated_tokens_delta": 11,
+    "uuid": "e4fb5676-2efa-49f2-9a38-e9c57cfa0c4f",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 118,
+    "estimated_tokens_delta": 9,
+    "uuid": "e85b6478-1d0a-4218-b000-2cfcc1e05b4c",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 120,
+    "estimated_tokens_delta": 2,
+    "uuid": "5137e509-e69d-4c3b-88ef-cdd4285a296b",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 142,
+    "estimated_tokens_delta": 22,
+    "uuid": "be9eb476-93d7-4620-ac7a-7c843e6884a9",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 171,
+    "estimated_tokens_delta": 29,
+    "uuid": "987eb490-b318-4cf7-99c6-cd871edb5e57",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 191,
+    "estimated_tokens_delta": 20,
+    "uuid": "b3e0fa15-1c00-4d28-974a-00ebeffc4251",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 192,
+    "estimated_tokens_delta": 1,
+    "uuid": "e6b39802-3d55-420a-860a-315f2036c8c1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 193,
+    "estimated_tokens_delta": 1,
+    "uuid": "bb95805c-204e-4a85-806a-993d51334ec9",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 210,
+    "estimated_tokens_delta": 17,
+    "uuid": "204540cd-066c-4e46-900e-1453eaf8eade",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 224,
+    "estimated_tokens_delta": 14,
+    "uuid": "5c1599f2-a917-429f-a3b9-f936b1e46567",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 251,
+    "estimated_tokens_delta": 27,
+    "uuid": "b2455eb8-9d1a-4e9a-9975-073d1776a5fb",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 275,
+    "estimated_tokens_delta": 24,
+    "uuid": "417a8d36-fd6b-4531-a2a6-53a30cbc0ee1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 293,
+    "estimated_tokens_delta": 18,
+    "uuid": "82ed79fd-3eba-484f-9e10-988be9eccdc3",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 306,
+    "estimated_tokens_delta": 13,
+    "uuid": "093acc81-2115-4ebd-81b0-d48aaa011ce1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 308,
+    "estimated_tokens_delta": 2,
+    "uuid": "c7a52f57-243b-44a0-afd8-915ed7c31b73",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 335,
+    "estimated_tokens_delta": 27,
+    "uuid": "21b647c4-f703-44d2-a4e4-544bf53a7d18",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 364,
+    "estimated_tokens_delta": 29,
+    "uuid": "cb010c33-e99f-41b3-b831-57ff69754607",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 386,
+    "estimated_tokens_delta": 22,
+    "uuid": "05ee8f4b-eb4f-499b-8f89-b7d15f7544e2",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 388,
+    "estimated_tokens_delta": 2,
+    "uuid": "688f618f-33ff-46b2-a3fb-635bc7f240f4",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 419,
+    "estimated_tokens_delta": 31,
+    "uuid": "2e2fb33a-1a93-4eee-a58a-2552329cedfb",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 440,
+    "estimated_tokens_delta": 21,
+    "uuid": "4df71ef2-16e0-4a69-b309-6404c7e490f9",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 441,
+    "estimated_tokens_delta": 1,
+    "uuid": "fbc25af2-5ce5-4f3d-8d15-102d530919f7",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 454,
+    "estimated_tokens_delta": 13,
+    "uuid": "d684789f-4289-4a3f-8bfc-67dfbde80e5c",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 483,
+    "estimated_tokens_delta": 29,
+    "uuid": "79839f00-cf0c-4b32-84cd-c775edf83258",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 506,
+    "estimated_tokens_delta": 23,
+    "uuid": "bf24d21d-8105-4040-ada7-e3984d93a152",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 509,
+    "estimated_tokens_delta": 3,
+    "uuid": "230509f7-c5ba-444e-9662-339cd70ecfe0",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 511,
+    "estimated_tokens_delta": 2,
+    "uuid": "9947abc3-14e3-4f4c-9a2b-d52a1649af55",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 533,
+    "estimated_tokens_delta": 22,
+    "uuid": "49ce2bac-0356-42f0-a9b2-b129c6e6ed9d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 553,
+    "estimated_tokens_delta": 20,
+    "uuid": "3ebe0d7b-fc54-4eda-bac2-dba254a58c1a",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 567,
+    "estimated_tokens_delta": 14,
+    "uuid": "b25c72ff-5db8-4578-a52f-63651813b9a3",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 577,
+    "estimated_tokens_delta": 10,
+    "uuid": "90b59807-0b01-4f8c-90c1-a29361e1f7de",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 580,
+    "estimated_tokens_delta": 3,
+    "uuid": "05ba38b6-5781-4928-a245-a916c9e34fd7",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 586,
+    "estimated_tokens_delta": 6,
+    "uuid": "bf49d437-b837-4d49-b0bc-354d68f40d37",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 587,
+    "estimated_tokens_delta": 1,
+    "uuid": "56ce660c-5d6d-4ef6-9091-3ac7b366d356",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 598,
+    "estimated_tokens_delta": 11,
+    "uuid": "2d13ae86-9255-40f2-acb5-fb19f62ed40d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 629,
+    "estimated_tokens_delta": 31,
+    "uuid": "0b0a8f4c-f71d-4320-9603-64077cfcdfc7",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 659,
+    "estimated_tokens_delta": 30,
+    "uuid": "9d1b22d5-5b11-4958-b9f4-67db05265dd2",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 668,
+    "estimated_tokens_delta": 9,
+    "uuid": "0aed6cee-c68f-4727-9d1f-a7b637899bc1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 670,
+    "estimated_tokens_delta": 2,
+    "uuid": "e50b5579-e2a1-4a7e-bee3-ab012bca3165",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 694,
+    "estimated_tokens_delta": 24,
+    "uuid": "3f62ee46-e751-4026-97ac-78f88743016a",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 715,
+    "estimated_tokens_delta": 21,
+    "uuid": "dce38174-58e0-455a-8a67-273ce1282e18",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 740,
+    "estimated_tokens_delta": 25,
+    "uuid": "bfc54a32-dded-47d8-8b32-4afc1b9331c1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 741,
+    "estimated_tokens_delta": 1,
+    "uuid": "874a06fb-52d2-455d-9cdc-21b2918cb938",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 758,
+    "estimated_tokens_delta": 17,
+    "uuid": "96b7d30d-b953-41c8-8581-65557c7619e8",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 770,
+    "estimated_tokens_delta": 12,
+    "uuid": "a760540a-60ac-4ba6-8e1f-cf53a4b4c713",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 788,
+    "estimated_tokens_delta": 18,
+    "uuid": "12352f6c-a7d0-4e57-8370-2d294cf2ed20",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 790,
+    "estimated_tokens_delta": 2,
+    "uuid": "2b8f3268-7e3f-4050-bfb3-d8402388110a",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 792,
+    "estimated_tokens_delta": 2,
+    "uuid": "f7043a37-59f6-4043-877b-48cd23a30c17",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 810,
+    "estimated_tokens_delta": 18,
+    "uuid": "6bfdbbf1-d13d-4bfa-83f9-54973bd8f81b",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 827,
+    "estimated_tokens_delta": 17,
+    "uuid": "0fc322b5-aead-4c78-b9c5-0af87b8c157a",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 849,
+    "estimated_tokens_delta": 22,
+    "uuid": "ecb0883c-bf69-45a9-9ab7-a7a6cd6dff43",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 875,
+    "estimated_tokens_delta": 26,
+    "uuid": "1bc757d7-979d-49b2-bc78-b86f55f4fc64",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 894,
+    "estimated_tokens_delta": 19,
+    "uuid": "16e6bce2-5de8-4062-b9a6-7647f3f9506d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 895,
+    "estimated_tokens_delta": 1,
+    "uuid": "2df85e3a-16e0-40f2-b301-caad457a16cd",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 919,
+    "estimated_tokens_delta": 24,
+    "uuid": "703afe63-ba7b-4bb4-9692-da789d3c27a4",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 938,
+    "estimated_tokens_delta": 19,
+    "uuid": "23cf0fa2-c6a8-4428-8511-366607c8e018",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 951,
+    "estimated_tokens_delta": 13,
+    "uuid": "68354983-bef1-458a-9a52-8e3a7f652349",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 982,
+    "estimated_tokens_delta": 31,
+    "uuid": "0757925a-fdc7-40db-a38c-7b85f0059812",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 990,
+    "estimated_tokens_delta": 8,
+    "uuid": "48d66b08-9c60-461d-b04d-f881d00dfafb",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 992,
+    "estimated_tokens_delta": 2,
+    "uuid": "aa4295e8-08e5-4898-88a9-60e7ee48022d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1017,
+    "estimated_tokens_delta": 25,
+    "uuid": "09cfc5e8-dd79-4bc3-ba9d-e5b23cd74f19",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1040,
+    "estimated_tokens_delta": 23,
+    "uuid": "a798bc75-1f98-4e04-abd0-e85da90a5773",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1058,
+    "estimated_tokens_delta": 18,
+    "uuid": "fc33e617-6e02-4ed8-86e6-48550ae3b5d9",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1075,
+    "estimated_tokens_delta": 17,
+    "uuid": "8be0f3fc-04c1-46fe-bd16-427c938ab0e7",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1078,
+    "estimated_tokens_delta": 3,
+    "uuid": "68c231fe-2f78-49c6-80d0-4ed562982681",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1102,
+    "estimated_tokens_delta": 24,
+    "uuid": "fc2d4abf-1901-4a75-a133-7e236f28e468",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1123,
+    "estimated_tokens_delta": 21,
+    "uuid": "db36b384-c743-46d7-9425-020fc9453521",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1163,
+    "estimated_tokens_delta": 40,
+    "uuid": "54304dc3-b8f8-49c4-9eb3-e034b2f5be10",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1190,
+    "estimated_tokens_delta": 27,
+    "uuid": "da664718-a52c-4aa5-9d91-1f9a7dd79e8b",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1192,
+    "estimated_tokens_delta": 2,
+    "uuid": "6769f9b3-c10d-4e69-8099-3f217e2b7e53",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1215,
+    "estimated_tokens_delta": 23,
+    "uuid": "64a55add-30a2-4e44-92a3-8a97f1a41b37",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1231,
+    "estimated_tokens_delta": 16,
+    "uuid": "ff02e28b-3c15-4e5a-a9eb-033dbce7f5f0",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1243,
+    "estimated_tokens_delta": 12,
+    "uuid": "1075a82a-15ba-480f-9b4f-6eef01c81f58",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1245,
+    "estimated_tokens_delta": 2,
+    "uuid": "f93add5b-6b5b-4da0-b3e0-ae49b17ea022",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1278,
+    "estimated_tokens_delta": 33,
+    "uuid": "26bc8ac8-6b54-4838-b6f2-df568f19149e",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1305,
+    "estimated_tokens_delta": 27,
+    "uuid": "5d5ae0c5-df2d-42a2-85ab-3880e9f99414",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1326,
+    "estimated_tokens_delta": 21,
+    "uuid": "2467412b-084f-4059-85e2-b5879ce5cecb",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1327,
+    "estimated_tokens_delta": 1,
+    "uuid": "6e6aa4cb-4f68-4df4-9e2f-5a19f6866190",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1328,
+    "estimated_tokens_delta": 1,
+    "uuid": "80adfd74-192d-4554-b066-36e92a48f62c",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1353,
+    "estimated_tokens_delta": 25,
+    "uuid": "2747997c-0a66-469b-89d5-11495df0f28a",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1373,
+    "estimated_tokens_delta": 20,
+    "uuid": "aa2b3a63-5e5e-4818-a035-99cb7b18d4cd",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1380,
+    "estimated_tokens_delta": 7,
+    "uuid": "6ba9f12e-71e4-415d-b767-94f1088d89d8",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1382,
+    "estimated_tokens_delta": 2,
+    "uuid": "5f6f554a-5685-4a8e-972f-e189cee5ee42",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1416,
+    "estimated_tokens_delta": 34,
+    "uuid": "7380e268-efd9-4e30-bf61-129358ff3475",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1432,
+    "estimated_tokens_delta": 16,
+    "uuid": "54683f2c-912d-4449-89f3-4492ae1c6384",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1434,
+    "estimated_tokens_delta": 2,
+    "uuid": "be4fcb70-5425-4e04-8236-89305b61ab81",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1440,
+    "estimated_tokens_delta": 6,
+    "uuid": "bda0d63d-a263-4a2b-b106-e1c6ea44c464",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1441,
+    "estimated_tokens_delta": 1,
+    "uuid": "f60f59d1-5975-484f-a131-1a06e9b483be",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1465,
+    "estimated_tokens_delta": 24,
+    "uuid": "1557c9f4-09ef-4e69-aa0f-cdb487aab3d9",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1487,
+    "estimated_tokens_delta": 22,
+    "uuid": "cba2f65c-e584-4799-912a-79209f7705f6",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1501,
+    "estimated_tokens_delta": 14,
+    "uuid": "8c9d75c7-a941-476e-9410-d2d0004ae220",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1522,
+    "estimated_tokens_delta": 21,
+    "uuid": "77989fb0-d61b-48c0-a131-98d297972223",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1523,
+    "estimated_tokens_delta": 1,
+    "uuid": "18eea80d-bd79-4f5f-84c9-d91d131d9de8",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1545,
+    "estimated_tokens_delta": 22,
+    "uuid": "6e364480-fd35-4bd4-a9fd-2a34398b7d6e",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1561,
+    "estimated_tokens_delta": 16,
+    "uuid": "da7be490-8b94-4d30-baae-041f2f4a4c27",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1577,
+    "estimated_tokens_delta": 16,
+    "uuid": "844147af-043d-4aae-90e4-8f15b4c01384",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1596,
+    "estimated_tokens_delta": 19,
+    "uuid": "3312979e-b3e5-49e7-a04a-396e72475f60",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1624,
+    "estimated_tokens_delta": 28,
+    "uuid": "cbfe5f2d-721f-43fc-a053-14dafa193bdc",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1631,
+    "estimated_tokens_delta": 7,
+    "uuid": "8e56e9df-4a9f-4f97-b2a4-f69353f9371a",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1634,
+    "estimated_tokens_delta": 3,
+    "uuid": "43e022c1-0a6f-4844-a77b-f34b77725349",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1639,
+    "estimated_tokens_delta": 5,
+    "uuid": "dba0a279-ae6a-4ddb-ac73-71f00e5e352b",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1641,
+    "estimated_tokens_delta": 2,
+    "uuid": "9116ac92-c423-4354-8cab-c5a4e8d476f4",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1659,
+    "estimated_tokens_delta": 18,
+    "uuid": "61bbdcf3-620c-41ae-9f33-7f6df2809ae5",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1675,
+    "estimated_tokens_delta": 16,
+    "uuid": "15916ec0-ee64-4a84-9e22-f8df977fa397",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1690,
+    "estimated_tokens_delta": 15,
+    "uuid": "a9364547-b60e-4c7f-ab48-13f355f4f4c8",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1706,
+    "estimated_tokens_delta": 16,
+    "uuid": "d37f6982-b578-4eac-b90c-df8c4db3ced9",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1721,
+    "estimated_tokens_delta": 15,
+    "uuid": "21ba2ceb-c3b1-49f6-ba21-a34a3d6667aa",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1738,
+    "estimated_tokens_delta": 17,
+    "uuid": "21a77c2b-6788-4d55-9f48-3da968ed7306",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1740,
+    "estimated_tokens_delta": 2,
+    "uuid": "98e78f8c-0632-43f0-bd38-37e2798fcbb2",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1757,
+    "estimated_tokens_delta": 17,
+    "uuid": "c3d3b91f-fb2a-4a62-ad57-d6eefd6c945e",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1782,
+    "estimated_tokens_delta": 25,
+    "uuid": "42e809d0-17fd-42e3-8d74-e6881c90cedb",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1798,
+    "estimated_tokens_delta": 16,
+    "uuid": "7fab9ae1-5879-432b-a0e3-0db1527e8b24",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1814,
+    "estimated_tokens_delta": 16,
+    "uuid": "32180a15-a11a-45b3-bb45-87c612fe14fd",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1822,
+    "estimated_tokens_delta": 8,
+    "uuid": "d7e3dc22-534e-43ea-a06d-fea49ccf6893",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1825,
+    "estimated_tokens_delta": 3,
+    "uuid": "0a8b094d-c505-4867-b13a-effd2978d0e1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1829,
+    "estimated_tokens_delta": 4,
+    "uuid": "eb0f6d40-c495-4d4d-b688-7f3ba2741943",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1831,
+    "estimated_tokens_delta": 2,
+    "uuid": "e4b7b17d-ca74-4654-bf94-c1dff398796f",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1838,
+    "estimated_tokens_delta": 7,
+    "uuid": "98928114-04c5-4d05-9fc5-9222ec8a46bf",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1840,
+    "estimated_tokens_delta": 2,
+    "uuid": "ad7fc9c3-4dc2-45a3-b7ed-ca862098e514",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1847,
+    "estimated_tokens_delta": 7,
+    "uuid": "ad283870-68ec-4251-add9-9aa9cc66a603",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1849,
+    "estimated_tokens_delta": 2,
+    "uuid": "138806ad-c1f2-43cf-9cca-eb761b084f71",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1865,
+    "estimated_tokens_delta": 16,
+    "uuid": "bdbc1c0b-6a63-47dd-93f4-3cbb624ebac0",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1885,
+    "estimated_tokens_delta": 20,
+    "uuid": "d8595606-9e00-4279-a1de-5b2807a83da3",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1897,
+    "estimated_tokens_delta": 12,
+    "uuid": "b42117de-d7f4-4568-93e3-1faac220261c",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1918,
+    "estimated_tokens_delta": 21,
+    "uuid": "13c6057a-4316-4372-9151-ae820e8455e0",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1926,
+    "estimated_tokens_delta": 8,
+    "uuid": "e1615ec7-e0a8-4949-b99f-f133a00d7b1e",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1928,
+    "estimated_tokens_delta": 2,
+    "uuid": "89b75531-e9ac-48bd-903a-c79dd927ab9f",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1946,
+    "estimated_tokens_delta": 18,
+    "uuid": "2862d7b0-fb01-4ffe-9e50-0826cd17abf1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1963,
+    "estimated_tokens_delta": 17,
+    "uuid": "3abf9f1a-19c3-4ef9-acb1-0c6ca8f0098d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1983,
+    "estimated_tokens_delta": 20,
+    "uuid": "c4554338-6e14-4057-b8aa-f35d47e9ddfe",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1990,
+    "estimated_tokens_delta": 7,
+    "uuid": "60748d9c-9df6-496e-9825-527fce2769a3",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1993,
+    "estimated_tokens_delta": 3,
+    "uuid": "1e9b4f9e-f210-456f-b802-a591d8eed422",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 1999,
+    "estimated_tokens_delta": 6,
+    "uuid": "73cb0c97-2d16-4ed9-9400-b0634b2c0a6f",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2002,
+    "estimated_tokens_delta": 3,
+    "uuid": "30a0aff0-678c-4a68-9b53-e9551429e614",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2007,
+    "estimated_tokens_delta": 5,
+    "uuid": "c20f3590-f775-4a7b-bc32-4ec3733d2090",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2008,
+    "estimated_tokens_delta": 1,
+    "uuid": "e87c9393-2e2e-43d2-8d8a-9399a5e62602",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2024,
+    "estimated_tokens_delta": 16,
+    "uuid": "b9f4851f-6070-482c-ac37-ca70806cb944",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2039,
+    "estimated_tokens_delta": 15,
+    "uuid": "f908300a-405e-4c07-bc2d-042446eda823",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2063,
+    "estimated_tokens_delta": 24,
+    "uuid": "8909e5a1-0abc-4fb3-8dfe-cd3b19321bc4",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2071,
+    "estimated_tokens_delta": 8,
+    "uuid": "1d2d847c-4692-4836-9672-c6a165178d18",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2073,
+    "estimated_tokens_delta": 2,
+    "uuid": "65d89d9d-b289-4fe7-973a-a85389877499",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2091,
+    "estimated_tokens_delta": 18,
+    "uuid": "126205b5-424f-437a-82be-260ccbdef99d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2117,
+    "estimated_tokens_delta": 26,
+    "uuid": "82527da9-f0f7-4213-8291-f88115b40bca",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2122,
+    "estimated_tokens_delta": 5,
+    "uuid": "05f0039c-596f-4a2d-9c51-3edf19809a3d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2123,
+    "estimated_tokens_delta": 1,
+    "uuid": "afeccca1-8578-4550-8c0e-8407a06ee0a7",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2139,
+    "estimated_tokens_delta": 16,
+    "uuid": "83ba1e1c-e0a7-44f6-997d-92cedd11158c",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2160,
+    "estimated_tokens_delta": 21,
+    "uuid": "8d266622-2025-4b75-a8fd-2622e3b13cad",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2188,
+    "estimated_tokens_delta": 28,
+    "uuid": "e14f07c1-6eb9-4cc2-89b3-ba1d91a2b8bd",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2191,
+    "estimated_tokens_delta": 3,
+    "uuid": "de788cd5-09ed-4a1b-a2fd-fed94fe27ee1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2192,
+    "estimated_tokens_delta": 1,
+    "uuid": "8d9c26c9-2c2c-4547-ba11-2b4d4d397d63",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2216,
+    "estimated_tokens_delta": 24,
+    "uuid": "55ea0446-07e2-4c4e-82a3-c78e5dd1b1dd",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2240,
+    "estimated_tokens_delta": 24,
+    "uuid": "29131eee-6275-440a-a9ad-ec74a06c8062",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2242,
+    "estimated_tokens_delta": 2,
+    "uuid": "48dcaa79-cece-4322-a51a-61e4d6aabc82",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2266,
+    "estimated_tokens_delta": 24,
+    "uuid": "9a777f30-4a7a-4637-9aa0-275ff931ee7b",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2288,
+    "estimated_tokens_delta": 22,
+    "uuid": "02838c94-73d8-468f-a16f-c2df2416e38f",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2314,
+    "estimated_tokens_delta": 26,
+    "uuid": "d1a8e637-2b87-497b-992a-b19b6fd09335",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2325,
+    "estimated_tokens_delta": 11,
+    "uuid": "7443a59f-c6c3-4fa6-ae6d-b84ede1aa0a1",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2331,
+    "estimated_tokens_delta": 6,
+    "uuid": "350dde14-7245-48db-960d-39bb28c5ac51",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2334,
+    "estimated_tokens_delta": 3,
+    "uuid": "7054d0ae-41ca-42c5-ab05-1111d67a8d59",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2341,
+    "estimated_tokens_delta": 7,
+    "uuid": "b03c52ae-6e85-43fc-923c-87fa8049f2c4",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2342,
+    "estimated_tokens_delta": 1,
+    "uuid": "26d23903-e00f-464a-9d21-c8cb9e43dcf5",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2352,
+    "estimated_tokens_delta": 10,
+    "uuid": "624eee82-4bfa-436e-8b52-0f628509ee05",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2368,
+    "estimated_tokens_delta": 16,
+    "uuid": "2dd8c688-6299-4493-a545-99fb37868c1d",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2388,
+    "estimated_tokens_delta": 20,
+    "uuid": "d2cc7abf-0ff3-43a6-83f6-0fa587547c80",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2404,
+    "estimated_tokens_delta": 16,
+    "uuid": "a90cff16-1a89-4d4e-8e6f-22f2ce24e4c8",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2428,
+    "estimated_tokens_delta": 24,
+    "uuid": "a9b05264-4cf7-4b1e-83a4-063036a1f3ef",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2447,
+    "estimated_tokens_delta": 19,
+    "uuid": "bcfa956f-1120-464a-b37b-1c432a89a956",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2463,
+    "estimated_tokens_delta": 16,
+    "uuid": "bc3403ef-89b5-4ca8-84b7-9a2e19e54f45",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2486,
+    "estimated_tokens_delta": 23,
+    "uuid": "046f3d19-4ca6-4cb0-a610-02915ee7a834",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 2497,
+    "estimated_tokens_delta": 11,
+    "uuid": "9591669f-0e88-4c22-aed3-eb0cca59ca15",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "system",
+    "subtype": "thinking_tokens",
+    "estimated_tokens": 10005,
+    "estimated_tokens_delta": 7508,
+    "uuid": "1a2dde5d-aa35-4235-ab71-61e889e66bb4",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01RRuNgKmGvwHqxcWvjRymZw",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "Now I have a good understanding of the task. Let me now create:\n\n1. `agents/pr-refinement/prompt.md` — modeled on `agents/pr-review/prompt.md`\n2. `agents/pr-refinement/README.md` — mirrors `agents/pr-review/README.md` in structure\n3. `.github/workflows/pr-refinement.yml` — daily cron sweep\n\nKey details to implement:\n- **Model choice**: Use a different Claude model than pr-review. The pr-review uses the action's default (which is presumably Claude Sonnet). \n\nFor the refinement agent, I'll pick a model that serves the counter-voice role well—either `claude-haiku-4-5-20251001` for speed and cost efficiency, or `claude-opus-4-8` for more sophisticated analysis. I'll document whichever I choose in the README along with the reasoning behind it. I'll go with Opus for its stronger reasoning capabilities in pushing back on the review. For tracking refinement rounds, I'm using a PR label system with a configurable cap defaulting to 1, and storing run logs in a timestamped JSON file under `.github/agent-logs/pr-refinement/`. The daily cron workflow will scan open PRs for existing pr-review comments, then check their refinement round labels to determine if they're eligible for another pass.\n\nNow I'm working through the workflow structure—whether to use a single looping job or a discovery job with a matrix strategy. For the label tracking, I need to check if a PR already has a `refinement-rounds:N` label at or above the cap and skip it, then increment the label after running the refinement agent.\n\nThe tricky part is handling multiple PRs in a daily cron trigger, since the `claude-code-action` needs to run once per qualifying PR. I'm considering whether a matrix approach would work better than a single loop.\n\nI could set up a two-job workflow: first, a discovery job that queries all open PRs, filters for those with review comments and below the refinement cap, then outputs the list as a matrix. Then a second job uses that matrix to run the action on each PR in parallel.\n\nFor label management, I'll use a format like `refinement-rounds:N` to track how many times a PR has been refined. The discovery job filters out PRs that have already hit their cap, and after each refinement run completes, the workflow updates the label accordingly.\n\nWriting label update logic... I could check for a label on the PR, look for any review comments, or scan the agent-logs directory to see if pr-review ran on it. The most reliable approach is checking if `.github/agent-logs/pr-review/pr-${PR_NUMBER}/` exists, since that's where the pr-review workflow commits its logs. I'll use that in the discover job.\n\nFor the refinement agent's prompt, it needs to read the existing inline comments from pr-review, evaluate each one critically to identify if they're wrong or over-eager, and push back on those that don't hold up while leaving valid comments alone. Writing the prompt file now... not just assume external facts are true — verify them. If a reviewer claims \"this regex will fail on Unicode input,\" test it. If they say \"this library is deprecated,\" check the repo or docs.\n\nFor library and framework questions, I'll use the documentation tools to confirm. For everything else like CVEs or changelogs, I'll search the web and fetch the actual sources. If I can't verify something, I won't use it as a reason to push back.\n\nWhen replying to comments, I need to explain clearly why the feedback is off-base or unnecessary, then point to the actual code to support my response. I'm checking the GitHub API endpoint for replying to PR review comments and verifying the correct `gh api` command format. Now I'm thinking through the workflow structure—I need a daily cron trigger plus manual dispatch, a discovery job to find open PRs that haven't hit the round limit, and a refinement job to run the agent on qualifying PRs, with round tracking via labels.\n\nFor the discovery job, I'm reconsidering the approach: instead of checking agent logs in the repository, I'll use the GitHub API to check if a PR has inline review comments and then examine its `refinement-rounds:N` label to see if it's reached the cap. I'm writing commands to list open PRs and check their review comment count...\n\nExtracting the current round number from the label...\n\nNow I'm thinking through the workflow structure: I'll set a `REFINEMENT_ROUND_CAP` environment variable with a default of 1, and the discover job will output a JSON matrix containing PR numbers and their current refinement rounds. The refine job will then run once per matrix item, handling the prompt construction, PR checkout, agent execution, label updates, and commit logging all in sequence.\n\nFor the refinement agent's allowed tools, I need to restrict it to GitHub API operations for managing review comments, viewing PR diffs and metadata, plus the context tools for documentation lookups.\n\nFor the workflow setup, since this runs on a daily cron against arbitrary PRs, I need to check out each PR's head ref so the agent has access to the actual code. I'll structure the matrix to include the PR number, head ref, and current round, then use that head ref in the checkout step.\n\nWriting the workflow configuration... I'll use Opus 4.8 for the refinement agent since it's the most capable model available and provides a good contrast to the default Sonnet model used by the review agent, which helps mitigate single-model bias.\n\nNow I need to write the three files, starting with the workflow configuration. I'll use the `claude_args` parameter to specify the model ID as the ticket requires.\n\nWriting workflow configuration... Writing bash script logic... I'm realizing I should simplify the conditional logic for the refine job. Instead of checking the matrix structure directly, I can add a separate output flag that tracks whether any PRs were found, then use that in the `if:` condition. This is cleaner than trying to validate the JSON structure of the matrix output itself. I need to handle the case where the matrix is empty since GitHub Actions will error if `strategy.matrix` has no combinations. I'll add a conditional check using the count output to skip the refine job entirely if there are no items to process. For the label updates, I need to handle creating the label if it doesn't exist, removing any old refinement-rounds labels, and adding the new one after Claude finishes processing.\n\nWriting shell commands... Writing shell commands...\n\nNow I'm thinking through the configuration details—I need to use the repository variable from the GitHub context and the PR number from the matrix, plus I should reference the same OAuth token secret that the pr-review workflow uses. I'm also considering how to pass dynamic matrix values from a previous job, which GitHub Actions handles through `fromJson()`.\n\nFor the Claude tools configuration in this refinement workflow, I'll need a different set than pr-review since we're working with comment replies rather than creating fresh inline comments. I'll include tools for API interactions to reply to comments, viewing diffs and PR metadata, and the standard read/search utilities.\n\nWriting config YAML... Writing workflow configuration... Writing workflow configuration... Setting up the environment variable with a fallback chain where manual dispatch input takes priority over repository variables, which then defaults to 1 if neither is provided. I need to verify that empty strings are properly treated as falsy in GitHub Actions expressions so the precedence works correctly.\n\nNow I'm writing a bash script that will discover and process pull requests, starting by setting the round cap and initializing an empty array, then using the GitHub CLI to fetch all open PRs with their metadata.\n\nWriting the PR discovery script... Building the matrix output... Building the JSON object... me verify which permission actually controls label management for PRs. I think it's `issues: write` that covers labels across both issues and pull requests, but I should double-check the permission requirements for the workflow actions I'm planning.\n\nNow I'm ready to write out the actual workflow and prompt files, starting with how I'll pass the repository and PR information to the refinement agent similar to how the review agent receives it. ands that the agent should substitute the actual values it extracts from the prompt preamble when executing bash commands. So when the prompt shows `${PR_NUMBER}`, the agent knows to replace it with the actual PR number it parsed from the \"PR NUMBER:\" line at the top.\n\nI need to be careful about permissions too—modifying PR labels requires `pull-requests: write`, and creating repo-level labels requires `issues: write`, so I should include both to be safe.\n\nFor the cron schedule, I want a daily cadence at 5am UTC to avoid resource contention with other workflows. I'll use `'0 5 * * *'` for that.\n\nNow I'm ready to write out the workflow files, though I should also handle the case where `vars.REFINEMENT_ROUND_CAP` isn't set in the repo—I need to check how the `vars.` context behaves in that scenario.\n\nWriting workflow configuration... I should note that the 100 PR limit is reasonable for most repositories, though I could increase it if needed. The GitHub API call for posting comments should work fine within the Actions context since the token is automatically available. Now I'm ready to write out the actual files, starting with documentation about the model choice—using Claude Opus 4.8 as an adversarial counterpart to the Sonnet-based PR reviewer, which helps catch different types of issues through their different biases—along with how the refinement rounds are tracked via labels and made configurable through environment variables.",
+          "signature": "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"
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1898,
+        "cache_read_input_tokens": 30930,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1898
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "173acfc8-dfdc-40a2-b218-8e68e220fd7d",
+    "request_id": "req_011Cc4qUVwMaFSh9MEkAGsFL"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01RRuNgKmGvwHqxcWvjRymZw",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Now I have all the context I need. Let me create the three files for the PR Refinement agent."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1898,
+        "cache_read_input_tokens": 30930,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1898
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "47a9b4ab-2d1a-4e8a-a6c0-e303b7c415cb",
+    "request_id": "req_011Cc4qUVwMaFSh9MEkAGsFL"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_01RRuNgKmGvwHqxcWvjRymZw",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01EPEFUpCGFffRLeBL8DcFUZ",
+          "name": "Bash",
+          "input": {
+            "command": "ls /home/runner/work/my-harness/my-harness/agents/",
+            "description": "List existing agent directories"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 1898,
+        "cache_read_input_tokens": 30930,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1898
+        },
+        "output_tokens": 8,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "d5422436-2048-49b3-890f-5eaea7a4ea4a",
+    "request_id": "req_011Cc4qUVwMaFSh9MEkAGsFL"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01EPEFUpCGFffRLeBL8DcFUZ",
+          "type": "tool_result",
+          "content": "agent-improver\njira-ticket\njunior-dev\npr-review\nsenior-dev",
+          "is_error": false
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "b648b335-be0d-4437-a6f4-6642139a30b0",
+    "timestamp": "2026-06-15T09:52:47.722Z",
+    "tool_use_result": {
+      "stdout": "agent-improver\njira-ticket\njunior-dev\npr-review\nsenior-dev",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "noOutputExpected": false
+    }
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-6",
+      "id": "msg_0185YrvkiA6eMQfmo9RhDc7y",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_013vRSbJHvvyUhMEBoNm4wsB",
+          "name": "Write",
+          "input": {
+            "file_path": "/home/runner/work/my-harness/my-harness/agents/pr-refinement/prompt.md",
+            "content": "You are the **PR Refinement agent** for this repository. The PR branch is already\nchecked out in the current working directory. The workflow has prepended `REPO`\nand `PR NUMBER` lines above this prompt — use them.\n\n## Your job\n\nRead the inline comments already posted by the PR Review agent on this PR and\npush back on comments that are wrong, over-eager, or low-signal. Nothing else.\n\nThis is a deliberate counter-voice role: your job is to advocate for the author,\nnot to rubber-stamp the reviewer.\n\n## What to evaluate\n\nFetch all inline review comments via\n`gh api repos/${REPO}/pulls/${PR_NUMBER}/comments`. For each comment, ask:\n\n1. **Is the claim factually correct?** — Does the reviewer correctly identify a\n   bug, security issue, or performance problem? Or is the code fine and the\n   comment based on a misread?\n2. **Is the severity calibrated?** — Is the reviewer overstating the impact?\n   A `Critical` on a missing null check in an internal utility that can never\n   receive null is not critical.\n3. **Is the comment in-scope?** — Comments on formatting, naming, hypothetical\n   future requirements, or pure style preferences should be challenged.\n4. **Is the proposed fix actually better?** — If the reviewer proposes a\n   specific change, is it demonstrably better or just different?\n\nDo **not** push back on comments that identify clear bugs, genuine security\nissues, or real performance problems with solid reasoning. Affirm those silently\n— don't post agreement for its own sake.\n\n## How to gather context\n\n- `gh pr view ${PR_NUMBER} --json title,body,state,additions,deletions,changedFiles,headRefName` — PR metadata.\n- `gh api repos/${REPO}/pulls/${PR_NUMBER}/comments` — list all inline review\n  comments. This is the primary input. Note each comment's `id` field — you'll\n  need it to post replies.\n- `gh pr diff ${PR_NUMBER}` — the diff, for verifying whether reviewer claims\n  hold up against the actual code.\n- Read files in the working directory as needed for context around flagged lines.\n\n### Verifying external facts\n\nDo not rely on training-data recall for anything externally verifiable —\nlibrary APIs, SDK versions, model names, CVE details, deprecation status.\n\n- **Library / framework / SDK / API / CLI questions** — use Context7\n  (`mcp__context7__resolve-library-id` then `mcp__context7__query-docs`).\n  Prefer this over web search for docs.\n- **Everything else** (model versions, CVEs, blog posts, changelogs not on\n  Context7) — use `WebSearch`, then `WebFetch` for specific pages.\n\nIf you can't verify a claim, don't use it to push back.\n\n## How to respond\n\n### Inline reply (primary)\n\nReply to specific comments where you have a concrete counter-argument:\n\n```\ngh api repos/${REPO}/pulls/${PR_NUMBER}/comments/${COMMENT_ID}/replies \\\n  --method POST \\\n  --field body=\"...\"\n```\n\nOne reply per comment you are pushing back on. Each reply must:\n\n- State concisely **why** the comment is wrong, over-eager, or low-signal.\n- Reference the actual code or diff to support your counter-claim.\n- If the reviewer proposes a fix, explain what's wrong with it and (if you have\n  a better alternative) show what would be preferable and why.\n\nKeep replies factual and direct. No hedging, no apologies, no padding. Escape\nany backticks in the `--field body` value as `\\`` to avoid shell interpretation.\n\n### Top-level summary (optional)\n\nIf there's a recurring pattern to the reviewer's over-reach (e.g. consistently\nflagging idiomatic style as non-idiomatic, or raising hypothetical edge cases\nthat the codebase explicitly doesn't support), post one short top-level comment\nvia `gh pr comment ${PR_NUMBER} --body \"...\"` summarizing the pattern. Keep it\nbrief — a few sentences. Skip this entirely if there's no pattern worth naming.\nEscape any backticks in `--body` as `\\`` to avoid shell interpretation.\n\nIf all inline comments are valid, post nothing and stop.\n\n## When you're done\n\nStop immediately after your last tool call. Do not summarize what you did,\ndo not list which comments you replied to, do not confirm the reply count.\nThe runner will exit.\n"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1,
+        "cache_creation_input_tokens": 12085,
+        "cache_read_input_tokens": 32828,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 12085
+        },
+        "output_tokens": 45,
+        "service_tier": "standard",
+        "inference_geo": "not_available"
+      },
+      "diagnostics": null,
+      "context_management": null
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "58713604-84d9-48c1-ac3c-8441c5e01778",
+    "request_id": "req_011Cc4qj6BXi7vTg69G59tRQ"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_013vRSbJHvvyUhMEBoNm4wsB",
+          "type": "tool_result",
+          "content": "File created successfully at: /home/runner/work/my-harness/my-harness/agents/pr-refinement/prompt.md (file state is current in your context — no need to Read it back)"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "uuid": "9f023fd8-0ec7-4d95-b3b2-1d90d60068c6",
+    "timestamp": "2026-06-15T09:53:19.827Z",
+    "tool_use_result": {
+      "type": "create",
+      "filePath": "/home/runner/work/my-harness/my-harness/agents/pr-refinement/prompt.md",
+      "content": "You are the **PR Refinement agent** for this repository. The PR branch is already\nchecked out in the current working directory. The workflow has prepended `REPO`\nand `PR NUMBER` lines above this prompt — use them.\n\n## Your job\n\nRead the inline comments already posted by the PR Review agent on this PR and\npush back on comments that are wrong, over-eager, or low-signal. Nothing else.\n\nThis is a deliberate counter-voice role: your job is to advocate for the author,\nnot to rubber-stamp the reviewer.\n\n## What to evaluate\n\nFetch all inline review comments via\n`gh api repos/${REPO}/pulls/${PR_NUMBER}/comments`. For each comment, ask:\n\n1. **Is the claim factually correct?** — Does the reviewer correctly identify a\n   bug, security issue, or performance problem? Or is the code fine and the\n   comment based on a misread?\n2. **Is the severity calibrated?** — Is the reviewer overstating the impact?\n   A `Critical` on a missing null check in an internal utility that can never\n   receive null is not critical.\n3. **Is the comment in-scope?** — Comments on formatting, naming, hypothetical\n   future requirements, or pure style preferences should be challenged.\n4. **Is the proposed fix actually better?** — If the reviewer proposes a\n   specific change, is it demonstrably better or just different?\n\nDo **not** push back on comments that identify clear bugs, genuine security\nissues, or real performance problems with solid reasoning. Affirm those silently\n— don't post agreement for its own sake.\n\n## How to gather context\n\n- `gh pr view ${PR_NUMBER} --json title,body,state,additions,deletions,changedFiles,headRefName` — PR metadata.\n- `gh api repos/${REPO}/pulls/${PR_NUMBER}/comments` — list all inline review\n  comments. This is the primary input. Note each comment's `id` field — you'll\n  need it to post replies.\n- `gh pr diff ${PR_NUMBER}` — the diff, for verifying whether reviewer claims\n  hold up against the actual code.\n- Read files in the working directory as needed for context around flagged lines.\n\n### Verifying external facts\n\nDo not rely on training-data recall for anything externally verifiable —\nlibrary APIs, SDK versions, model names, CVE details, deprecation status.\n\n- **Library / framework / SDK / API / CLI questions** — use Context7\n  (`mcp__context7__resolve-library-id` then `mcp__context7__query-docs`).\n  Prefer this over web search for docs.\n- **Everything else** (model versions, CVEs, blog posts, changelogs not on\n  Context7) — use `WebSearch`, then `WebFetch` for specific pages.\n\nIf you can't verify a claim, don't use it to push back.\n\n## How to respond\n\n### Inline reply (primary)\n\nReply to specific comments where you have a concrete counter-argument:\n\n```\ngh api repos/${REPO}/pulls/${PR_NUMBER}/comments/${COMMENT_ID}/replies \\\n  --method POST \\\n  --field body=\"...\"\n```\n\nOne reply per comment you are pushing back on. Each reply must:\n\n- State concisely **why** the comment is wrong, over-eager, or low-signal.\n- Reference the actual code or diff to support your counter-claim.\n- If the reviewer proposes a fix, explain what's wrong with it and (if you have\n  a better alternative) show what would be preferable and why.\n\nKeep replies factual and direct. No hedging, no apologies, no padding. Escape\nany backticks in the `--field body` value as `\\`` to avoid shell interpretation.\n\n### Top-level summary (optional)\n\nIf there's a recurring pattern to the reviewer's over-reach (e.g. consistently\nflagging idiomatic style as non-idiomatic, or raising hypothetical edge cases\nthat the codebase explicitly doesn't support), post one short top-level comment\nvia `gh pr comment ${PR_NUMBER} --body \"...\"` summarizing the pattern. Keep it\nbrief — a few sentences. Skip this entirely if there's no pattern worth naming.\nEscape any backticks in `--body` as `\\`` to avoid shell interpretation.\n\nIf all inline comments are valid, post nothing and stop.\n\n## When you're done\n\nStop immediately after your last tool call. Do not summarize what you did,\ndo not list which comments you replied to, do not confirm the reply count.\nThe runner will exit.\n",
+      "structuredPatch": [],
+      "originalFile": null,
+      "userModified": false
+    }
+  },
+  {
+    "type": "rate_limit_event",
+    "rate_limit_info": {
+      "status": "allowed",
+      "resetsAt": 1781535000,
+      "rateLimitType": "five_hour",
+      "overageStatus": "rejected",
+      "overageDisabledReason": "org_level_disabled",
+      "isUsingOverage": false
+    },
+    "uuid": "e36da595-9aeb-4142-8c90-161677facb2f",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe"
+  },
+  {
+    "type": "result",
+    "subtype": "error_max_turns",
+    "duration_ms": 253831,
+    "duration_api_ms": 253189,
+    "is_error": true,
+    "num_turns": 6,
+    "stop_reason": "tool_use",
+    "session_id": "529a6c48-6950-4258-8b87-076596c57fbe",
+    "total_cost_usd": 0.4059914,
+    "usage": {
+      "input_tokens": 7,
+      "cache_creation_input_tokens": 26378,
+      "cache_read_input_tokens": 135448,
+      "output_tokens": 13688,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 26378,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 1,
+          "output_tokens": 1144,
+          "cache_read_input_tokens": 32828,
+          "cache_creation_input_tokens": 12085,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 12085
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 1658,
+        "outputTokens": 18,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.001748,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-sonnet-4-6": {
+        "inputTokens": 7,
+        "outputTokens": 13688,
+        "cacheReadInputTokens": 135448,
+        "cacheCreationInputTokens": 26378,
+        "webSearchRequests": 0,
+        "costUSD": 0.40424340000000003,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "max_turns",
+    "fast_mode_state": "off",
+    "uuid": "85b1e46a-6540-4cbd-a39a-a76991f252e5",
+    "errors": [
+      "Reached maximum number of turns (5)"
+    ]
+  }
+]
