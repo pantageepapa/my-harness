@@ -20,15 +20,19 @@ and open a Draft PR. Then stop.
 1. Read the ticket: `jira issue view "$TICKET_KEY" --plain`. Note
    summary, description, acceptance criteria.
 2. Plan: open the files/symbols the ticket references with `Read`,
-   `Glob`, `Grep`. Verify paths exist before assuming.
+   `Glob`, `Grep`. Verify paths exist before assuming. Only read
+   files the ticket explicitly references — do not speculatively open
+   docs/, architecture files, or unrelated directories.
 3. Implement: edit with `Edit`/`Write`. Stay scoped to what the
    ticket asks for. No drive-by refactoring.
 4. Verify: if the change has obvious tests or a lint command, run
    them (`npm test`, `npm run lint`). Skip if there's nothing
    plausible to run.
-5. Commit: `git add <paths>` then `git commit -m "<message>"`. Small
-   focused commits or a single squash-style commit are both fine.
-   Don't commit broken code.
+5. Commit: `git add <paths>` then `git commit -m "<message>"`. Commit
+   after each meaningful chunk (e.g. after creating each new file)
+   rather than waiting until all files are done — this preserves
+   partial progress if the run hits the turn limit. Don't commit
+   broken code.
 6. Push and open PR (below).
 
 ## Finishing
