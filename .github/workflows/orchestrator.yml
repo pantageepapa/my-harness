@@ -93,13 +93,20 @@ jobs:
           set -euo pipefail
           : "${TICKET_KEY:?ticket_key is required (client_payload.ticket_key or inputs.ticket_key)}"
 
-          # Hit Jira REST directly: jira-cli's `issue view` 404s in this CI for
-          # reasons we haven't isolated, while the same creds work for `list`.
-          # curl makes the failure mode legible and removes a layer.
-          sp=$(curl -fsS -u "$JIRA_LOGIN:$JIRA_API_TOKEN" \
-                  -H "Accept: application/json" \
-                  "$JIRA_SERVER/rest/api/3/issue/$TICKET_KEY?fields=customfield_10016" \
-               | jq -r '.fields.customfield_10016 // empty')
+          # GET /issue/{key} 404s for our token even on tickets that exist;
+          # POST /search with the same creds works (the legacy LLM path used
+          # it). Use search-by-key to read story points.
+          search_resp=$(curl -fsS -u "$JIRA_LOGIN:$JIRA_API_TOKEN" \
+                          -H "Accept: application/json" \
+                          -H "Content-Type: application/json" \
+                          --data "{\"jql\":\"key = $TICKET_KEY\",\"fields\":[\"customfield_10016\"],\"maxResults\":1}" \
+                          "$JIRA_SERVER/rest/api/3/search")
+          total=$(printf '%s' "$search_resp" | jq -r '.total // 0')
+          if [ "$total" = "0" ]; then
+            echo "::error::${TICKET_KEY} not found via Jira search. Check the key and that JIRA_LOGIN has project access."
+            exit 1
+          fi
+          sp=$(printf '%s' "$search_resp" | jq -r '.issues[0].fields.customfield_10016 // empty')
           if [ -z "$sp" ] || [ "$sp" = "null" ]; then
             echo "::error::${TICKET_KEY} has no story points; refusing to route. Estimate the ticket and re-trigger."
             exit 1
