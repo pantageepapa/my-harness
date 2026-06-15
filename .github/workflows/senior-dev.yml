@@ -157,6 +157,7 @@ jobs:
             esac
           fi
           claude -p "$PROMPT" \
+            --model claude-opus-4-8 \
             --permission-mode acceptEdits \
             --max-turns "$MAX_TURNS" \
             --output-format stream-json \
