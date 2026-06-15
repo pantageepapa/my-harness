@@ -31,7 +31,7 @@ issue.** **Never transition status.**
 jira issue list -q "project = $JIRA_PROJECT_KEY AND resolution = Unresolved AND status != \"Development Ready\"" --plain
 ```
 
-If this command exits non-zero with "No result found", the backlog is empty — write the Slack summary immediately and stop. Do **not** retry with different queries or explore whether the project exists.
+**Run this command first — before reading any files.** If it exits non-zero with "No result found", the backlog is empty — write the Slack summary immediately and stop (no config read needed; the "Nothing to report" body has no ticket links). Do **not** retry with different queries or explore whether the project exists.
 This gives a compact table (key, status, summary). For each ticket's full
 description and comments, call `jira issue view <KEY> --plain`. Do **not**
 use `--raw` on the list command — it dumps full JSON for every ticket and
