@@ -57,8 +57,11 @@ Development Orchestrator
 ### Development Orchestrator
 **Goal:** decide which development agent to launch for each ticket.
 
-- Reads the ticket.
-- Decides the complexity (complex vs. easy) and routes accordingly.
+- **Deterministic, no LLM.** Pure routing on Jira story points: SP ≤ 3 →
+  junior, SP ≥ 4 → senior. Unpointed tickets fail the workflow loudly so
+  the team re-estimates before anything implements.
+- **Triggered per-ticket** by a Jira automation rule on the "Dev Ready"
+  status transition (GitHub `repository_dispatch`), not on a daily cron.
 
 ### Senior Developer Agent — OpenSpec (`/opsx` conventions)
 **Goal:** tackle complex tasks **with a human in the loop**.
@@ -100,10 +103,10 @@ Development Orchestrator
 - **Complexity gate at the orchestrator.** Two-tier routing keeps the
   human-in-the-loop cost only on work that needs it.
 - **Runtime split.** `claude-code-action` for read/triage surfaces
-  (orchestrator, ticket grooming, PR review, agent-improver); raw
-  `claude -p` for implementation lanes (junior-dev, senior-dev). The
-  action's PR-comment plumbing is dead weight when the agent's job is to
-  edit files, push a branch, and open a PR.
+  (ticket grooming, PR review, agent-improver); raw `claude -p` for
+  implementation lanes (junior-dev, senior-dev); plain bash for the
+  orchestrator (no LLM). The action's PR-comment plumbing is dead weight
+  when the agent's job is to edit files, push a branch, and open a PR.
 - **Bounded dev-agent runs.** `--max-turns` per dispatch + `timeout-minutes`
   on the job stop a hard ticket from spinning forever. Tickets stay in
   **In Progress** so the orchestrator won't re-fire them.
@@ -113,9 +116,6 @@ Development Orchestrator
 
 ## Open questions (for follow-up)
 
-- How is "complex vs. easy" actually decided? Heuristic, classifier, or LLM
-  judgment with calibration?
-- Where does the orchestrator live (cron, webhook, queue)?
 - How does the Refinement agent know when to stop counteracting?
 - How are the two daily passes (review + refinement) sequenced — same run, or
   staggered?
