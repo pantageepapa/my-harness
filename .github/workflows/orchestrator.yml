@@ -85,13 +85,21 @@ jobs:
         env:
           TICKET_KEY: ${{ github.event.client_payload.ticket_key || inputs.ticket_key }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_SERVER: ${{ vars.JIRA_SERVER }}
+          JIRA_LOGIN: ${{ vars.JIRA_LOGIN }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
         run: |
           set -euo pipefail
           : "${TICKET_KEY:?ticket_key is required (client_payload.ticket_key or inputs.ticket_key)}"
 
-          sp=$(jira issue view "$TICKET_KEY" --raw | jq -r '.fields.customfield_10016 // empty')
+          # Hit Jira REST directly: jira-cli's `issue view` 404s in this CI for
+          # reasons we haven't isolated, while the same creds work for `list`.
+          # curl makes the failure mode legible and removes a layer.
+          sp=$(curl -fsS -u "$JIRA_LOGIN:$JIRA_API_TOKEN" \
+                  -H "Accept: application/json" \
+                  "$JIRA_SERVER/rest/api/3/issue/$TICKET_KEY?fields=customfield_10016" \
+               | jq -r '.fields.customfield_10016 // empty')
           if [ -z "$sp" ] || [ "$sp" = "null" ]; then
             echo "::error::${TICKET_KEY} has no story points; refusing to route. Estimate the ticket and re-trigger."
             exit 1
