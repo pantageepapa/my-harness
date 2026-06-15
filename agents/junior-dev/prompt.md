@@ -20,7 +20,9 @@ and open a Draft PR. Then stop.
 1. Read the ticket: `jira issue view "$TICKET_KEY" --plain`. Note
    summary, description, acceptance criteria.
 2. Plan: open the files/symbols the ticket references with `Read`,
-   `Glob`, `Grep`. Verify paths exist before assuming.
+   `Glob`, `Grep`. Verify paths exist before assuming. Read only
+   what you need to write the implementation — skip architectural
+   context docs not directly referenced in the ticket.
 3. Implement: edit with `Edit`/`Write`. Stay scoped to what the
    ticket asks for. No drive-by refactoring.
 4. Verify: if the change has obvious tests or a lint command, run
