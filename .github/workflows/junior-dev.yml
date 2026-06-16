@@ -23,14 +23,31 @@ jobs:
       id-token: write
       actions: write
     steps:
+      - name: Generate App installation token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.AGENT_APP_ID }}
+          private-key: ${{ secrets.AGENT_APP_PRIVATE_KEY }}
+
+      - name: Resolve App bot identity for git commits
+        id: app-user
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          set -euo pipefail
+          info=$(gh api "/users/${APP_SLUG}[bot]")
+          echo "user-id=$(echo "$info" | jq -r .id)"       >> "$GITHUB_OUTPUT"
+          echo "user-login=$(echo "$info" | jq -r .login)" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          # PAT with workflows:write so the agent can push branches that
-          # add or modify .github/workflows/*. Falls back to GITHUB_TOKEN
-          # when the PAT isn't configured (workflow-file changes will then
-          # be rejected at push time, by design).
-          token: ${{ secrets.DEV_PAT || secrets.GITHUB_TOKEN }}
+          # App installation token; needs Contents + Pull requests + Workflows
+          # write so the agent can push branches that add or modify
+          # .github/workflows/*.
+          token: ${{ steps.app-token.outputs.token }}
 
       - uses: actions/setup-node@v4
         with:
@@ -69,9 +86,12 @@ jobs:
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Configure git user
+        env:
+          BOT_LOGIN: ${{ steps.app-user.outputs.user-login }}
+          BOT_ID:    ${{ steps.app-user.outputs.user-id }}
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name  "${BOT_LOGIN}"
+          git config --global user.email "${BOT_ID}+${BOT_LOGIN}@users.noreply.github.com"
 
       - name: Create feature branch
         env:
@@ -106,7 +126,7 @@ jobs:
           CONTEXT7_API_KEY: ${{ secrets.CONTEXT7_API_KEY }}
           JIRA_CONFIG_FILE: ${{ github.workspace }}/.jira/config.yml
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-          GH_TOKEN: ${{ secrets.DEV_PAT || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           PROMPT: ${{ steps.prompt.outputs.PROMPT }}
           MAX_TURNS: ${{ inputs.max_turns }}
         run: |
@@ -137,7 +157,7 @@ jobs:
       - name: Open fallback Draft PR if agent didn't
         if: always()
         env:
-          GH_TOKEN: ${{ secrets.DEV_PAT || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           TICKET_KEY: ${{ inputs.ticket_key }}
           CLAUDE_EXIT: ${{ steps.claude.outputs.claude_exit }}
         run: |
