@@ -10,8 +10,8 @@
 # Default is dry-run. Pass --apply to actually write.
 #
 # Usage:
-#   bash scripts/bootstrap.sh <target-dir>            # dry-run
-#   bash scripts/bootstrap.sh <target-dir> --apply    # do it
+#   bash scripts/install-harness.sh <target-dir>            # dry-run
+#   bash scripts/install-harness.sh <target-dir> --apply    # do it
 
 set -euo pipefail
 
@@ -40,7 +40,7 @@ for arg in "$@"; do
 done
 
 if [[ -z "$target" ]]; then
-  err "missing target dir. usage: bash scripts/bootstrap.sh <target-dir> [--apply]"
+  err "missing target dir. usage: bash scripts/install-harness.sh <target-dir> [--apply]"
   exit 1
 fi
 
