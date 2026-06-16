@@ -33,12 +33,16 @@ and open a Draft PR. Then stop.
 
 ## Finishing
 
+Write the PR body to `.pr-body.md` with the `Write` tool first — passing
+`--body "..."` with multi-line markdown (e.g. `## Summary`) is blocked by the
+harness path validator. Then:
+
 ```sh
 git push -u origin HEAD
 gh pr create --draft \
   --base main \
   --title "[${TICKET_KEY}] <one-line summary>" \
-  --body "<body>"
+  --body-file .pr-body.md
 ```
 
 If you're stopping early because of the turn cap or a blocker, prefix
