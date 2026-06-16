@@ -16,7 +16,7 @@ glue that I drop into projects.
 - [`.github/workflows/orchestrator.yml`](.github/workflows/orchestrator.yml)
   — deterministic Jira → junior/senior router on the **Dev Ready**
   transition.
-- [`scripts/bootstrap.sh`](scripts/bootstrap.sh) — copy this harness into
+- [`scripts/install-harness.sh`](scripts/install-harness.sh) — copy this harness into
   another repo (see below).
 - [`docs/agentic-workflow.md`](docs/agentic-workflow.md) — how the pieces
   fit together.
@@ -25,14 +25,14 @@ glue that I drop into projects.
 
 ## Use this harness in another project
 
-`scripts/bootstrap.sh` `rsync`s every tracked file from this repo into a
+`scripts/install-harness.sh` `rsync`s every tracked file from this repo into a
 target repo, skipping per-clone state (`.env`, `.jira/config.yml`,
 `bin/.jira-bin`, agent-log history). Default is dry-run.
 
 ```sh
 # from anywhere
-bash /path/to/my-harness/scripts/bootstrap.sh ~/Dev/other-repo            # dry-run
-bash /path/to/my-harness/scripts/bootstrap.sh ~/Dev/other-repo --apply    # do it
+bash /path/to/my-harness/scripts/install-harness.sh ~/Dev/other-repo            # dry-run
+bash /path/to/my-harness/scripts/install-harness.sh ~/Dev/other-repo --apply    # do it
 ```
 
 What gets copied: `.github/workflows/`, `agents/`, `.claude/`, `.mcp.json`,
@@ -80,7 +80,16 @@ these once per target repo.
 | `JIRA_API_TOKEN` | jira-ticket, orchestrator, junior-dev, senior-dev | <https://id.atlassian.com/manage-profile/security/api-tokens> |
 | `CONTEXT7_API_KEY` | workflows that pass it through to the Context7 MCP | <https://context7.com/dashboard> |
 | `SLACK_MCP_XOXB_TOKEN` | jira-ticket Slack summary | Slack app *Bot User OAuth Token* (`xoxb-…`) with `chat:write` |
-| `DEV_PAT` *(optional)* | senior-dev / junior-dev when they need to push to a protected branch | Fine-grained PAT, `Contents: read/write` + `Pull requests: read/write`. Falls back to `GITHUB_TOKEN` if unset |
+| `AGENT_APP_ID` | senior-dev, junior-dev | App ID of a GitHub App installed on the repo with `Contents: read/write`, `Pull requests: read/write`, `Workflows: read/write` |
+| `AGENT_APP_PRIVATE_KEY` | senior-dev, junior-dev | The App's private key (full PEM, including header/footer) |
+
+The senior-dev / junior-dev workflows mint an installation token from the
+App on each run and use it for all git pushes, PR creation, and `gh` CLI
+calls. Commits and PRs are authored by the App's bot user (`<app-slug>[bot]`),
+which is what lets `pr-review.yml` fire on agent PRs and lets a human
+approve them. The bot's login must also be listed in `pr-review.yml`'s
+`allowed_bots:` input — `claude-code-action` rejects bot-initiated runs
+otherwise.
 
 ### Variables
 
@@ -124,13 +133,7 @@ Fine-grained tokens*:
 
 Copy the token — you'll paste it into Jira next.
 
-### 2. Store the PAT as a Jira automation secret
-
-In Jira: *Project settings → Automation → … → Manage secrets*.
-Add a secret, e.g. `GITHUB_DISPATCH_PAT`, paste the token, save.
-Jira automation rules can reference it as `{{secrets.GITHUB_DISPATCH_PAT}}`.
-
-### 3. Add the automation rule
+### 2. Add the automation rule
 
 *Project settings → Automation → Create rule*:
 
@@ -144,7 +147,7 @@ Jira automation rules can reference it as `{{secrets.GITHUB_DISPATCH_PAT}}`.
   |---|---|
   | URL | `https://api.github.com/repos/<owner>/<repo>/dispatches` |
   | Method | `POST` |
-  | Headers | `Authorization: Bearer {{secrets.GITHUB_DISPATCH_PAT}}` <br> `Accept: application/vnd.github+json` <br> `Content-Type: application/json` |
+  | Headers | `Authorization: Bearer <paste the PAT from step 1>` <br> `Accept: application/vnd.github+json` <br> `Content-Type: application/json` |
   | Body type | Custom data |
   | Body | `{"event_type":"jira-dev-ready","client_payload":{"ticket_key":"{{issue.key}}"}}` |
 
@@ -153,7 +156,7 @@ Jira automation rules can reference it as `{{secrets.GITHUB_DISPATCH_PAT}}`.
 
 Save and enable the rule.
 
-### 4. Verify
+### 3. Verify
 
 Move a pointed ticket to **Dev Ready**. Within ~30 seconds:
 
@@ -165,7 +168,7 @@ Move a pointed ticket to **Dev Ready**. Within ~30 seconds:
 - The orchestrator either dispatches `junior-dev.yml` / `senior-dev.yml`
   by story points, or fails the run with a "no story points" error.
 
-### 5. Linking PRs back to tickets
+### 4. Linking PRs back to tickets
 
 Jira's **Smart Commits** auto-link if the Jira key (e.g. `KAN-42`)
 appears in:
