@@ -91,6 +91,7 @@ these once per target repo.
 | `JIRA_PROJECT_KEY` | yes | Project the agents groom / route on |
 | `JIRA_BOARD_ID` | optional | Defaults to `0` |
 | `SLACK_OBSERVABILITY_CHANNEL_ID` | only if you want jira-ticket Slack summaries | Channel ID (not name) — `C0123456789` |
+| `AGENT_APP_BOT_LOGIN` | yes (if running pr-review on App-authored PRs) | The App's bot login, e.g. `narcie-dev[bot]`. Wired into `pr-review.yml`'s `allowed_bots` so `claude-code-action` doesn't reject senior/junior-dev PRs as bot-initiated. |
 
 ### Things to review per repo
 
