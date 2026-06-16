@@ -16,7 +16,7 @@ glue that I drop into projects.
 - [`.github/workflows/orchestrator.yml`](.github/workflows/orchestrator.yml)
   — deterministic Jira → junior/senior router on the **Dev Ready**
   transition.
-- [`scripts/bootstrap.sh`](scripts/bootstrap.sh) — copy this harness into
+- [`scripts/install-harness.sh`](scripts/install-harness.sh) — copy this harness into
   another repo (see below).
 - [`docs/agentic-workflow.md`](docs/agentic-workflow.md) — how the pieces
   fit together.
@@ -25,14 +25,14 @@ glue that I drop into projects.
 
 ## Use this harness in another project
 
-`scripts/bootstrap.sh` `rsync`s every tracked file from this repo into a
+`scripts/install-harness.sh` `rsync`s every tracked file from this repo into a
 target repo, skipping per-clone state (`.env`, `.jira/config.yml`,
 `bin/.jira-bin`, agent-log history). Default is dry-run.
 
 ```sh
 # from anywhere
-bash /path/to/my-harness/scripts/bootstrap.sh ~/Dev/other-repo            # dry-run
-bash /path/to/my-harness/scripts/bootstrap.sh ~/Dev/other-repo --apply    # do it
+bash /path/to/my-harness/scripts/install-harness.sh ~/Dev/other-repo            # dry-run
+bash /path/to/my-harness/scripts/install-harness.sh ~/Dev/other-repo --apply    # do it
 ```
 
 What gets copied: `.github/workflows/`, `agents/`, `.claude/`, `.mcp.json`,
