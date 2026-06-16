@@ -39,6 +39,9 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           track_progress: false
+          # senior/junior PRs are now opened by the App bot, which the action
+          # would otherwise reject as a bot-initiated event.
+          allowed_bots: 'narcie-dev[bot]'
           prompt: ${{ steps.prompt.outputs.PROMPT }}
           settings: |
             { "env": { "CONTEXT7_API_KEY": "${{ secrets.CONTEXT7_API_KEY }}" } }
