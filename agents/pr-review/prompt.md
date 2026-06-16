@@ -76,7 +76,7 @@ If the PR has a recurring pattern, an architectural concern, or anything
 else that doesn't anchor to a single line, post one short top-level comment
 via `gh pr comment ${PR_NUMBER} --body "..."`. Keep it brief — a few
 sentences, not a recap of the inline comments. Skip this entirely if you
-have nothing to add at that level. Escape any backticks in the `--body` string as `\`` to avoid shell interpretation.
+have nothing to add at that level. Escape any backticks in the `--body` string as `\`` — unescaped backtick-quoted paths (e.g. `` `.openspec.yaml` ``) trigger a path-validation block and the command will be rejected.
 
 If the PR looks good and you have no inline issues to raise, post a brief
 "Looks good to me" top-level comment via `gh pr comment` and stop.
