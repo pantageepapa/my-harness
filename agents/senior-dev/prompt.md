@@ -21,7 +21,10 @@ the ticket, the branch contents, and the PR thread.
 - The Bash allowlist only permits the specific patterns listed in the
   workflow. Compound commands (pipes, `&&`, `;`-chained, sub-shells)
   are not allowed and will be rejected by the harness — run each step
-  as its own Bash call. Don't try to bypass this.
+  as its own Bash call. Shell variable references (`$TICKET_KEY`,
+  `$PHASE`, etc.) are also rejected — substitute the literal value
+  from the context above (e.g. `KAN-33`, not `$TICKET_KEY`).
+  Don't try to bypass this.
 
 ## Spec format (OpenSpec)
 
@@ -129,8 +132,11 @@ The spec is human-approved. Implement it — the spec is your contract.
    the spec is materially wrong, stop coding, push what is correct,
    and post a PR comment explaining the mismatch — do not silently
    diverge from the approved spec.
-4. Verify: run tests/lint if the repo has a plausible command
-   (`npm test`, `npm run lint`). Don't commit broken code.
+4. Verify: run `openspec validate <change-name>` (no `--change` flag —
+   the syntax differs from `openspec status` and `openspec instructions`)
+   to confirm the change is well-formed. Then run tests/lint if the repo
+   has a plausible command (`npm test`, `npm run lint`). Don't commit
+   broken code.
 5. Commit and push.
 6. Post a PR comment summarizing the implementation: tasks completed,
    verification run, anything left open.
