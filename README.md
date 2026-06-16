@@ -21,6 +21,34 @@ glue that I drop into projects.
 - [`docs/agentic-workflow.md`](docs/agentic-workflow.md) — how the pieces
   fit together.
 
+## Repository layout
+
+| Path | Purpose |
+|---|---|
+| `agents/` | Per-agent prompts and configuration — one subdirectory per agent. |
+| `.github/workflows/` | GitHub Actions workflows that run the agents and the orchestrator. |
+| `.claude/` | Claude Code configuration: skills, commands, and settings. |
+| `scripts/` | Setup and install shell scripts (harness install, jira CLI, jira init). |
+| `tools/` | Local helper tools (the agent-log viewer). |
+| `docs/` | Long-form documentation on how the pieces fit together. |
+| `openspec/` | OpenSpec specs and in-flight changes used by the senior-dev spec workflow. |
+| `bin/` | Project-local `jira` binary and wrapper; created by `scripts/install-jira-cli.sh` (gitignored per-clone state). |
+| `.mcp.json` | MCP server configuration (e.g. the Context7 server). |
+| `.env.example` | Template for the gitignored `.env` that holds API tokens. |
+
+---
+
+## Prerequisites
+
+The workflows and per-clone setup assume these command-line tools are on `PATH`:
+
+- **`git`** — version control; standard install.
+- **`bash`** — the setup and agent scripts target bash (preinstalled on macOS and most Linux distros).
+- **`jira`** — the Jira CLI; installed project-local into `./bin/` via `scripts/install-jira-cli.sh` (no Homebrew needed).
+- **`gh`** — the GitHub CLI (<https://cli.github.com>).
+- **`openspec`** — the OpenSpec CLI used by the senior-dev spec workflow (`npm install -g @fission-ai/openspec@1`).
+- **`claude`** — the Claude Code CLI (`npm install -g @anthropic-ai/claude-code`).
+
 ---
 
 ## Use this harness in another project
