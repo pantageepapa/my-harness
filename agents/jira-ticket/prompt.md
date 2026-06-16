@@ -20,8 +20,10 @@ issue.** **Never transition status.**
 - `JIRA_CONFIG_FILE` and `JIRA_API_TOKEN` are set; `jira` is on `PATH`.
 - Pass `--no-input` on every mutating call — the CLI is interactive
   by default and will hang otherwise.
-- Repo source is at CWD. Read it actively (`Read`, `Glob`, `Grep`)
-  when judging readiness or decomposing.
+- This workspace contains only harness infrastructure — no application
+  source files are checked out here. Do not explore the local filesystem
+  to verify file paths; assess code-groundedness from the ticket
+  descriptions directly.
 - Description/comment bodies render as GitHub-flavored markdown.
 - `.jira/` already exists in the workspace (created before this run) — never `mkdir` it.
 
