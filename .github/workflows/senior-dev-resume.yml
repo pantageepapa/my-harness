@@ -52,5 +52,6 @@ jobs:
           gh pr comment "$PR_NUMBER" --repo "$REPO" \
             --body "${ACK} (\`senior-dev.yml\`, \`phase=${PHASE}\`, ticket \`${TICKET_KEY}\`)"
           gh workflow run senior-dev.yml --repo "$REPO" \
+            --ref "${{ github.event.repository.default_branch }}" \
             -f ticket_key="$TICKET_KEY" \
             -f phase="$PHASE"
