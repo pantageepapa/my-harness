@@ -3,6 +3,14 @@
 Personal harness for agentic workflows: reusable agents and GitHub Actions
 glue that I drop into projects.
 
+## Contents
+
+- [What's here](#whats-here)
+- [Use this harness in another project](#use-this-harness-in-another-project)
+- [GitHub Actions configuration](#github-actions-configuration)
+- [Jira → GitHub automation (Dev Ready trigger)](#jira--github-automation-dev-ready-trigger)
+- [Adding a new agent](#adding-a-new-agent)
+
 ## What's here
 
 - [`agents/pr-review`](agents/pr-review) — comment-only PR reviewer.
