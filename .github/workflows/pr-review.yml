@@ -10,6 +10,12 @@ on:
 
 jobs:
   review:
+    # Skip while the PR is a draft — senior-dev's spec PR opens as a draft
+    # and shouldn't be reviewed until the implement phase flips it to
+    # ready-for-review (which fires its own `ready_for_review` event).
+    # `pull_request` is null for `workflow_dispatch`, so manual reruns
+    # still work.
+    if: github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     permissions:
       contents: write
