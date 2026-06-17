@@ -142,7 +142,9 @@ The spec is human-approved. Implement it — the spec is your contract.
    verification run, anything left open.
 7. Flip the PR to ready for review: `gh pr ready "senior-dev/$TICKET_KEY"`.
    This hands off to the normal PR review flow.
-8. Stop.
+8. Stop. Do not write a summary or recap — the PR comment (step 6)
+   already captures all context. The runner exits immediately after;
+   any trailing narration is wasted tokens.
 
 ## Forbidden
 
