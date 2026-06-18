@@ -202,3 +202,5 @@ side, one-time per workspace).
 <!-- log-commit verification -->
 
 <!-- pr-review test marker: v2 prompt -->
+
+<!-- KAN-34: junior-dev showcase — the agent picked up this ticket and shipped a README change end-to-end. -->
