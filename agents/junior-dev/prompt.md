@@ -17,8 +17,11 @@ and open a Draft PR. Then stop.
 
 ## Workflow
 
-1. Read the ticket: `jira issue view "$TICKET_KEY" --plain`. Note
-   summary, description, acceptance criteria.
+1. Read the ticket: `jira issue view <ticket-key> --plain` where
+   `<ticket-key>` is the literal key from the context header above
+   (e.g. `jira issue view KAN-34 --plain`). Shell variable expansion
+   is blocked — do not write `"$TICKET_KEY"`. Note summary,
+   description, acceptance criteria.
 2. Plan: open the files/symbols the ticket references with `Read`,
    `Glob`, `Grep`. Verify paths exist before assuming.
 3. Implement: edit with `Edit`/`Write`. Stay scoped to what the
