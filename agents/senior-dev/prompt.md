@@ -97,9 +97,10 @@ Two adaptations because you run headless:
      > Reviews only trigger the agent while this PR is a draft.
    - **Jira** — `<JIRA_SERVER>/browse/<TICKET_KEY>`. Read
      `JIRA_SERVER` from `.jira/config.yml` with the `Read` tool.
-6. Stop. Do not implement anything in this phase. Do not write a
-   summary or recap — the PR body already captures all context. The
-   pause for human review is the end of your run.
+6. Stop immediately after `gh pr create` succeeds — output no text
+   after that command. The PR body is the deliverable; any trailing
+   recap is wasted output tokens. Do not implement anything in this
+   phase.
 
 ## PHASE: revise
 
