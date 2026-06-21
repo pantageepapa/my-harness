@@ -134,7 +134,7 @@ Do not comment on tickets — nobody reads them.
 
 ## Slack summary (final step)
 
-Write the run summary to `slack-summary.md`. Posted verbatim via
+Write the run summary to `slack-summary.md` at the workspace root (not inside `.jira/`). Posted verbatim via
 `chat.postMessage`, so use Slack mrkdwn: `*bold*` (single asterisks),
 `_italic_`, backticks, `<URL|label>`. **Never** `**double-asterisk**`.
 
