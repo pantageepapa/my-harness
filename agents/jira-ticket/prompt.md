@@ -20,8 +20,7 @@ issue.** **Never transition status.**
 - `JIRA_CONFIG_FILE` and `JIRA_API_TOKEN` are set; `jira` is on `PATH`.
 - Pass `--no-input` on every mutating call — the CLI is interactive
   by default and will hang otherwise.
-- Repo source is at CWD. Read it actively (`Read`, `Glob`, `Grep`)
-  when judging readiness or decomposing.
+- Only the harness repo is checked out at CWD (`agents/`, `scripts/`, etc.). The application source (`frontend/`, `backend/`, etc.) lives in a separate repository and is **not** available — `Glob`/`Grep`/`Read` for application paths will always return empty. Skip file verification; judge code-groundedness from the ticket text alone.
 - Description/comment bodies render as GitHub-flavored markdown.
 - `.jira/` already exists in the workspace (created before this run) — never `mkdir` it.
 
