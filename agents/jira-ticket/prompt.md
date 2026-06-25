@@ -109,8 +109,15 @@ Only ask questions you genuinely can't resolve from the ticket text.
    first with `Write`, then pipe it:
    `cat .jira/desc-tmp.md | jira issue edit <KEY> --no-input`.
 2. **Link blockers**: `jira issue link <BLOCKER> <BLOCKED> Blocks`.
-3. **Create sub-tasks** under a parent (never standalone):
-   `jira issue create -tSub-task -p <PARENT_KEY> -s "<summary>" -b "<desc>" --no-input`.
+3. **Create child tasks** under a parent (never standalone). Write the
+   description to a file first, then use `-T` to pass it — `-b@-` pipe
+   does not work on `create` (only on `edit`):
+   ```
+   jira issue create -tTask -P <PARENT_KEY> -s "<summary>" --no-input -T .jira/desc-tmp.md
+   ```
+   `-P` (uppercase) is `--parent`; `-p` (lowercase) is `--project` — do not confuse them.
+   Use the same issue type as the parent (typically `Task`; never `Sub-task` — that type
+   does not exist in team-managed projects).
 
 Do not comment on tickets — nobody reads them.
 
