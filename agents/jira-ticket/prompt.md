@@ -20,8 +20,7 @@ issue.** **Never transition status.**
 - `JIRA_CONFIG_FILE` and `JIRA_API_TOKEN` are set; `jira` is on `PATH`.
 - Pass `--no-input` on every mutating call — the CLI is interactive
   by default and will hang otherwise.
-- Repo source is at CWD. Read it actively (`Read`, `Glob`, `Grep`)
-  when judging readiness or decomposing.
+- CWD is the harness repo (`agents/`, `.github/`, `.jira/`) — the project source is **not** checked out here. Do **not** run `Glob` or `Grep` to verify ticket-referenced file paths; they will always return nothing. Skip code-path existence checks entirely.
 - Description/comment bodies render as GitHub-flavored markdown.
 - `.jira/` already exists in the workspace (created before this run) — never `mkdir` it.
 
@@ -45,7 +44,7 @@ Ready iff **all** hold:
 
 - **Rubric complete** — title, description, context, AC all concrete.
 - **Atomic** — one concern, one PR (see *Atomic*).
-- **Code-grounded** — referenced paths/symbols/APIs exist in the repo.
+- **Code-grounded** — referenced paths/symbols/APIs are plausible given the ticket description. (Project source is not available in this environment; do not Glob/Grep to verify.)
 - **Unambiguous** — two engineers would build the same thing.
 - **No open questions** — no unchecked items in *Needs human input*.
 
@@ -161,5 +160,7 @@ workflow.
 
 Every ticket touched must appear in exactly one section. If neither
 section has entries, still write the header followed by `_Nothing to
-report._` so downstream Slack posting still fires. Once written, stop
-immediately — output no further text. Slack is the output.
+report._` so downstream Slack posting still fires. Once the Write call
+for `slack-summary.md` completes, **stop immediately and produce no
+further assistant text** — no recap, no table, no explanation. The Slack
+post is the only output.
