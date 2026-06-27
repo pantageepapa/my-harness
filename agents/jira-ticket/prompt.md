@@ -22,6 +22,11 @@ issue.** **Never transition status.**
   by default and will hang otherwise.
 - Repo source is at CWD. Read it actively (`Read`, `Glob`, `Grep`)
   when judging readiness or decomposing.
+- **CWD is the harness repo** (agents, workflows, scripts only) — it
+  does not contain the application source code. File paths in ticket
+  descriptions (e.g. `backend/src/…`, `frontend/src/…`) belong to a
+  separate project repo and cannot be verified locally. Trust paths
+  from ticket authors as written; skip Glob/Grep file-existence checks.
 - Description/comment bodies render as GitHub-flavored markdown.
 - `.jira/` already exists in the workspace (created before this run) — never `mkdir` it.
 
@@ -162,4 +167,5 @@ workflow.
 Every ticket touched must appear in exactly one section. If neither
 section has entries, still write the header followed by `_Nothing to
 report._` so downstream Slack posting still fires. Once written, stop
-immediately — output no further text. Slack is the output.
+immediately — output no further text, no recap, no summary. Slack is
+the output.
