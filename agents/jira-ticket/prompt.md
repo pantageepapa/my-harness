@@ -161,5 +161,4 @@ workflow.
 
 Every ticket touched must appear in exactly one section. If neither
 section has entries, still write the header followed by `_Nothing to
-report._` so downstream Slack posting still fires. Once written, stop
-immediately — output no further text. Slack is the output.
+report._` so downstream Slack posting still fires. Once written, stop — do not print what you wrote, do not repeat the ticket list, do not summarize the run. The runner exits immediately after Write. Slack is the output.
