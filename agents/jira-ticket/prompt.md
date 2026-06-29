@@ -110,7 +110,7 @@ Only ask questions you genuinely can't resolve from the ticket text.
    `cat .jira/desc-tmp.md | jira issue edit <KEY> --no-input`.
 2. **Link blockers**: `jira issue link <BLOCKER> <BLOCKED> Blocks`.
 3. **Create sub-tasks** under a parent (never standalone):
-   `jira issue create -tSub-task -p <PARENT_KEY> -s "<summary>" -b "<desc>" --no-input`.
+   `jira issue create -tSubtask -P <PARENT_KEY> -s "<summary>" -b "<desc>" --no-input`.
 
 Do not comment on tickets — nobody reads them.
 
